@@ -203,7 +203,7 @@ body.fixed #header {
 	font-size: 28px;
 	font-weight: bold;
 	border-width: 0 0 3px;
-	border-color: -moz-use-text-color -moz-use-text-color #545454;
+	border-color:  #545454;
 	padding-right: 35px;
 }
 #searchFieldIconReviewObject {
