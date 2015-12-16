@@ -1,0 +1,1 @@
+<?php $this->renderTemplate('directory_listing_photo_single_full', array('entity' => $entity, 'link_to_listing' => true, 'id' => $id, 'class' => $class, 'links' => $links));?>

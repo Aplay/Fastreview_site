@@ -1,0 +1,54 @@
+/* jQuery.Rating Plugin CSS - http://www.fyneworks.com/jquery/star-rating/ */
+
+div.rating-cancel,div.star-rating{float:left;width:18px;margin-right:2px;height:18px;text-indent:-999em;cursor:pointer;display:block;background:transparent;overflow:hidden}
+div.star-rating{text-indent:0;text-align: center; }
+div.rating-cancel,div.rating-cancel a{background:url(../img/star/delete.gif) no-repeat 0 -18px}
+
+/*div.star-rating,div.star-rating a{background:url(img/circles.jpg) no-repeat 0 0px}*/
+div#star_rating_review_modal__0.star-rating, div#star_rating_review_modal__0.star-rating a {
+	background:url(../img/star/star_red.png) no-repeat 0 0;
+}
+
+div#star_rating_review_modal__1.star-rating, div#star_rating_review_modal__2.star-rating, div#star_rating_review_modal__1.star-rating a, 
+div#star_rating_review_modal__2.star-rating a {
+	background:url(../img/star/star_yel.png) no-repeat 0 0px;
+} 
+ div#star_rating_review_modal__3.star-rating, div#star_rating_review_modal__3.star-rating a, div#star_rating_review_modal__4.star-rating, div#star_rating_review_modal__4.star-rating a {
+	background:url(../img/star/star.png) no-repeat 0 0px;
+} 
+div.rating-cancel a,div.star-rating a{display:block;width:18px;height:100%;background-position:0 0px;border:0}
+div.star-rating-on a{
+	background-position:0 -36px!important
+}
+
+div#star_rating_review_modal__0.star-rating-hover a, div#star_rating_review_modal__1.star-rating-hover a,
+div#star_rating_review_modal__2.star-rating-hover a, div#star_rating_review_modal__3.star-rating-hover a,
+div#star_rating_review_modal__4.star-rating-hover a
+{
+	background-position:0 -36px;
+}
+/* Read Only CSS */
+div.star-rating-readonly a{cursor:default !important}
+/* Partial Star CSS */
+/*div.star-rating {background:transparent!important;overflow:hidden!important}*/
+div#star_rating_review_modal__0.star-rating, div#star_rating_review_modal__1.star-rating, div#star_rating_review_modal__2.star-rating,
+div#star_rating_review_modal__3.star-rating, div#star_rating_review_modal__4.star-rating
+{
+	background:transparent!important;overflow:hidden!important
+}
+div.rating-cancel,
+    div.rating-cancel a
+    {
+    display:none; width:0;height:0;overflow:hidden;
+    } 
+div.star-rating a, div.star-rating a:hover, div.star-rating a:active, div.star-rating a:focus {
+	color:#fff;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 18px;
+} 
+div.star-rating {
+   /* cursor: pointer;*/
+    text-indent: -999em;
+}
+/* END jQuery.Rating Plugin CSS */

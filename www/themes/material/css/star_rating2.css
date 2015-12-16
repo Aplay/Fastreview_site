@@ -1,0 +1,87 @@
+.rl-star .star-rating{
+	display: inline-block;
+    font-family: "Material Design Iconic Font";
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-language-override: normal;
+    font-size: inherit;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-weight: normal;
+    text-rendering: auto;
+    line-height: 16px;
+    vertical-align: bottom;
+    font-size: 18px;
+    margin-right:1px;
+}
+.rl-star .star-rating::before {
+    content: "\f2e5";
+}
+.rl-star .star-rating-live {
+	cursor:pointer;
+	color: #e6e6e6;
+}
+.rl-star .star-rating.star-rating-readonly.star-rating-on  {
+    color: #65ba69;
+}
+/* nth-child(1) is .rating-cancel */
+.rl-star .star-rating.star-rating-readonly.star-rating-on:nth-child(2),
+.rl-star .star-rating.star-rating-live.star-rating-on:nth-child(2),
+.rl-star .star-rating.star-rating-live:nth-child(2):hover
+{
+	color: #f54e42;
+}
+.rl-star .star-rating.star-rating-readonly.star-rating-on:nth-child(3),
+.rl-star .star-rating.star-rating-readonly.star-rating-on:nth-child(4),
+.rl-star .star-rating.star-rating-live.star-rating-on:nth-child(3),
+.rl-star .star-rating.star-rating-live.star-rating-on:nth-child(4),
+.rl-star .star-rating.star-rating-live:nth-child(3):hover,
+.rl-star .star-rating.star-rating-live:nth-child(4):hover
+{
+	color: #ff9801;
+}
+.rl-star .star-rating.star-rating-readonly.star-rating-on:nth-child(5),
+.rl-star .star-rating.star-rating-readonly.star-rating-on:nth-child(6),
+.rl-star .star-rating.star-rating-live.star-rating-on:nth-child(5),
+.rl-star .star-rating.star-rating-live.star-rating-on:nth-child(6),
+.rl-star .star-rating.star-rating-live:nth-child(5):hover,
+.rl-star .star-rating.star-rating-live:nth-child(6):hover
+{
+	color: #65ba69;
+}
+.rl-star .star-rating.star-rating-readonly:not(.star-rating-on),
+.rl-star .star-rating.star-rating-live:not(.star-rating-on)
+{
+    color: #e6e6e6;
+}
+
+/*
+------------  fontavesome star -------------- */
+/*
+.star-rating a{
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    font-size:18px;
+}
+.star-rating a::before {
+    color: #777777;
+    content: "\f006";
+    padding-right: 5px;
+}
+.star-rating a:hover:before,
+.star-rating a:hover ~ .star-rating a:before {
+  content: "\f005";
+  color: #e3cf7a;
+}
+.star-rating a:hover {
+  cursor: pointer;
+} */
+.star-rating a {
+  text-indent: -999em;
+  display:none;
+}

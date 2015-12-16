@@ -1,0 +1,638 @@
+/*
+------------- main ----------------------------------*/
+body{
+
+    margin:0;
+    padding-bottom: 155px;
+}
+.section-gray{
+    padding: 50px 0;
+    background-color: #fafafa;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.section-white{
+    background-color: #fff;
+}
+#header {
+   background-color: #5cb8e7;
+}
+/*
+--------------- links -------------------------- */
+.c-tealgray, a.c-tealgray, a.c-tealgray:hover, a.c-tealgray:active, a.c-tealgray:focus {
+  color:#6c7980;
+  text-decoration: none;
+}
+/*
+------------- margins ------------------------------*/
+.m-t-90{
+    margin-top:90px;
+}
+.m-t-80{
+    margin-top:80px;
+}
+.m-t-70{
+    margin-top:70px;
+}
+.m-t-60{
+    margin-top:60px;
+}
+.m-t-50{
+    margin-top:50px;
+}
+.m-t-40{
+    margin-top:40px;
+}
+.m-b-90{
+    margin-bottom:90px;
+}
+.m-b-80{
+    margin-bottom:80px;
+}
+.m-b-70{
+    margin-bottom:70px;
+}
+.m-b-60{
+    margin-bottom:70px;
+}
+.m-b-40{
+    margin-bottom:40px;
+}
+/*
+------------- colours ------------------------------*/
+.c-green, a.theme-color, a.theme-color:hover, a.theme-color:focus, a.theme-color:active, .theme-color, .top-menu > li > a.linkify.theme-color {
+    color: #66bb6a;
+}
+.c-theme {
+  color:#5cb8e7;
+}
+.bg-theme {
+  background-color: #5cb8e7;
+}
+/*
+--------------------- footer ---------------------------- */
+#footer {
+    background-color: #21262a;
+    height: 155px;
+    overflow: hidden;
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color:#fff;
+    border:0;
+    text-align: left;
+    bottom:0;
+}
+body.sw-toggled #footer {
+  padding-left: 0;
+}
+.locator_footer_links {
+  float: left;
+}
+.locator_footer_copy {
+    margin-top:10px;
+    margin-bottom:10px;
+    display:inline-block;
+    font-size:12px;
+    color:#6c7980
+}
+.locator_ms {
+  float: left;
+    width:254px;padding-left: 60px;
+    background:url('/img/ms_logo.png') no-repeat left 3px; 
+    background-size:52px 52px;
+}
+.locator_ms_logo {
+  font-size: 40px;
+  line-height:1em;
+}
+/*
+------------- form elements ------------------------ */
+label {
+    color: #333;
+    font-size: 13px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+.form-control {
+    color: #333;
+    font-size: 12px;
+}
+.help-block {
+    color: #b3b3b3;
+    font-size: 12px;
+    line-height: 1.3em;
+}
+.fg-line.theme-locator::after, 
+.fg-line.theme-locator:not([class*="has-"])::after {
+    background: #5cb8e7 none repeat scroll 0 0;
+}
+.btn.theme-locator{
+    background-color: #5cb8e7;
+}
+#locator_promo_kod_input {
+  background-color: inherit;
+  font-size: 26px;
+}
+#locator_promo_kod_input .theme-locator {
+  
+}
+#locator_promo_kod.has-success .theme-locator .form-control{
+  border-bottom-color: #5cb8e7 !important;
+}
+/*
+-------------- pagination ------------------------- */
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #5cb8e7;
+    border: medium none;
+}
+.pager li > a, .pager li > span {
+    vertical-align: middle;
+    padding:0;
+}
+/* 
+------------- isotope ------------------------------ */
+.isotope .item {
+    transition-property: transform, opacity;
+}
+.isotope, .isotope .item {
+    transition-duration: 0.8s;
+}
+/*
+------------- worktime ----------------------------- */
+.wtimec{
+	float:left;position:relative;cursor: pointer; font-size: 13px; 
+	padding: 10px 0 0 10px;
+	-moz-border-radius: 36px/36px;
+    -webkit-border-radius: 36px 36px;
+    border-radius: 36px/36px;
+    width:36px;
+    height:36px;
+    margin: 6px 4px 44px 4px;
+    background-color: #e1e1e1;
+    font-size:12px;
+}
+
+.wtimet{position:absolute; display:none; top: 48px; 
+	left:-18px; color: #5e5e5e;  width: 300px;}
+.wtimerest{font-size: 12px;}
+.wtimec.weeknd{
+color:red;
+}
+
+.wtimec.dn{
+color:#fff;
+background-color: #66bb6a;	
+}
+.wtimec.weeknd.dn{
+background-color: red;
+}
+.wtimet.dn{display:block;}
+
+/* 
+--------------------- soc-icons ---------------------- */
+.with-soc i.socicon{
+position: absolute;
+left: 0;
+bottom:12px;
+padding: 0px 0px;
+background-color:transparent;
+border:0;
+box-shadow:none;
+}
+.with-soc .form-control {
+    padding-left: 22px;
+}
+/*
+-------------------- modal ----------------------------*/
+
+.modal-dialog {
+  z-index: 15;
+}
+#videoModal.modal {
+  text-align: center;
+}
+#videoModal .modal-body{
+    width:600px;
+    height: 400px;
+    padding:0;
+    position: relative;
+}
+#landing_video_el{
+  width:600px;
+  height: 400px;
+}
+#videoModal .close {
+  position: absolute;
+  right: -25px;
+  top: 0;
+  color: #fff;
+  font-size: 30px;
+}
+/*
+------------------- modal login ------------------------------*/
+#login_modal{
+    color: #5cb8e7;
+    margin-top: 40px;
+
+}
+#login_modal label{
+    font-weight: bold;
+    font-size: 12px;
+    color: #5cb8e7;
+}
+#login_modal .modal-dialog{
+    width:250px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#login_modal .lc-block:not(.toggled) {
+    display: none;
+}
+/*
+-------------------- landing page --------------------- */
+#landing_header{
+height: 660px;width:100%;
+position: relative;
+color:#fff;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#68bfed+0,4aabdd+91,41a5d8+100,60abf8+100,2c98cd+100 */
+background: rgb(104,191,237); /* Old browsers */
+/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzY4YmZlZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjkxJSIgc3RvcC1jb2xvcj0iIzRhYWJkZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM0MWE1ZDgiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNjBhYmY4IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzJjOThjZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+background: -moz-linear-gradient(top, rgba(104,191,237,1) 0%, rgba(74,171,221,1) 91%, rgba(65,165,216,1) 100%, rgba(96,171,248,1) 100%, rgba(44,152,205,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(104,191,237,1)), color-stop(91%,rgba(74,171,221,1)), color-stop(100%,rgba(65,165,216,1)), color-stop(100%,rgba(96,171,248,1)), color-stop(100%,rgba(44,152,205,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, rgba(104,191,237,1) 0%,rgba(74,171,221,1) 91%,rgba(65,165,216,1) 100%,rgba(96,171,248,1) 100%,rgba(44,152,205,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, rgba(104,191,237,1) 0%,rgba(74,171,221,1) 91%,rgba(65,165,216,1) 100%,rgba(96,171,248,1) 100%,rgba(44,152,205,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, rgba(104,191,237,1) 0%,rgba(74,171,221,1) 91%,rgba(65,165,216,1) 100%,rgba(96,171,248,1) 100%,rgba(44,152,205,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom, rgba(104,191,237,1) 0%,rgba(74,171,221,1) 91%,rgba(65,165,216,1) 100%,rgba(96,171,248,1) 100%,rgba(44,152,205,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#68bfed', endColorstr='#2c98cd',GradientType=0 ); /* IE6-8 */
+}
+#landing_logo{
+    font-weight: bold;
+    font-size: 24px;
+    padding-left: 47px;
+    height: 37px;
+    background: url('/img/logo.png') no-repeat left center;
+    background-size: 37px 37px;
+    margin-top:25px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+#landing_phone{
+    margin-top:30px;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 1.2em;
+}
+#landing_video{
+    position:absolute;
+    bottom: 0;
+    width: 422px;
+    height:365px;
+    background: url('/img/main_video_ramka.png') no-repeat center center; 
+    z-index: 10;
+}
+#landing_video_screen{
+    position:absolute;
+    bottom: 126px;
+    left: 99px;
+    width: 299px;
+    height:224px;
+    background-color: #fff;
+    z-index: 5;
+}
+#landing_video_arrow {
+    margin: 90px 162px 10px auto;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: url('/img/main_video_arrow.png') no-repeat 17px center #5cb8e7;
+    cursor: pointer;
+}
+#landing_video_el {
+  display:none;
+}
+h1.landing_head_heading{
+    font-weight: 300;
+    font-size: 24px;
+    color:#fff;
+}
+h1.landing_heading{
+    font-weight: 300;
+    font-size: 26px;
+    color:#1a1a1a;
+}
+
+.landing_text {
+    font-weight: 300;
+    font-size: 14px;
+    color:#4d4d4d;
+}
+.landing_text_bold{
+    font-weight: 400;
+    font-size: 16px;
+    color:#4d4d4d;
+}
+.landing_numbers{
+    font-weight: 300;
+    font-size: 130px;
+    color:#5cb8e7;
+    line-height: 1em;
+}
+.landing_text_comment{
+    font-weight: 300;
+    font-size: 21px;
+    color:#1a1a1a;
+    line-height: 1.2em;
+}
+.landing_im {
+    width:100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+#landing_im7{
+    background-image: url('/img/main_pic7.jpg');
+    height: 332px;
+}
+#landing_im8{
+    background-image: url('/img/main_pic8.jpg');
+    background-position: center right;
+    height: 100%;
+}
+#landing_im9{
+    background-image: url('/img/main_pic9.jpg');
+    min-height: 321px;
+    height: 100%;
+}
+#landing_im10{
+    background-image: url('/img/main_pic10.jpg');
+    height: 433px;
+}
+#landing_im11{
+    background-image: url('/img/main_pic11.jpg');
+    height: 433px;
+}
+.landing_circle {
+    display:inline-block;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+}
+.landing_circle img{
+    display:inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+.landing_price{
+    display: inline-block;
+    font-weight: 300;
+    font-size: 35px;
+    color:#5cb8e7;
+    line-height:1.2em;
+    margin-top: 10px;
+}
+/* 
+------------- about page ---------------------- */
+#page_bg {
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    height: 350px;
+    width: 100%;
+}
+h1.page_head_heading{
+    font-weight: 300;
+    font-size: 40px;
+    color:#fff;
+}
+.page_text {
+    font-weight: 300;
+    font-size: 16px;
+    color:#4d4d4d;
+}
+.page_text_2 {
+    font-weight: 300;
+    font-size: 14px;
+    color:#1a1a1a;
+}
+a.big_link, a.big_link:hover, a.big_link:focus, a.big_link:active{
+  color:#2996cc;
+  font-size: 25px;
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px solid #2996cc;
+}
+/*
+-------------- company page ------------------*/
+a.org_item {
+    color: inherit;
+}
+.org_item ul {
+    list-style: outside none none;
+    padding:0;
+}
+.org_item .org_item_title {
+    font-size: 25px;
+    font-weight: 300;
+    margin-bottom: 15px;
+    padding-right: 20px;
+}
+.org_item ul li {
+    padding: 8px 0 8px 25px;
+    position: relative;
+}
+.org_item ul li i {
+    font-size: 18px;
+    left: 0;
+    line-height: 100%;
+    position: absolute;
+    vertical-align: top;
+}
+/*
+-------------- Bootstrap 3 responsive columns of same height ---------- */
+/* USAGE
+<div class="row">
+  <div class="row-height">
+    <div class="col-xs-2 col-xs-height col-xs-middle">
+      <div class="inside"></div>
+    </div>
+    <div class="col-xs-4 col-lg-5 col-xs-height col-xs-middle">
+      <div class="inside"></div>
+    </div>
+  </div>
+</div>
+*/
+.inside-full-height {
+  /*
+  // if you want to give content full height give him height: 100%;
+  // with content full height you can't apply margins to the content
+  // content full height does not work in ie http://stackoverflow.com/questions/27384433/ie-display-table-cell-child-ignores-height-100
+  */
+  height: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* columns of same height styles */
+
+.row-height {
+  display: table;
+  table-layout: fixed;
+  height: 100%;
+  width: 100%;
+}
+.col-height {
+  display: table-cell;
+  float: none;
+  height: 100%;
+}
+.col-top {
+  vertical-align: top;
+}
+.col-middle {
+  vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
+}
+
+@media (min-width: 480px) {
+  .row-xs-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-xs-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-xs-top {
+    vertical-align: top;
+  }
+  .col-xs-middle {
+    vertical-align: middle;
+  }
+  .col-xs-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@media (min-width: 768px) {
+  .row-sm-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-sm-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-sm-top {
+    vertical-align: top;
+  }
+  .col-sm-middle {
+    vertical-align: middle;
+  }
+  .col-sm-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@media (min-width: 992px) {
+  .row-md-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-md-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-md-top {
+    vertical-align: top;
+  }
+  .col-md-middle {
+    vertical-align: middle;
+  }
+  .col-md-bottom {
+    vertical-align: bottom;
+  }
+}
+
+@media (min-width: 1200px) {
+  .row-lg-height {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+  }
+  .col-lg-height {
+    display: table-cell;
+    float: none;
+    height: 100%;
+  }
+  .col-lg-top {
+    vertical-align: top;
+  }
+  .col-lg-middle {
+    vertical-align: middle;
+  }
+  .col-lg-bottom {
+    vertical-align: bottom;
+  }
+}
+
+/* 
+----------------------- media ---------------------- */
+@media (min-width: 480px) {
+  #footer {
+    padding-top: 40px;
+  }
+  .locator_footer_copy {
+    margin-top:30px;
+  }
+  .locator_ms {
+    float:right;
+    width:284px;padding-left: 66px;
+    background:url('/img/ms_logo.png') no-repeat left 3px; 
+    background-size:60px 60px;
+  }
+  .locator_ms_logo {
+    font-size: 50px;
+    line-height:1em;
+  }
+}
+@media (min-width: 768px) { 
+  #videoModal.modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+  #videoModal .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+}
+@media (min-width: 944px) { /* 1024 */
+    #login_modal{
+    margin-top: 80px;
+    }
+    #login_modal .modal-dialog{
+    width:344px;
+    }
+}

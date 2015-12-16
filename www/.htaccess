@@ -1,0 +1,22 @@
+AddDefaultCharset utf-8
+
+
+# rewrite
+RewriteEngine On
+RewriteBase /
+
+# не позволять httpd отдавать файлы, начинающиеся с точки (.htaccess, .svn, .git и прочие)
+RedirectMatch 403 /\..*$
+
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://{HTTP_HOST}/$1 [R,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . index.php
+
+# common
+DirectoryIndex index.php
+Options -Indexes
