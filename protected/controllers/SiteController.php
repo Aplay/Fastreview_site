@@ -49,6 +49,16 @@ class SiteController extends Controller {
         
     }
     
+    public function actionReview_objects() {
+        
+    
+            $this->render('review_objects',array(
+
+                ));
+ 
+        
+    }
+
     public function actionAbout()
     {
 

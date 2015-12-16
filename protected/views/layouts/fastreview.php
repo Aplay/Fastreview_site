@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 <div class="mobilenav" style="display: none;">
       <div id="mobilenav_search" style="display: none;">
       <form action="/" class="searchform" method="get" role="search">
-        <input type="search" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Введите ваш текст..." name="s" class="field">
+        <input type="search" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Ваш текст..." name="s" class="field">
         <button id="searchsubmit" type="submit"><i class="fa fa-search"></i></button>
       </form>
       </div>
@@ -88,7 +88,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 </a>
 </li>
 <li>
-<a class="scribe-trigger" href="javascript:void(0)">
+<a class="scribe-trigger" href="/review_objects">
 <i class="fa fa-pencil"></i>
 </a>
 </li>

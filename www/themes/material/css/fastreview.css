@@ -11,6 +11,33 @@ ul {
 ul, ol {
     list-style: outside none none;
 }
+.btn-default-over.btn:not(.btn-link) {
+    box-shadow: 0 2px 5px rgba(33, 150, 243, 0.16), 0 2px 10px rgba(33, 150, 243, 0.12);
+    box-shadow: none;
+}
+.btn.btn-default-over {
+    color: #2196F3 !important;
+    background-color: #fff;
+    border:1px solid #2196F3 !important;
+    box-shadow: 0 2px 5px rgba(33, 150, 243, 0.16), 0 2px 10px rgba(33, 150, 243, 0.12);
+    box-shadow: none;
+}
+.btn.btn-default-over:hover, .btn.btn-default-over:active {
+    color: #2196F3 !important;
+    background-color: #fff;
+    border:1px solid #2196F3 !important;
+    box-shadow: 0 2px 5px rgba(33, 150, 243, 0.16), 0 2px 10px rgba(33, 150, 243, 0.12);
+    box-shadow: none;
+}
+.btn.btn-default-over.active,  .btn.btn-default-over:focus {
+    background-image: none;
+    outline: 0px none;
+    box-shadow: 0px 2px 3px rgba(33, 150, 243, 0.125) inset;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.125) inset;
+    box-shadow: none;
+}
+
+
 .c-6 {
 	color: #666;
 }
@@ -153,11 +180,12 @@ body.fixed #header {
     width: auto;
 }
 .nav-label {
-    border-bottom: 1px solid #fff;
+   /* border-bottom: 1px solid #fff;*/
     display: block;
     margin: 0 auto;
     padding-bottom: 10px;
     max-width: 350px;
+    font-size: 28px;
 }
 #searchField {
 	padding-right: 30px;
@@ -170,6 +198,21 @@ body.fixed #header {
 	right:5px;
 	color: #2196f3;
 	cursor: pointer;
+}
+#searchFieldReviewObject {
+	font-size: 28px;
+	font-weight: bold;
+	border-width: 0 0 3px;
+	border-color: -moz-use-text-color -moz-use-text-color #545454;
+	padding-right: 35px;
+}
+#searchFieldIconReviewObject {
+	position: absolute;
+	top:-2px;
+	right:0px;
+	cursor: pointer;
+	font-size: 28px;
+	color:#545454;
 }
 .row-list-2, .row-list-3, .row-list-4, .row-list-6{
 -moz-column-count: 1;
@@ -216,16 +259,20 @@ body.fixed #header {
 }
 }
 @media (min-width: 768px) {
+
 .navbar-nav {
     margin: 0;
 }
 .menu-trigger {
 	margin-top:0px;
 }
-/*.menu-trigger {
-    left: 115px;
-    top: 45px;
-}*/
+#searchFieldReviewObject{
+	padding-right: 0;
+}
+#searchFieldIconReviewObject {
+	right: -35px;
+
+}
 }
 @media(min-width: 992px){ /* 1024 */
 	.row-list-2{  

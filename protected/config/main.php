@@ -115,7 +115,7 @@ return array(
                     	'js/jquery-ui.min.js',
                         'js/bootstrap.min.js',
                         'vendors/sparklines/jquery.sparkline.min.js',
-                        'vendors/waves/waves.min.js',
+                      //  'vendors/waves/waves.min.js',
                         'vendors/bootstrap-growl/bootstrap-growl.min.js',
                         'vendors/sweet-alert/sweet-alert.min.js',
                        // 'vendors/nicescroll/jquery.nicescroll.min.js',
@@ -211,13 +211,11 @@ return array(
                 
                 
                  // pages:
-                '/<page:about|legal|privacy|corporate|partner>' => '/site/<page>',
+                '/<page:about|legal|privacy|review_objects>' => '/site/<page>',
                 // site:
                 '/<action:logout|feedback|captcha>' => '/site/<action>',
                 
                 '/<action:login|registration|recovery|profile>' => '/users/<action>',
-
-                '/<action:result|success|failure>' => '/site/<action>',
 
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
