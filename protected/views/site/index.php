@@ -35,14 +35,14 @@
 		<div class="pull-left">
             <img alt="" src="/img/avatar.png" class="lv-img-lg" />
         </div>
-        <div class="media-body">
-        <p class="m-b-10">SANTA MONICA, CALIFORNIA</p>
+        <div class="media-body m-t-5">
+        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
         <img alt="" src="/img/gud.png" />
         </div>
-        <div class="pull-left p-l-20">
-        	<div>Местоположение</div>
-        	<div>Считают</div>
+        <div class="pull-left p-l-10 c-6">
+        	<div class="f-11">Местоположение</div>
+        	<div class="f-10">Считают 56%</div>
         </div>
         </div>
 	</div>
@@ -52,14 +52,14 @@
 		<div class="pull-left">
             <img alt="" src="/img/avatar.png" class="lv-img-lg" />
         </div>
-        <div class="media-body">
-        <p class="m-b-10">SANTA MONICA, CALIFORNIA</p>
+        <div class="media-body m-t-5">
+        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
         <img alt="" src="/img/gud.png" />
         </div>
-        <div class="pull-left p-l-20">
-        	<div>Местоположение</div>
-        	<div>Считают</div>
+        <div class="pull-left p-l-10 c-6">
+        	<div class="f-11">Местоположение</div>
+        	<div class="f-10">Считают 56%</div>
         </div>
         </div>
 	</div>
@@ -69,14 +69,14 @@
 		<div class="pull-left">
             <img alt="" src="/img/avatar.png" class="lv-img-lg" />
         </div>
-        <div class="media-body">
-        <p class="m-b-10">SANTA MONICA, CALIFORNIA</p>
+        <div class="media-body m-t-5">
+        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
         <img alt="" src="/img/gud.png" />
         </div>
-        <div class="pull-left p-l-20">
-        	<div>Местоположение</div>
-        	<div>Считают</div>
+        <div class="pull-left p-l-10 c-6">
+        	<div class="f-11">Местоположение</div>
+        	<div class="f-10">Считают 56%</div>
         </div>
         </div>
 	</div>
