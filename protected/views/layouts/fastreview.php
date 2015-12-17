@@ -29,6 +29,7 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/bower_components
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/socicon/socicon.min.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css");
 Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/mediaelement/build/mediaelementplayer.css");
+Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css");
 
 
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/app.min.1.css');

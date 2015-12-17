@@ -444,9 +444,9 @@ $(document).ready(function(){
     /*
      * Custom Select
      */
-  /*  if ($('.selectpickers')[0]) {
+    if ($('.selectpickers')[0]) {
         $('.selecstpicker').selectpicker();
-    }*/
+    }
     
     /*
      * Tag Select

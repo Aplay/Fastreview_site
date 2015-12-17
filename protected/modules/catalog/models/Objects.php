@@ -23,6 +23,7 @@ class Objects extends BaseModel
 
     public $categories_ar;
     public $maxFiles = 25;
+    public $tmpFiles;
 
  	protected $_newRec = false;
 	/**
@@ -119,6 +120,7 @@ class Objects extends BaseModel
             'reCaptcha'=>'Код проверки',
             'url'=>'URL',
             'verified'=>'Проверка',
+            'address'=>'Адрес'
 		);
 	}
 

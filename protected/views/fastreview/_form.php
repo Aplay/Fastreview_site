@@ -4,17 +4,18 @@ $cs = Yii::app()->clientScript;
 $csrfTokenName = Yii::app()->request->csrfTokenName;
 $csrfToken = Yii::app()->request->csrfToken;
 $sizeLimit = Yii::app()->params['storeImages']['maxFileSize']/1024/1024;
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/select2/css/select2.min.css');
+//Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/select2/js/select2.min.js', CClientScript::POS_END); 
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/bootstrap-select/bootstrap-select.min.js', CClientScript::POS_END); 
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/light-gallery/lightGallery.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/dropzone/dropzone.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/light-gallery/lightGallery.min.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/dropzone/dropzone.css');
 ?>
-<section id="content">
-<div class="container">
-<div class="card">
-<div id="review_groups">
-<div class="card-body card-padding">
+
+<div class="row m-t-20">
+<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
+<div style="margin-bottom:40px;">ДОБАВЛЕНИЕ</div>
 <?php
 if($model->isNewRecord){
     $url = Yii::app()->createAbsoluteUrl('new_object');
@@ -69,42 +70,36 @@ EOF_JS;
 
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-12">
+  <div class="form-group fg-line green">
+        <?php echo $form->labelEx($model, 'title'); ?>
+        <?php echo $form->textField($model, 'title', array('class' => 'form-control input-sm', 'placeholder'=>'Введите название', 'maxlength'=>55)); ?>
+        <?php echo $form->error($model,'title'); ?>
+    </div>
   <div class="form-group ">
-              <div style="position:relative;">
+  <?php echo $form->labelEx($model, 'categorie'); ?>
+              
                 <?php
                 echo CHtml::dropDownList('Objects[categories_ar][]', $categories_ar, Category::TreeArrayActive(), array(
                         'encode'=>false,
-                        'empty'=>'Выберите категорию',
-                        'class'=>'form-control selectpicker green',
+                       // 'empty'=>'Выберите категорию',
+                        'class'=>'selectpicker',
                        // 'multiple'=>'multiple',      
                 ));
 
                 ?>
          <?php echo $form->error($model,'categorie'); ?>  
-         </div>  
+          
      </div>
-	<div class="form-group fg-line green">
-		<?php 
-		echo $form->label($model, 'mesto'); ?>
-        <?php echo $form->textField($model, 'mesto', array('class' => 'form-control input-sm', 'placeholder'=>'Введите ваш текст...')); ?>
-		<?php echo $form->error($model,'mesto'); ?>
-	</div>
-	<div class="form-group fg-line green">
-		<?php echo $form->labelEx($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array('class' => 'form-control input-sm', 'placeholder'=>'Введите название объявления', 'maxlength'=>55)); ?>
-        <?php echo $form->error($model,'title'); ?>
-    </div>
-
-    <div class="form-group fg-line green">
+     <div class="form-group fg-line green">
     <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textarea($model, 'description', array('class' => 'form-control auto-size', 'placeholder'=>'Введите описание объявления')); ?>
+        <?php echo $form->textarea($model, 'description', array('class' => 'form-control auto-size', 'placeholder'=>'Введите описание')); ?>
         <?php echo $form->error($model,'description'); ?>
     </div>
-    <div class="form-group fg-line green">
-        <?php echo $form->label($model, 'price'); ?>
-        <?php echo $form->textField($model, 'price', array('class' => 'form-control input-sm', 'placeholder'=>'Введите цену')); ?>
-        <?php echo $form->error($model,'price'); ?>
-    </div>
+	
+	
+
+    
+
     <div class="form-group">
 
         <div id="previewDz" class="lightbox row">
@@ -114,12 +109,14 @@ EOF_JS;
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
+        <div class="m-b-10">
+        <label for="Objects_address ">Добавить фото</label></div>
         <div>
-        <button id="dropzone_opener" class="btn btn-success btn-icon" type="button"><i class="md md-photo-camera"></i></button><span style="margin-left:10px;" class="f-12">Добавить фото</span>
+        <button id="dropzone_opener" class="btn bgm-lightblue btn-icon waves-effect waves-circle waves-float" type="button"><i class="zmdi zmdi-camera"></i></button>
         </div>
         <div id="dropzone" class="dropzone-box" style="min-height: 270px; margin-top: 10px;margin-bottom:20px;display:none;">
                         <div class="dz-default dz-message f-20 text-center" style="font-weight:normal;color:#5e5e5e;margin-top:-70px;">
-                            <button type="button" style="width:54px;height:54px;margin-bottom:10px;" class="btn btn-success btn-icon btn-lg" ><i class="md md-cloud-upload" style="font-size:28px;"></i></button><br>
+                            <button type="button" style="width:54px;height:54px;margin-bottom:10px;" class="btn bgm-lightblue btn-icon btn-lg waves-effect waves-circle waves-float" ><i class="zmdi zmdi-cloud-upload" style="font-size:28px;"></i></button><br>
                             Перетащите файлы сюда<br><span class="f-12 c-gray">или нажмите на иконку чтобы выбрать вручную</span>
                         </div>
                             <div class="fallback">
@@ -135,7 +132,18 @@ EOF_JS;
 
         
         </div>
-
+        <div class="form-group fg-line green">
+        <?php 
+        echo $form->label($model, 'link'); ?>
+        <?php echo $form->textField($model, 'link', array('class' => 'form-control input-sm', 'placeholder'=>'Введите ваш текст...')); ?>
+        <?php echo $form->error($model,'link'); ?>
+    </div>
+    <div class="form-group fg-line green">
+        <?php 
+        echo $form->label($model, 'address'); ?> <span class="f-11 c-6 m-l-10">Если у вашего объекта есть адрес, то укажите его (Город, улица, дом)</span>
+        <?php echo $form->textField($model, 'address', array('class' => 'form-control input-sm', 'placeholder'=>'Введите ваш текст...')); ?>
+        <?php echo $form->error($model,'address'); ?>
+    </div>
     <input type="hidden" name="redirectReview" id="redirectReview" value="<?php
     if(isset(Yii::app()->session['redirectReview']) && Yii::app()->session['redirectReview'] == 1){ 
     	echo 1;
@@ -157,59 +165,28 @@ EOF_JS;
             $btn_text = 'РЕДАКТИРОВАТЬ';
          }
 
-        if(!Yii::app()->user->isGuest){ ?>
-    <div class="form-group">
-     <label style="font-weight:bold;">Продавец:</label>
-    </div>  
-    <div class="form-group fg-line green">
-        <?php echo $form->labelEx($model, 'yourname'); ?>
-        <?php echo $form->textField($model, 'yourname', array('class' => 'form-control input-sm', 'placeholder'=>'Введите имя', 'maxlength'=>40)); ?>
-        <?php echo $form->error($model,'yourname'); ?>
-    </div>
-    <div class="form-group fg-line green">
-        <?php echo $form->labelEx($model, 'yourphone'); ?>
-        <?php echo $form->textField($model, 'yourphone', array('class' => 'form-control input-sm', 'placeholder'=>'Введите телефон', 'maxlength'=>50)); ?>
-        <?php echo $form->error($model,'yourphone'); ?>
-    </div>
-    <div class="form-group fg-line green">
-        <?php echo $form->labelEx($model, 'youremail'); ?>
-        <?php echo $form->textField($model, 'youremail', array('class' => 'form-control input-sm', 'placeholder'=>'Введите e-mail', 'maxlength'=>100)); ?>
-        <?php echo $form->error($model,'youremail'); ?>
-    </div>
-    
-        <?php  }  ?>
-
-        
+        ?>
 </div>
-<?php
-        if(Yii::app()->user->isGuest){ ?>
-        <div class="clearfix"></div>
-        <div class="form-group" style="margin-left:15px;">
-        <label style="font-weight:bold;">Продавец:</label><br><br>
-        <a class="c-green" style="text-decoration:underline;" href="javascript:void(0);" data-toggle="modal" data-target="#login_modal">Войдите</a> чтобы оставить контакты
-        </div>
-        <div class="form-actions col-sm-4 col-sm-offset-4 col-xs-12 text-center" style="margin-bottom: 70px;">
-        <button name="formSubmit" disabled="disabled" id="reviewFormSubmit" class="btn btn-success btn-sm m-t-30 waves-effect waves-button waves-float" type="button"><?php echo $btn_text; ?></button>
-        </div> <!-- / .form-actions -->
-        <?php } else { ?>
 
-        
-        <div class="form-actions col-sm-4 col-sm-offset-4 col-xs-12 text-center" style="margin-bottom: 70px;">
-        <button name="formSubmit" id="reviewFormSubmit" class="btn btn-success btn-sm btn-submit m-t-30 waves-effect waves-button waves-float" type="submit"><?php echo $btn_text; ?></button>
-        </div>
-           <?php } ?>
+   
+        <div class="clearfix"></div>
+
+        <div class="form-actions col-xs-12" style="margin-bottom: 70px;">
+        <button name="formSubmit"  id="reviewFormSubmit" class="btn btn-default-over m-t-30" type="submit"><?php echo $btn_text; ?></button>
+        </div> <!-- / .form-actions -->
+      
     
  </div>   
 
-</div>
+
 
 <?php $this->endWidget(); ?>
-</div>
-</div>
+
+
 
 </div>
 </div>
-</section>
+
 
 
 <?php
