@@ -224,6 +224,7 @@ class DefaultController extends SAdminController
             $arr = array();
          
             $criteria = new CDbCriteria();
+            $criteria->addCondition('pos is not null');
             $criteria->compare('LOWER(title)',MHelper::String()->toLower($_GET['term']),true);
             $criteria->limit = 50;
             $model = new City;

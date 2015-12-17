@@ -109,12 +109,6 @@ class WebUser extends RWebUser {
         return $this->_model->email;
     }
 
-    public function getPhone()
-    {
-        $this->_loadModel();
-        return $this->_model->phone;
-    }
-
     protected function loadUser($id=null)
     {
         if($this->_model===null)

@@ -97,6 +97,7 @@ class City extends CActiveRecord
 			'orgs' => array(self::HAS_MANY, 'Orgs', 'city_id'),
 			'regionid'=>array(self::BELONGS_TO, 'Region', 'region'),
 			'cityOther' => array(self::HAS_ONE, 'CityOther', 'city_id'),
+			'parent' => array(self::BELONGS_TO, 'City', 'id_parent'),
 			'parentarea'=>array(self::BELONGS_TO, 'City', 'parent_area'),
 		);
 	}
@@ -181,7 +182,10 @@ class City extends CActiveRecord
 		$criteria->compare('realname',$this->realname,true);
 		$criteria->compare('rodpad',$this->rodpad,true);
 		$criteria->compare('alternative_title',$this->alternative_title,true);
-	
+	    
+
+	    $criteria->addCondition('pos is not null');
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'sort'=>array(
@@ -232,7 +236,7 @@ class City extends CActiveRecord
                                     $ext = pathinfo($folder.$value, PATHINFO_EXTENSION);
 
                                     $base = md5(rand(1000,4000));
-                                    $unique = $base;
+                                    $unique = $base.'_city';
                                     $suffix = 1;
 
                                     while (file_exists($this->getFileFolder() . $unique . $ext)){
@@ -283,7 +287,7 @@ class City extends CActiveRecord
         return true;
     }
 
-    public function getDistrictLinks($rubr)
+    public function getDistrictLinks($rubr,$module = 'catalog')
     {
     	$districts = District::model()->findAll(array('condition'=>'city_id=:city_id','params'=>array(':city_id'=>$this->id)));
    		$links = '';
@@ -293,7 +297,7 @@ class City extends CActiveRecord
    			{
    				if((mb_strpos($district->district_name, 'район', 0, 'UTF-8') !== false) && (mb_strpos($district->district_name, 'микрорайон', 0, 'UTF-8') === false))
 				{
-					$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'rayon'));
+					$url = Yii::app()->createAbsoluteUrl('/'.$module.'/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'rayon'));
 					$links .= '<a class="parentCategoryElement" href="'.$url.'">'.$rubr->title.' по районам города</a>';
 					break;
 				}
@@ -302,7 +306,7 @@ class City extends CActiveRecord
    			{
    				if(mb_strpos($district->district_name, 'микрорайон', 0, 'UTF-8') !== false )
 				{
-					$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'mikrorayon'));
+					$url = Yii::app()->createAbsoluteUrl('/'.$module.'/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'mikrorayon'));
 					$links .= '<a class="parentCategoryElement" href="'.$url.'">'.$rubr->title.' по микрорайонам города</a>';
 					break;
 				}
@@ -311,22 +315,24 @@ class City extends CActiveRecord
    			{
    				if(mb_strpos($district->district_name, 'округ', 0, 'UTF-8') !== false )
 				{
-					$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'okrug'));
+					$url = Yii::app()->createAbsoluteUrl('/'.$module.'/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'okrug'));
 					$links .= '<a class="parentCategoryElement" href="'.$url.'">'.$rubr->title.' по округам</a>';
 					break;
 				}
    			}
 
    		}
-   		$metros = Metro::model()->find(array('condition'=>'city_id=:city_id','params'=>array(':city_id'=>$this->id)));
-   		if($metros)
-   		{
-   			$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'metro'));
-			$links .= '<a class="parentCategoryElement" href="'.$url.'">'.$rubr->title.' по станциям метро</a>';
-   		}
+   		 if($module == 'catalog'){
+	   		$metros = Metro::model()->find(array('condition'=>'city_id=:city_id','params'=>array(':city_id'=>$this->id)));
+	   		if($metros)
+	   		{
+	   			$url = Yii::app()->createAbsoluteUrl('/'.$module.'/catalog/district', array('city'=>$this->url,  'url'=>$rubr->url, 'district'=>'metro'));
+				$links .= '<a class="parentCategoryElement" href="'.$url.'">'.$rubr->title.' по станциям метро</a>';
+	   		}
+	   	}
    		return $links;
     }
-
+    
 	public static function getBigCities()
     {
     	$cr = new CDbCriteria;
@@ -754,7 +760,7 @@ class City extends CActiveRecord
 		return true;
 	}
 
-    public function afterDelete()
+    public function beforeDelete()
     {
         // Delete file
         $filename = $this->filename;
@@ -765,7 +771,7 @@ class City extends CActiveRecord
 	        }
 	        $this->getDeleteFileFolder();
     	}
-        return parent::afterDelete();
+        return parent::beforeDelete();
     }
 	/**
 	 * Returns the static model of the specified AR class.

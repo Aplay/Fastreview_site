@@ -2,7 +2,7 @@
 
 class LoginController extends Controller {
     public $defaultAction = 'login';
-	public $layout = '//layouts/main';
+	public $layout = '//layouts/zazadun';
 
     /**
      * Displays the login page
@@ -30,10 +30,8 @@ class LoginController extends Controller {
                 Yii::app()->end();
             }
             if(isset($_POST['ajax']) && $_POST['ajax']==='form-register') {
-            	if(isset($_POST['RegistrationForm']['email'])){
-                    $modelRegister->username = $_POST['RegistrationForm']['email'];
-            		$modelRegister->fullname = $_POST['RegistrationForm']['email'];
-                }
+            	if(isset($_POST['RegistrationForm']['username']))
+            		$modelRegister->fullname = $_POST['RegistrationForm']['username'];
                 $errors = CActiveForm::validate($modelRegister);
                 
                 if($errors != '[]'){
@@ -61,7 +59,7 @@ class LoginController extends Controller {
                         $this->redirect(Yii::app()->user->returnUrl);
                     
                 } else {
-                   // VarDumper::dump($modelLogin->errors); die(); // Ctrl + X    Delete line
+                    VarDumper::dump($modelLogin->errors); die(); // Ctrl + X    Delete line
                 }
             }
             if (isset($_POST['RegistrationForm'])) {
@@ -69,8 +67,7 @@ class LoginController extends Controller {
                
 
                 $modelRegister->attributes = $_POST['RegistrationForm'];
-                $modelRegister->username = $modelRegister->email;
-                $modelRegister->fullname = $modelRegister->email;
+                $modelRegister->fullname = $modelRegister->username;
                 $modelRegister->verifyPassword = $modelRegister->password;
 
                 if ($modelRegister->validate()) {
@@ -90,6 +87,13 @@ class LoginController extends Controller {
                             UsersModule::sendMail($modelRegister->email, UsersModule::t("You registered from {site_name}", array('{site_name}' => Yii::app()->name)), UsersModule::t("Please activate you account go to {activation_url}", array('{activation_url}' => $activation_url)));
                         }
 
+
+                      // wellcome email
+                    //  $subject = Yii::t('email','Welcome');
+                    //  $message = Yii::t('email', 'Welcome to <a href="{url}">{catalog}</a>.', array('{url}'=>$this->createAbsoluteUrl('/'), '{catalog}'=>Yii::app()->name));
+                    //  SendMail::send($modelRegister->email,$subject,$message,true);
+
+
                         if ((Yii::app()->getModule('users')->loginNotActiv || (Yii::app()->getModule('users')->activeAfterRegister && Yii::app()->getModule('users')->sendActivationMail == false)) && Yii::app()->getModule('users')->autoLogin) 
                         {
                             $identity = new UserIdentity($modelRegister->username, $soucePassword);
@@ -100,7 +104,10 @@ class LoginController extends Controller {
                                 echo '[]';
                                 Yii::app()->end();
                             }  else {
-            
+                            	/*if(Yii::app()->request->urlReferrer && Yii::app()->request->urlReferrer == 'http://'.Yii::app()->request->serverName.'/mkreview'){
+			                    	// Сохраняем в сессию единицу, чтобы сохранить данные в localStorage при создании отзыва
+			            			Yii::app()->session['redirectReview'] = 1;
+			                    }*/
                                  if(Yii::app()->request->urlReferrer && Yii::app()->request->urlReferrer != 'http://'.Yii::app()->request->serverName.'/login'){
 					                    $url = Yii::app()->request->urlReferrer;
 					                    $this->redirect($url);
@@ -124,7 +131,10 @@ class LoginController extends Controller {
                                 echo '[]';
                                 Yii::app()->end();
                             }  else {
-                            
+                            	/*if(Yii::app()->request->urlReferrer && Yii::app()->request->urlReferrer == 'http://'.Yii::app()->request->serverName.'/mkreview'){
+			                    	// Сохраняем в сессию единицу, чтобы сохранить данные в localStorage при создании отзыва
+			            			Yii::app()->session['redirectReview'] = 1;
+			                    }*/
                                 if(Yii::app()->request->urlReferrer && Yii::app()->request->urlReferrer != 'http://'.Yii::app()->request->serverName.'/login'){
 					                    $url = Yii::app()->request->urlReferrer;
 					                    $this->redirect($url);
@@ -138,17 +148,12 @@ class LoginController extends Controller {
                         }
                     }
                 } else {
-                    // var_dump($modelRegister->errors);die();
+                    var_dump($modelRegister->errors);die();
                 }
             }
             
             // display the login form
-            $this->render('application.views.site.login', array(
-                'return_url'=>Yii::app()->createAbsoluteUrl('/'),
-                'themeUrl'=>Yii::app()->theme->baseUrl,
-                'modelLogin' => $modelLogin, 
-                'modelRecovery'=>$modelRecovery, 
-                'modelRegister'=>$modelRegister));
+            $this->render('application.modules.users.views.user.login', array('modelLogin' => $modelLogin, 'modelRecovery'=>$modelRecovery, 'modelRegister'=>$modelRegister));
         } else {
 
         	if(Yii::app()->request->urlReferrer && Yii::app()->request->urlReferrer != 'http://'.Yii::app()->request->serverName.'/login'){

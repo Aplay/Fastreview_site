@@ -614,14 +614,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/v
 </div>
 <?php
 $src = $themeUrl.'/img/avatars/male.png';
-$availableNotifications = CHtml::listData(Notifications::model()->findAll(array('condition'=>'available_email=:available', 'params'=>array(':available'=>true), 'order'=>'id')), 'id','form_title');
-$availableNotificationsArray = array();
-if(!empty($availableNotifications)){
-	foreach($availableNotifications as $key=>$value){
-		$availableNotificationsArray[] = array('value'=>$key,'text'=>$value);
-	}
-}
-$setArray = CJSON::encode($availableNotificationsArray);
 
 $scriptDd = "
 $(document).ready(function(){
@@ -662,33 +654,7 @@ $('#profileAvatarDelete').on('click', function(e){
 				dropzone.removeAllFiles();
 		});
 })
-$('#bs-x-editable-notifications').editable({
-		//limit: 3,
-		type:'checklist',
-		source: ".$setArray.",
-		emptytext: '".Yii::t('site', 'None')."',
-		display: function(value, sourceData) {
-		    //display checklist as comma-separated values
-		    var html = [],
-		    checked = $.fn.editableutils.itemsByValue(value, sourceData);
-		    if(checked.length) {
-		    	$.each(checked, function(i, v) { 
-		    		html.push('<span class=\"selNotifsEmail\">'+$.fn.editableutils.escape(v.text)+ '</span>'); 
-		    	});
-		    	$(this).html(html.join(', '));
-	
-		    } else {
-		    	$(this).empty();
-		    }
-		 },
-		
-	    params: function(params) {
-		    //originally params contain pk, name and value
-		    params.".$csrfTokenName." = '".$csrfToken."';
-		    return params;
-		    },
-		'url': '".Yii::app()->createUrl('/users/admin/default/updateEmailNotification', array('id'=>$user->id))."'
-	});
+
 });
 ";
 

@@ -31,6 +31,6 @@
 <div class="row" style="margin-top:60px;">
 <div class="col-xs-12 col-md-10 col-md-offset-2 col-lg-8 col-lg-offset-2">
 НЕ НАШЛИ НУЖНЫЙ ТОВАР ИЛИ ОБЪЕКТ?<br>
-<button class="btn btn-default-over m-t-30">Добавить</button>
+<a class="btn btn-default-over m-t-30" href="new_object">Добавить</a>
 </div>
 </div>

@@ -35,9 +35,9 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/morris/morri
 							<!-- Small padding, without horizontal padding -->
 							<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
 								<!-- Big text -->
-								<span class="text-bg"><strong><?php echo $orgs; ?></strong></span><br>
+								<span class="text-bg"><strong><?php echo $objects; ?></strong></span><br>
 								<!-- Extra small text -->
-								<span class="text-xs"><?php echo Yii::t('site', 'org|orgs', $orgs); ?></span>
+								<span class="text-xs"><?php echo Yii::t('site', 'object|objects', $objects); ?></span>
 							</div>
 							
 						</div> <!-- /.stat-counters -->

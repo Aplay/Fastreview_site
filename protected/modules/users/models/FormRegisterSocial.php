@@ -22,7 +22,7 @@ class FormRegisterSocial extends User
             array('username', 'checkAvailableNoCase'),
           //  array('username', 'unique', 'message' => 'Имя уже занято'),
             array('email', 'checkEmail'),
-          //  array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => "Допустимы только символы (A-z0-9_)."),
+            array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => "Допустимы только символы (A-z0-9_)."),
             array('create_at', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
             array('avatar_enc', 'safe')
         );

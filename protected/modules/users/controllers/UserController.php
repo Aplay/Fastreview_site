@@ -63,7 +63,11 @@ class UserController extends Controller {
 
       //  if(Yii::app()->user->isGuest)
       //      Yii::app()->user->loginRequired();
-
+      if($this->city) {
+            
+            $this->redirect(Yii::app()->createAbsoluteUrl('users/user/view',array('url'=>$url)));
+            
+      }
     	$this->modules = 'userprofile';
 
         $this->layout = '//layouts/zazadun';
@@ -75,10 +79,25 @@ class UserController extends Controller {
         }
         */
 
-        $user = User::model()->withUrl($url)->find();
-
+        $user = User::model()->active()->find(array('condition'=>'username=:username','params'=>array(':username'=>$url)));
+        if(!$user){
+           $user = User::model()->active()->find(array('condition'=>'LOWER(username)=:username','params'=>array(':username'=>MHelper::String()->toLower($url))));
+          if($user){
+            $spec = Spec::model()->active()->find(array('condition'=>'author=:author','params'=>array(':author'=>$user->id)));
+            if($spec){
+              $this->redirect(Yii::app()->createAbsoluteUrl('/specialist/catalog/item',array('city'=>$spec->city->url,'url'=>$user->username)));
+            }
+            
+            $this->redirect(Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$user->username)));
+          }
+        }
         if(!$user)
             throw new CHttpException(404, Yii::t('site','Page not found'));
+
+        $spec = Spec::model()->active()->find(array('condition'=>'author=:author','params'=>array(':author'=>$user->id)));
+        if($spec)
+          $this->redirect(Yii::app()->createAbsoluteUrl('/specialist/catalog/item',array('city'=>$spec->city->url,'url'=>$user->username)));
+        
 
         $this->pageTitle = Yii::app()->name. ' - ';;
         $this->pageTitle .= $user->fullname?$user->fullname:$user->username;
@@ -109,7 +128,7 @@ class UserController extends Controller {
 		$command = Yii::app()->db->createCommand($sql);
 		$lastImages = $command->queryALL(); */
 		$need_status = Orgs::STATUS_ACTIVE;
-		$need_status2 = Orgs::STATUS_NOT_ACTIVE;
+		$need_status2 = Orgs::STATUS_CLOSED;
 		$need_status_c = Comment::STATUS_APPROVED;
 		$count = "SELECT count(id) FROM
 				(SELECT

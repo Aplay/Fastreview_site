@@ -36,6 +36,10 @@ return array(
         
         'application.modules.city.models.*',
         'application.modules.catalog.models.*',
+
+        'application.modules.poll.models.*',
+        'application.modules.poll.components.*',
+
        // 'application.modules.logger.models.*', 
         // 'application.modules.nfy.models.*',
        // 'application.modules.nfy.components.*',
@@ -78,6 +82,17 @@ return array(
         'core',
         'catalog',
         'city',
+        'comments',
+        'poll' => array(
+           // Force users to vote before seeing results
+           'forceVote' => TRUE,
+           // Restrict anonymous votes by IP address,
+           // otherwise it's tied only to user_id 
+           'ipRestrict' => TRUE,
+           // Allow guests to cancel their votes
+           // if ipRestrict is enabled
+           'allowGuestCancel' => FALSE,
+         ),
 
     ),
     // application components
@@ -195,7 +210,7 @@ return array(
                 SETTINGS_ADMINPATH.'/auth/logout'=>'admin/auth/logout',
 
 
-
+                /*
                 SETTINGS_ADMINPATH.'/<module:\w+>'=>'<module>/admin/default',
 
                 SETTINGS_ADMINPATH.'/<module:\w+>/<action:update|create|delete>/<id:\d+>'=>'<module>/admin/default/<action>',
@@ -207,15 +222,24 @@ return array(
                 SETTINGS_ADMINPATH.'/<controller:\w+>'=>'admin/<controller>',
                 SETTINGS_ADMINPATH.'/<controller:\w+>/<action:\w+>'=>'admin/<controller>/<action>',
                 SETTINGS_ADMINPATH.'/<controller:\w+>/<action:\w+>/<id:\d+>'=>'admin/<controller>/<action>',
-            
-                
-                
+                */
+                SETTINGS_ADMINPATH.'/<module:\w+>'=>'<module>/admin/default',
+
+                SETTINGS_ADMINPATH.'/<module:\w+>/<action:update|create|delete>/<id:\d+>'=>'<module>/admin/default/<action>',
+                SETTINGS_ADMINPATH.'/<module:\w+>/<action:update|create|delete>'=>'<module>/admin/default/<action>',
+                SETTINGS_ADMINPATH.'/<module:\w+>/<controller:\w+>'=>'<module>/admin/<controller>',
+                SETTINGS_ADMINPATH.'/<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/admin/<controller>/<action>',
+                SETTINGS_ADMINPATH.'/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/admin/<controller>/<action>/<id>',
+
                  // pages:
                 '/<page:about|legal|privacy|review_objects>' => '/site/<page>',
                 // site:
+                
                 '/<action:logout|feedback|captcha>' => '/site/<action>',
                 
                 '/<action:login|registration|recovery|profile>' => '/users/<action>',
+
+                '/<action:new_object>' =>'/fastreview/<action>',
 
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

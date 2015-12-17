@@ -10,20 +10,18 @@ class FormProfile extends CFormModel {
     public $verifyPassword;
     public $fullname;
     public $photo;
-    public $phone;
 
     public function rules() {
         return  array(
-            array('fullname, oldPassword, password, verifyPassword, phone', 'filter', 'filter' => 'strip_tags'),
-            array('fullname, oldPassword, password, verifyPassword, phone', 'filter','filter' =>'trim'),
-            array('fullname', 'required', 'message'=>'Заполните имя', 'on'=>'namechange'),
-            array('phone', 'length', 'max' => 255, 'min' => 3, 'tooShort' => 'Телефон мин. 3 симв.', 'tooLong' => 'Телефон макс. 255 симв.', 'on'=>'namechange'),
-            array('fullname', 'length', 'max' => 255, 'min' => 3, 'tooShort' => 'Имя мин. 3 симв.', 'tooLong' => 'Имя макс. 255 симв.',  'on'=>'namechange'),
-            array('oldPassword', 'required', 'message'=>'Заполните старый пароль', 'on'=>'passchange'), 
+            array('fullname, oldPassword, password, verifyPassword', 'filter', 'filter' => 'strip_tags'),
+            array('fullname, oldPassword, password, verifyPassword', 'filter','filter' =>'trim'),
+            array('fullname', 'required', 'message'=>'Заполните имя'),
+            array('fullname', 'length', 'max' => 255, 'min' => 3, 'tooShort' => 'Имя мин. 3 симв.', 'tooLong' => 'Имя макс. 255 симв.'),
+            array('oldPassword', 'required', 'message'=>'Заполните старый пароль', 'on'=>'passchange'),
             array('password', 'required',  'message'=>'Заполните новый пароль', 'on'=>'passchange'),
-         //   array('verifyPassword', 'required',  'message'=>'Подтвердите новый пароль', 'on'=>'passchange'),
+            array('verifyPassword', 'required',  'message'=>'Подтвердите новый пароль', 'on'=>'passchange'),
             array('oldPassword, password, verifyPassword', 'length', 'max' => 128, 'min' => 5, 'tooShort'=>"Мин. длина 5 симв.", 'on'=>'passchange'),
-         //   array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => "Пароли не совпадают", 'on'=>'passchange'),
+            array('verifyPassword', 'compare', 'compareAttribute' => 'password', 'message' => "Пароли не совпадают", 'on'=>'passchange'),
             array('oldPassword', 'verifyOldPassword', 'on'=>'passchange'),
             array('photo', 'safe'),
         );

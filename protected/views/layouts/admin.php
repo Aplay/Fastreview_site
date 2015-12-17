@@ -146,8 +146,11 @@ var init = [];
                                 </button>
                                 </a>
                              <ul class="dropdown-menu">
+                                
+                                <li><a href="<?php echo Yii::app()->createUrl('/catalog/admin/create'); ?>"><span class="fa fa-tasks"></span> &nbsp;&nbsp;Рубрику</a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/catalog/admin/objects/create'); ?>"><span class="fa fa-user"></span> &nbsp;&nbsp;Объект</a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/poll/admin/poll/create'); ?>"><span class="fa fa-thumbs-o-up"></span> &nbsp;&nbsp;Голосование</a></li>
                                 <li><a href="<?php echo Yii::app()->createUrl('/users/admin/create'); ?>"><span class="fa fa-user"></span> &nbsp;&nbsp;Пользователя</a></li>
-
 
                                 </ul>
                            
@@ -239,35 +242,25 @@ var init = [];
                 <li <?php if($this->active_link == 'dashboard'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('admin/default/index'); ?>"><i class="menu-icon fa fa-dashboard"></i><span class="mm-text"><?php echo Yii::t('site','Dashboard'); ?></span></a>
                 </li>
-                
-                <li <?php if($this->active_link == 'status'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/status'); ?>"><i class="menu-icon fa fa-tags"></i><span class="mm-text">Статусы обнаружения</span></a>
+                <li <?php if($this->active_link == 'catalog'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/default'); ?>"><i class="menu-icon fa fa-tasks"></i><span class="mm-text">Рубрики</span></a>
                 </li>
-                
-                <li <?php if($this->active_link == 'plan'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/plan'); ?>"><i class="menu-icon fa fa-credit-card"></i><span class="mm-text">Тарифы</span></a>
+                <li <?php if($this->active_link == 'new_objects'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/objects/new_objects'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Новые объекты</span></a>
                 </li>
-                 <li <?php if($this->active_link == 'promo'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/promo'); ?>"><i class="menu-icon fa fa-key"></i><span class="mm-text">Промо коды</span></a>
+                 <li <?php if($this->active_link == 'objects'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/objects'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Объекты</span></a>
                 </li>
-                <li <?php if($this->active_link == 'newcompany'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/company/newcompanies'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Новые компании</span></a>
+                <li <?php if($this->active_link == 'review'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('comments/admin/default'); ?>"><i class="menu-icon fa fa-comment"></i><span class="mm-text">Отзывы</span></a>
                 </li>
-                 <li <?php if($this->active_link == 'updatecompany'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/company/updatecompanies'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Измененные компании</span></a>
-                </li>
-                 <li <?php if($this->active_link == 'company'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/company'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Компании</span></a>
-                </li>
-                <li <?php if($this->active_link == 'invoice'){ echo ' class="active"'; } ?>>
-                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/invoice'); ?>"><i class="menu-icon fa fa-usd"></i><span class="mm-text">Оплаты</span></a>
+                <li <?php if($this->active_link == 'poll'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('poll/admin/poll'); ?>"><i class="menu-icon fa fa-thumbs-o-up"></i><span class="mm-text">Голосование</span></a>
                 </li>
                 <li <?php if($this->active_link == 'users'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('users/admin/default'); ?>"><i class="menu-icon fa fa-users"></i><span class="mm-text"><?php echo Yii::t('site','Users'); ?></span></a>
                 </li>
                 
-
-
             </ul> <!-- / .navigation -->
             
         </div> <!-- / #main-menu-inner -->

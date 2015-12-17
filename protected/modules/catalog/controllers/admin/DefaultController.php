@@ -59,7 +59,7 @@ class DefaultController extends SAdminController {
             $model->attributes=$_GET['Category'];
 
 
-        $dataProvider = $model->active()->search();
+        $dataProvider = $model->search();
 
         $this->render('index', array(
             'model' => $model,
@@ -114,10 +114,6 @@ class DefaultController extends SAdminController {
 
         $model = $this->loadModel($id);
 
-        if($model->status_id == Category::STATUS_DELETED){
-            $this->render('categorydeleted');
-            Yii::app()->end();
-        }
 
         $this->pageTitle = $model->title . ' - ' . Yii::app()->name;
 
@@ -175,21 +171,10 @@ class DefaultController extends SAdminController {
             }
         }
 
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'model_name=:model_name and model_id='.$model->id;
-        $criteria->params = array(':model_name'=>'Category');
-        $modelLog = new ActionLog('search');
-
-        if (!empty($_GET['ActionLog']))
-            $modelLog->attributes = $_GET['ActionLog'];
-
-        $dataProviderHistory = $modelLog->search($criteria);
-        $dataProviderHistory->pagination->pageSize = 10;
 
         $this->render('_form', array(
             'model' => $model, 
-            'dataProviderHistory'=>$dataProviderHistory,
-            'modelLog'=>$modelLog
+
         ));
     }
 
@@ -272,50 +257,14 @@ class DefaultController extends SAdminController {
             Yii::app()->end();
         }
 
-        // save to log
-            $log = new ActionLog;
-            $log->user_id = Yii::app()->user->id;
-            $log->event = ActionLog::ACTION_DELETE;
-            $log->model_name = 'Category';
-            $log->model_title = $model->title;
-            $log->datetime = date('Y-m-d H:i:s');
-            $log->model_id = $id;
-            $log->save();
-
-            $logcheck = ActionLog::model()->findAll(array('condition'=>'model_name=:model_name and model_id=:model_id','params'=>array(':model_name'=>'Category',':model_id'=>$id)));
-            if($logcheck) {
-                foreach ($logcheck as  $logch) {
-                    $logch->model_title = $model->title;
-                    $logch->save(false, array('model_title'));
-                }
-            }  
+     
 
         //Delete if not root node
         $model->tree->delete();
         echo CJSON::encode(array('success'=>true));
 
         Yii::app()->end();
-/*
-        $project_id = (int)$_POST['project_id'];
-            $check = ProjectUser::isManager($project_id, Yii::app()->user->id);
-            if(!$check){
-                Yii::app()->user->setFlash('error', Yii::t('error', 'You are not a manager of this project'));
-            } else {
-                // need check parent to set not child if one
-                $current = Project::model()->findByPk($project_id);
-                if($current){
-                    $childs = $current->children()->findAll();
-                    if(!empty($childs)){
-                        foreach($childs as $children){
-                            $children->moveAsRoot();
-                        }
-                    }
-                    $current->moveAsRoot();
-                    $current->updateByPk($project_id, array('status_id'=>Project::STATUS_DELETED, 'closer_id'=>Yii::app()->user->id,'closed_date'=>date('Y-m-d H:i:s')));
-                }
-                $this->refresh();
-            }
-            */
+
     } 
 
     /**

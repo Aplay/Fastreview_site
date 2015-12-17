@@ -76,8 +76,8 @@ class User extends BaseModel {
             array('username, fullname, email, phone, soc_twitter, soc_facebook,soc_envelope,soc_linkedin, soc_skype, about', 'filter', 'filter' => 'strip_tags'),
             array('username, fullname, email, phone, soc_twitter, soc_facebook,soc_envelope,soc_linkedin, soc_skype, about', 'filter','filter' =>'trim'),
             array('username, fullname, email', 'required'),
-            array('fullname', 'length', 'max' => 255, 'min' => 3, 'tooShort' => 'Имя мин. 3 симв.', 'tooLong' => 'Имя макс. 255 симв.'),
-            array('username', 'length', 'max' => 255, 'min' => 3, 'tooShort' => 'Логин мин. 3 симв.', 'tooLong' => 'Логин макс. 255 симв.'),
+            array('fullname', 'length', 'max' => 30, 'min' => 3, 'tooShort' => 'Имя мин. 3 симв.', 'tooLong' => 'Имя макс. 30 симв.'),
+            array('username', 'length', 'max' => 20, 'min' => 3, 'tooShort' => 'Логин мин. 3 симв.', 'tooLong' => 'Логин макс. 20 симв.'),
             array('password', 'length', 'max' => 128, 'min' => 5, 'tooShort' => 'Пароль мин. 5 симв.','tooLong' => 'Пароль макс. 128 симв.'),
             array('phone', 'length', 'max' => 255, 'min' => 3, 'message' => UsersModule::t("Incorrect phone (length between 3 and 255 characters).")),
             array('soc_twitter', 'length', 'max' => 255, 'message' => UsersModule::t("Incorrect twitter (length maximum 255 characters).")),
@@ -86,7 +86,7 @@ class User extends BaseModel {
             array('soc_linkedin', 'length', 'max' => 255, 'message' => UsersModule::t("Incorrect linkedIn (length maximum 255 characters).")),
             array('soc_skype', 'length', 'max' => 255, 'message' => UsersModule::t("Incorrect skype (length maximum 255 characters).")),
             array('email, soc_envelope', 'email'),
-          //  array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => UsersModule::t("Incorrect symbols (A-z0-9).")),
+            array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => UsersModule::t("Incorrect symbols (A-z0-9).")),
             array('username', 'checkIfAvailableNoCase'),
             array('email', 'checkEmailAvailable'),
             // array('username', 'unique', 'message' => UsersModule::t("This user's name already exists.")),
@@ -114,7 +114,7 @@ class User extends BaseModel {
             array('soc_linkedin', 'length', 'max' => 255, 'message' => UsersModule::t("Incorrect linkedIn (length maximum 255 characters).")),
             array('soc_skype', 'length', 'max' => 255, 'message' => UsersModule::t("Incorrect skype (length maximum 255 characters).")),
             array('email, soc_envelope', 'email'),
-          //  array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => UsersModule::t("Symbols (A-z0-9_) only.")),
+            array('username', 'match', 'pattern' => '/^[A-Za-z0-9_]+$/u', 'message' => UsersModule::t("Symbols (A-z0-9_) only.")),
             array('email', 'checkEmailAvailable'),
             array('username', 'checkIfAvailableNoCase'),
             array('email', 'checkEmailAvailable'), array('about', 'type', 'type'=>'string'),
@@ -179,7 +179,11 @@ class User extends BaseModel {
                 'attribute' => 'photo',
                 'cap' => '/img/avatar.png'
             ));
-
+          /* 'comments' => array(
+                'class'       => 'application.modules.comments.components.CommentBehavior',
+                'class_name'  => 'application.modules.users.models.User',
+                'owner_title' => 'username', // Attribute name to present comment owner in admin panel
+            ), */
 
     }
 
@@ -224,15 +228,7 @@ class User extends BaseModel {
         }
         return $ret;
     }
-    /**
-     * @return array relational rules.
-     */
-   /* public function relations() {
-        return array(
-            'userNotifications' => array(self::HAS_MANY, 'UserNotification', 'user_id'),
-        );
-    }
-*/
+
 
     /**
      * @return array customized attribute labels (name=>label)
@@ -352,7 +348,8 @@ class User extends BaseModel {
         if(!empty($this->photo)){
         	
             if (false === strpos($this->photo, '://')) {
-                return $this->getOrigFilePath().$this->photo;
+                return $this->getUrl('160x160');
+               // return $this->getOrigFilePath().$this->photo;
             }
             return $this->photo;
             
@@ -613,7 +610,7 @@ class User extends BaseModel {
      protected function beforeDelete(){
         if(!parent::beforeDelete())
             return false;
-
+        Comment::model()->updateAll(array('user_id'=>0),array('condition'=>'user_id='.$this->id));
         OrgsImages::model()->updateAll(array('uploaded_by'=>null),array('condition'=>'uploaded_by='.$this->id));
         Orgs::model()->updateAll(array('author'=>null),array('condition'=>'author='.$this->id));
 

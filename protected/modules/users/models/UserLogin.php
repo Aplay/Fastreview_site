@@ -42,7 +42,7 @@ class UserLogin extends CFormModel {
     public function attributeLabels() {
         return array(
             'rememberMe' => UsersModule::t("Remember me next time"),
-            'username' => 'E-mail',
+            'username' => 'Логин или E-mail',
             'password' => 'Пароль',
             'verifyCode'=>'Код проверки',
         );

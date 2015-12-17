@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('UTC');
-define('SETTINGS_ADMINPATH','admin_fast');
+define('SETTINGS_ADMINPATH','admin_fastreview');
 //error_reporting(0);
 $subdomain = array_pop((explode(".",$_SERVER['HTTP_HOST'])));
 if ($subdomain == 'lab') {

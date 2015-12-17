@@ -18,7 +18,23 @@ class ProfileController extends Controller {
         );
     }
   
+    public function beforeAction($action){
 
+        
+	        $domain = Yii::app()->request->getParam('city');
+
+	        if($domain)
+	            $this->city = City::model()->withUrl($domain)->find();
+
+	        if(!$this->city) {
+	        	
+	            //	$this->redirect('http://'.Yii::app()->params['serverName']);
+	        	
+	        }
+    	
+
+        return true;
+    }
     public function actionUpload(){
 
         Yii::import("ext.MyAcrop.qqFileUploader");
@@ -34,8 +50,57 @@ class ProfileController extends Controller {
         		end($datasession);
         		$key = key($datasession);
         		$result['tmpFile'] = $datasession[$key];
-        }
 
+                $tmpFile = Yii::getPathOfAlias('webroot').'/uploads/tmp/'.$result['tmpFile'];
+
+        if(file_exists($tmpFile)) {
+
+           
+
+            $thumbTo = array(160,160);
+            $folder = Yii::getPathOfAlias('webroot').'/uploads/tmp/';
+            $uploadDirectoryUpload = rtrim($folder,'/');
+            $check = MHelper::File()->getUniqueTargetPath($uploadDirectoryUpload, $result['tmpFile']);
+            $target = $uploadDirectoryUpload.'/'.$check;
+
+           // if (copy($tmpFile, $target)){
+                
+                Yii::import('ext.phpthumb.PhpThumbFactory');
+                $thumb  = PhpThumbFactory::create($tmpFile);
+                $sizes  = Yii::app()->params['storeImages']['sizes'];
+                $method = $sizes['resizeThumbMethod'];
+                $thumb->$method($thumbTo[0],$thumbTo[1])->save($target);
+
+               if (copy($target, $tmpFile)){
+                    unlink($target); //delete tmp file
+               }
+
+               /* $result['tmpFile'] = $check;
+        
+
+                    $data_sess = array();
+
+                    if(Yii::app()->session->itemAt($this->uploadlogosession)){
+                        $data = Yii::app()->session->itemAt($this->uploadlogosession);
+                        if(!is_array($data)){
+                            $data_sess[$key] = $check;
+                        } else {
+                            $data[$key] = $check;
+                            $data_sess = $data;
+                        }
+                    } else {
+                        $data_sess[$key] = $check;
+                    }
+                    Yii::app()->session->remove($this->uploadlogosession);
+                    Yii::app()->session->add($this->uploadlogosession, $data_sess);
+                    
+                    unlink($tmpFile); //delete tmp file
+                    */
+                    
+
+           // }
+        }
+}
         $result = htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 
         echo $result;
@@ -49,43 +114,47 @@ class ProfileController extends Controller {
         if(Yii::app()->request->isAjaxRequest){
 
 
-			 if (isset($_POST['FormProfile']) && isset($_POST['but'])) {
+			 if (isset($_POST['FormProfile'])) {
 
 			 	$form2 = new FormProfile;
 			 	$old_name = Yii::app()->user->fullname;
-			 	if($_POST['but'] == 1){
-                    $form2->scenario = 'namechange';
-                    $this->performAjaxValidation($form2, 'form-profile');
-				} else if($_POST['but'] == 2) {
-                    $form2->scenario = 'passchange';
-                    $this->performAjaxValidation($form2, 'form-profile-password');
-                }
-                     
+			 	if(!empty($_POST['FormProfile']['oldPassword']) ||
+			 		!empty($_POST['FormProfile']['password']) || 
+			 		  !empty($_POST['FormProfile']['verifyPassword'])){
+				$form2->scenario = 'passchange';
+
+				}
+				$this->performAjaxValidation($form2, 'form-profile');
+
 			 	$find = Yii::app()->user->model;
                			$message = '';
                         $form2->attributes = $_POST['FormProfile'];
                         if ($form2->validate()) {
-                        	if($_POST['but'] == 2){
+                        	if($form2->scenario == 'passchange'){
                         		$find->password = Yii::app()->getModule('users')->encrypting($form2->password);
                                 $find->activkey = Yii::app()->getModule('users')->encrypting(microtime() . $form2->password);
                         		if($find->save(true,array('password','activkey')))
                         			$message .= 'Пароль успешно изменен';
-                        	} else if($_POST['but'] == 1) {
+                        	}
                         	
 	                            $find->fullname = $form2->fullname;
-                                $find->phone = $form2->phone;
-	                            if($find->save(true,array('fullname','phone'))){
-	                            	/*if($find->fullname != $old_name ){
+	                            if($find->save(true,array('fullname'))){
+	                            	if($find->fullname != $old_name){
 		                            	if(!empty($message))
 		                            		$message .= '<br>';
 		                            	$message .= 'Имя успешно изменено';
-	                            	}*/
-                                    $message .= 'Изменения сохранены';
-	                            }  else {
-                                  //  VarDumper::dump($find->errors); die(); // Ctrl + X    Delete line
-                                }
-                            }
-	                       
+	                            	}
+	                            } 
+	                        $find->photo = $form2->photo;
+	                        if($find->addDropboxLogoFiles($this->uploadlogosession)){
+	                        	if(!empty($message))
+		                            		$message .= '<br>';
+		                            	$message .= 'Фото успешно изменено';
+	                        	 Yii::app()->session->remove($this->uploadlogosession); 
+	                        }
+			                  	
+                            	
+
                             if(Yii::app()->request->isAjaxRequest){
                                 echo CJSON::encode(array(
                                     'flag'=>true,
@@ -103,7 +172,7 @@ class ProfileController extends Controller {
 			Yii::app()->end();
 		} else {
 			if(!Yii::app()->user->isGuest)
-				$this->redirect(Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username,'city'=>$this->city->url)));
+				$this->redirect(Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username)));
 			$this->redirect('/');
 
 			$model = $this->loadUser();
@@ -119,7 +188,7 @@ class ProfileController extends Controller {
     	$saveAvatar = $this->actionUpload();
     	$jsonDecode = CJSON::decode($saveAvatar);
     	if(!empty($jsonDecode) && isset($jsonDecode['success']) && $jsonDecode['success'] == true && !empty($jsonDecode['uploadName'])){ // save photo
-    		$user = Y-ii::app()->user->model;
+    		$user = Yii::app()->user->model;
     		$user->photo = $jsonDecode['uploadName'];
     		$user->saveAttributes(array('photo'));
     	}

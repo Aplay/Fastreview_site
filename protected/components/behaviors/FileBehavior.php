@@ -172,6 +172,15 @@ class FileBehavior extends CActiveRecordBehavior
         return Yii::app()->baseUrl.'/uploads/'.$this->folderUploadPath().'/'.$this->attributeId().'/';
     }
 
+    public function getOrigFile() {
+        if(!empty($this->owner->{$this->attribute})){
+            $this->fileName = $this->owner->{$this->attribute};
+        } else {
+            $this->fileName = $this->cap;
+        }
+        return Yii::app()->baseUrl.'/uploads/'.$this->folderUploadPath().'/'.$this->attributeId().'/'.$this->fileName;
+    }
+
 
     /**
      * Delete the files on delete.

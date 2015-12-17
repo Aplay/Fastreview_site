@@ -32,28 +32,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'columns'=>array(
 
         array(
-            'header' => 'Теги фирм',
+            'header' => 'Рубрика',
             'name' => 'title',
             'type' => 'raw',
             'htmlOptions'=>array('class'=>'widget-support-tickets'),
             
         ),
         array(
-            'header' => 'Родитель тега',
+            'header' => 'Родительская рубрика',
             'type' => 'raw',
             'value' => 'Yii::app()->controller->renderPartial("_grid_rubrics_parent", array("data"=>$data), true)',
            
-        ),
-        array(
-			'header' => 'Кол-во фирм',
-		    'name'=>'orgs_count',
-		  //  'value'=>'$data->orgs_count ? $data->orgs_count : ""',
-		    'filter'=>false
-		),
-        array(
-            'header' => 'Кол-во неопубл. фирм',
-            'name'=>'orgs_count_not_published',
-            'filter'=>false
         ),
         array(
             'class' => 'ext.widgets.grid.MyButtonColumn',
