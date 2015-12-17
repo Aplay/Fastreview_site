@@ -22,7 +22,7 @@ class DefaultController extends SAdminController {
     	$this->active_link = 'dashboard';
     	//count users
     	$users = User::model()->count('status != '.User::STATUS_DELETED);
-        $objects = objects::model()->active()->count(array('select'=>'id'));
+        $objects = Objects::model()->active()->count(array('select'=>'id'));
 
         $this->render('dashboard',array('users'=>$users,'objects'=>$objects,
 
