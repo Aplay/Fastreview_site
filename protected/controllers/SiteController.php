@@ -139,7 +139,7 @@ public function actionFile($id){
      */
     public function actionError() {
 
-       $this->layout = '//layouts/emptyerror';
+     //  $this->layout = '//layouts/emptyerror';
 
     	$error = array();
 
