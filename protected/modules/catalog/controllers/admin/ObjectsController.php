@@ -76,10 +76,10 @@ class ObjectsController extends SAdminController {
         } else {
             $id = (int)$_GET['id'];
             $model=$this->loadModel($id);
-            if($model->verified == Objects::STATUS_VERIFIED){
+            if($model->verified == true){
                 $this->pageTitle = 'Объекты';
                 $this->active_link = 'objects';
-            } else if($model->verified == Objects::STATUS_NOT_VERIFIED){
+            } else if($model->verified == false){
                 $this->pageTitle = 'Новые объекты';
                 $this->active_link = 'new_objects';
             } 
@@ -95,16 +95,35 @@ class ObjectsController extends SAdminController {
 
             if($model->save()){
                 
-
+                if(isset(Yii::app()->session['deleteObjectsFiles']))
+                {
+                    $sessAr = unserialize(Yii::app()->session['deleteObjectsFiles']);
+                    if(isset($sessAr['id']) && $sessAr['id'] == $model->id && isset($sessAr['files']) && is_array($sessAr['files']))
+                  {
+                     $files = $model->images;
+                     if($files)
+                     {
+                      foreach ($files as $file) {
+                        if(in_array($file->id,$sessAr['files'])){
+                          $file->delete();
+                        }
+                      }
+                     }
+                  }
+                }
+              $model->addDropboxFiles($this->uploadsession);
+              Yii::app()->session->remove($this->uploadsession);
+              if(isset(Yii::app()->session['deleteObjectsFiles']))
+            unset(Yii::app()->session['deleteObjectsFiles']);
                 if(Yii::app()->request->isAjaxRequest){
                     
                 } else {
                     $text = $new? "Объект {$model->title} добавлен" : "Объект {$model->title} отредактирован";
                     $this->addFlashMessage($text,'success');
-                    if($model->verified == Objects::STATUS_VERIFIED) {
+                    if($model->verified == true) {
                         $this->redirect(Yii::app()->createAbsoluteUrl('catalog/admin/objects'));
-                    } else if($model->verified == Objects::STATUS_NOT_VERIFIED){
-                        $this->redirect(Yii::app()->createAbsoluteUrl('catalog/admin/company/new_objects'));
+                    } else if($model->verified == false){
+                        $this->redirect(Yii::app()->createAbsoluteUrl('catalog/admin/objects/new_objects'));
                     } 
 
                 }
@@ -115,9 +134,11 @@ class ObjectsController extends SAdminController {
             }
         }
 
+        $categories_ar[] = $model->categorie;
 
         $this->render('update',array(
             'model'=>$model,
+            'categories_ar'=>$categories_ar
         ));
     }
 

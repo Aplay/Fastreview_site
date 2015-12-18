@@ -58,17 +58,12 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/bootstrap-da
             'type' => 'raw',
            'filter'=>false,
         ),
-       /* array(
-            'header' => 'Рубрики',
+        array(
+            'header' => 'Рубрика',
             'type' => 'html',
-            'value' => 'Yii::app()->controller->renderPartial("_grid_company_rubrics", array("data"=>$data), true)',
+            'value' => '$data->category->title',
            'filter'=>false,
             'htmlOptions'=>array('class'=>'widget-support-tickets'),
-        ),*/
-        array(
-            'name' => 'rubrictext',
-            'type' => 'raw',
-            'filter'=>false,
         ),
       /*  array(
             'name' => 'youremail',

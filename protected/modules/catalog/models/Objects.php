@@ -113,6 +113,7 @@ class Objects extends BaseModel
 			'created_date' => Yii::t('site','Created Date'),
             'updated_date' => Yii::t('site','Updated Date'),
             'categorie'	=> 'Категория',
+            'categories_ar'	=> 'Категория',
             'tmpFiles' => 'Фото',
             'author'=>'Автор',
             'status'=>'Статус',
