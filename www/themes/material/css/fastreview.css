@@ -276,14 +276,12 @@ body.fixed #header {
     padding-top: 10px;
 
     -webkit-column-break-inside: avoid;
-          page-break-inside: avoid;
-               break-inside: avoid;
+    -moz-column-break-inside:avoid;
+    -moz-page-break-inside:avoid;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
 }
-.row-list-3 .key a {
-    -webkit-column-break-inside: avoid;
-          page-break-inside: avoid;
-               break-inside: avoid;
-}
+
 .media > .pull-left {
     padding-right: 10px;
 }
