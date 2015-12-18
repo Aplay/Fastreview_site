@@ -27,30 +27,30 @@ if(!empty($cats)){
         $url = Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$v1['url']));   
         if(isset($v1['items'])){
             if($v1['id'] != 0){
-                echo CHtml::openTag('div',array('class'=>'key t-uppercase'));
+                echo CHtml::openTag('div',array('class'=>'key'));
                 echo CHtml::link($v1['title'], $url, array('class'=>'rootCategory nocolor'));
                 echo CHtml::closeTag('div');
             }
             foreach ($v1['items'] as $k2 => $v2) {
                 $url = Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$v2['url']));   
                 if(isset($v2['items'])){
-                    echo CHtml::openTag('div',array('class'=>'key t-uppercase'));
+                    echo CHtml::openTag('div',array('class'=>'key'));
                     echo CHtml::link($v2['title'], $url, array('class'=>'nocolor'));
                     echo CHtml::closeTag('div');
                     foreach ($v2['items'] as $k3 => $v3) {
                         $url = Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$v3['url']));   
-                        echo CHtml::openTag('div',array('class'=>'key t-uppercase'));
-                        echo CHtml::link($v3['title'], $url, array('class'=>'subparentCategoryElement nocolor key t-uppercase'));
+                        echo CHtml::openTag('div',array('class'=>'key'));
+                        echo CHtml::link($v3['title'], $url, array('class'=>'subparentCategoryElement nocolor key'));
                         echo CHtml::closeTag('div');
                     }
                 } else {
-                    echo CHtml::openTag('div',array('class'=>'key t-uppercase'));
+                    echo CHtml::openTag('div',array('class'=>'key'));
                     echo CHtml::link($v2['title'], $url, array('class'=>'nocolor'));
                     echo CHtml::closeTag('div');
                 }
             }
         } else {
-            echo CHtml::openTag('div',array('class'=>'key t-uppercase'));
+            echo CHtml::openTag('div',array('class'=>'key'));
             echo CHtml::link($v1['title'], $url, array('class'=>'nocolor'));
             echo CHtml::closeTag('div');
         }
