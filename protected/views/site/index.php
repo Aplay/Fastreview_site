@@ -4,11 +4,8 @@
 <p class="m-t-5">Все преимущества и недостатки</p>
 <form role="form" style="margin-top:60px;" id="mainSearchForm">
 <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
-    <input type="search" placeholder="ПОИСК" class="form-control" id="searchFieldReviewObject" placeholder="">
-    <!--<input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
-<div class="searchFieldIcon" onclick="$('#mainSearchForm').submit();"><i class="fa fa-search"></i></div>-->
-<div id="searchFieldIconReviewObject" onclick="$('#mainSearchFormReviewObject').submit();"><i class="fa fa-search"></i></div>
-
+<input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
+<div class="searchFieldIcon" onclick="$('#mainSearchForm').submit();"><i class="fa fa-search"></i></div>
 </div>
 </form>
 </div>

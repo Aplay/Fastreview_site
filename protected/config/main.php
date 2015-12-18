@@ -242,16 +242,14 @@ return array(
 
                 '/<action:new_object>' =>'/fastreview/<action>',
 
-                
+                '/reviews/<themeurl:[0-9A-Za-z_-]+>/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
+                array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
 
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/'=>'<module>/<controller>/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-
-                '/<themeurl:[0-9A-Za-z_-]+>/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
-                array('fastreview/view', 'pattern'=>'/<url>/*'),
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ),
         ),
         'mail'=>array(
