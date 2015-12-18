@@ -113,7 +113,6 @@ EOF_JS;
         <label for="Objects_address ">Добавить фото</label></div>
         <div>
             <button id="dropzone" class="btn bgm-lightblue btn-icon waves-effect waves-circle waves-float" type="button">
-            <i class="zmdi zmdi-camera"></i>
             <div class="fallback">
                 <input name="tmpFiles" type="file" multiple="" />
             </div>

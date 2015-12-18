@@ -61,6 +61,12 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     content: "\f00d";
     line-height: 1.7em;
 }
+#dropzone.btn-icon:before {
+    font-family: FontAwesome;
+    content: "\f030";
+    line-height: 1.8em;
+    font-size: 18px;
+}
 #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
     height: 130px;
 }
