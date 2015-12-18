@@ -58,11 +58,17 @@ if(!empty($images)){
 ?>
 <?php 
 if($model->address){
-	echo '<p style="cursor:pointer;" data-lat="<?php echo $model->lat; ?>" data-lng="<?php echo $model->lng; ?>" data-target="#modal_mesto" data-toggle="modal"><span class="titles">Местоположение:</span>&nbsp; <span class="cities">'.CHtml::encode($model->address).'</span></p>';
+	echo '<p style="cursor:pointer;" data-lat="<?php echo $model->lat; ?>" data-lng="<?php echo $model->lng; ?>" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->address).'</span></p>';
+}
+?>
+<?php 
+if($model->link){
+  echo '<p style="cursor:pointer;" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->link).'</span></p>';
 }
 ?>
 <p class="description"><?php echo nl2br(CHtml::encode($model->description)); ?></p>
-<p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; <span style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;<span style="display:inline-block;vertical-align:middle;"><?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
+<p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; <span style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;<span style="display:inline-block;vertical-align:middle;">
+<?php // echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
 
 
 
@@ -91,7 +97,7 @@ if(!empty($pohs)){?>
 <div class="row">
 <div class="col-xs-12">
 <div class="rootCategory" style="font-size:20px;font-weight:300;margin-left:20px;margin-bottom:18px;">
-      Похожие объекты
+      ПОХОЖЕЕ
  </div>
  </div>
  </div>
