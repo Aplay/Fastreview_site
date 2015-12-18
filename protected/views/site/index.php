@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
 <h3 class="c-blue" style="margin-top:80px;">БЫСТРЫЕ ОТЗЫВЫ</h3>
-<p class="m-t-5">Все преимущества и недостатки</p>
+<p class="m-t-5">Все преимущества и недостатки любых товаров, улуг и объектов.</p>
 <form role="form" style="margin-top:60px;" id="mainSearchForm">
 <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
 <input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
