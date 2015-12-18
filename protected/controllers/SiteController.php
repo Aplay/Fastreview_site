@@ -43,7 +43,7 @@ class SiteController extends Controller {
         
        // $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
         $cats =  Category::getRubsByParentId();
-        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>6));
+        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>3));
         $this->render('index',array(
             'cats'=>$cats,
             'lasts'=>$lasts
