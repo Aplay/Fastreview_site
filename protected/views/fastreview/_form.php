@@ -163,7 +163,7 @@ EOF_JS;
    
         <div class="clearfix"></div>
 
-        <div class="form-actions col-xs-12" style="margin-bottom: 70px;">
+        <div class="form-group" style="margin-bottom: 70px;">
         <button name="formSubmit"  id="reviewFormSubmit" class="btn btn-default-over m-t-30" type="submit"><?php echo $btn_text; ?></button>
         </div> <!-- / .form-actions -->
       
