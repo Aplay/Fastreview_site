@@ -1,12 +1,14 @@
 <div class="row">
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
-<h3 class="c-blue" style="margin-top:80px;">FAST REVIEW</h3>
-<p class="m-t-5">СЕРВИС БЫСТРЫХ ОТЗЫВОВ. МЫ ЗНАЕМ ВСЕ И ОБО ВСЕМ - <br>
-ПРЕИМУЩЕСТВА И НЕДОСТАТКИ!</p>
+<h3 class="c-blue" style="margin-top:80px;">БЫСТРЫЕ ОТЗЫВЫ</h3>
+<p class="m-t-5">Все преимущества и недостатки</p>
 <form role="form" style="margin-top:60px;" id="mainSearchForm">
 <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
-    <input  type="search" placeholder="ВОСПОЛЬЗУЙТЕСЬ ПОИСКОМ" id="searchField" class="form-control input-sm">
-<div class="searchFieldIcon" onclick="$('#mainSearchForm').submit();"><i class="fa fa-search"></i></div>
+    <input type="search" placeholder="ПОИСК" class="form-control" id="searchFieldReviewObject" placeholder="">
+    <!--<input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
+<div class="searchFieldIcon" onclick="$('#mainSearchForm').submit();"><i class="fa fa-search"></i></div>-->
+<div id="searchFieldIconReviewObject" onclick="$('#mainSearchFormReviewObject').submit();"><i class="fa fa-search"></i></div>
+
 </div>
 </form>
 </div>
@@ -127,7 +129,7 @@ if(!empty($cats)){
 </div>
 </div>
 </div>
-<div class="row" style="margin-top:60px;">
+<div class="row" style="margin-top:135px;">
 <div class="col-xs-12  visible-xs text-center">
 <img style="display:inline-block;" class="img-responsive" src="/img/colophon.png" />
 </div>
