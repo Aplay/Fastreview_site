@@ -11,6 +11,9 @@ ul {
 ul, ol {
     list-style: outside none none;
 }
+a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
+ color: #4d4d4d;
+}
 .btn-icon .zmdi {
     font-size: 18px;
     padding-left:1px;

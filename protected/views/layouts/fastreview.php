@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
       <div id="mobilenav_links" style="display: none;">
         <ul>
             <li data-rel="#header">
-                <span class="nav-label">Главная</span>
+                <span class="nav-label"><a class="c-white" href="/">Главная</a></span>
             </li>
             <li data-rel="#about-us">
                 <span class="nav-label">О нас</span>

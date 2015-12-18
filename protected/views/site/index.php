@@ -17,7 +17,8 @@
 <?php 
 if(!empty($cats)){
     foreach ($cats as $cat) {
-        echo '<div class="key t-uppercase">'.$cat->title.'</div>';
+        $cat_url = Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$cat->url));
+        echo '<div class="key t-uppercase"><a class="nocolor" href="'.$cat_url.'">'.$cat->title.'</a></div>';
     }
 }
 ?>
