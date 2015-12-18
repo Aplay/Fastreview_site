@@ -281,7 +281,9 @@ body.fixed #header {
     page-break-inside: avoid;
     break-inside: avoid-column;
 }
-
+#objects-form .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    text-transform: none;
+}
 .media > .pull-left {
     padding-right: 10px;
 }

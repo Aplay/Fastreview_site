@@ -75,13 +75,13 @@ EOF_JS;
         <?php echo $form->textField($model, 'title', array('class' => 'form-control input-sm', 'placeholder'=>'Введите название', 'maxlength'=>55)); ?>
         <?php echo $form->error($model,'title'); ?>
     </div>
-  <div class="form-group ">
+  <div class="form-group p-relative">
   <?php echo $form->labelEx($model, 'categorie'); ?>
               
                 <?php
                 echo CHtml::dropDownList('Objects[categories_ar][]', $categories_ar, Category::TreeArrayActive(), array(
                         'encode'=>false,
-                       // 'empty'=>'Выберите категорию',
+                        'empty'=>'Выберите категорию',
                         'class'=>'selectpicker',
                        // 'multiple'=>'multiple',      
                 ));
