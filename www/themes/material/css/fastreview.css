@@ -286,7 +286,21 @@ body.fixed #header {
   width: 60px;
   height: 60px;
 }
-
+.oblects_view {
+    display: block;
+    width:100%;
+    padding:12px 12px;
+    margin-top:10px;
+}
+.oblects_view .media > .pull-left {
+    padding-right: 20px;
+}
+a.oblects_view  {
+    color: inherit;
+}
+.oblects_view:hover {
+    background-color: #eaf4fb;
+}
 @media (min-width: 610px) {
 #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
     height: 290px;
@@ -307,6 +321,13 @@ body.fixed #header {
 }
 }
 @media (min-width: 768px) {
+.oblects_view {
+    padding:12px 30px;
+}
+.oblects_view img.lv-img-lg {
+    width:125px;
+    height: 125px;
+}
 #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
     height: 170px;
 }
