@@ -41,10 +41,12 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
         
-        $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
+       // $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
         $cats =  Category::getRubsByParentId();
+        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>6));
         $this->render('index',array(
-            'cats'=>$cats
+            'cats'=>$cats,
+            'lasts'=>$lasts
         ));
  
         

@@ -63,6 +63,8 @@ if(!empty($cats)){
 </div>
 </div>
 </div>
+<?php 
+if(!empty($lasts)){ ?>
 <div class="row" style="margin-top:60px;">
 <div class="col-xs-12 text-center">
 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ
@@ -71,61 +73,45 @@ if(!empty($cats)){
 <div class="row m-t-25">
 <div class="col-xs-12 col-lg-10 col-lg-offset-1">
 <div class="row">
-<div class="col-xs-12 col-sm-6 col-md-4">
-	<div class="media">
-		<div class="pull-left">
-            <img alt="" src="/img/avatar.png" class="lv-img-lg" />
+<?php 
+foreach ($lasts as $last) {
+
+$im = '/img/cap.gif';
+
+if($last->images){ 
+  
+  $im = $last->images[0]->getUrl('180x180','adaptiveResize','filename');
+}
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id, 'dash'=>'-', 'themeurl'=>$last->category->url,'itemurl'=>$last->url));
+
+ ?>
+
+   <div class="col-xs-12 col-sm-6 col-md-4">
+   <a class="oblects_view_main" href="<?php echo $url; ?>">
+    <div class="media">
+        <div class="pull-left">
+            <img alt="" src="<?php echo $im; ?>" class="lv-img-lg" />
         </div>
         <div class="media-body m-t-5">
-        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
+        <p class="m-b-5"><?php echo CHtml::encode($last->title);  ?></p>
         <div class="pull-left">
         <!--<img alt="" src="/img/gud.png" />-->
         <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
         </div>
         <div class="pull-left p-l-10 c-6">
-        	<div class="f-11">Местоположение</div>
-        	<div class="f-10">Считают 56%</div>
+            <div class="f-11">Местоположение</div>
+            <div class="f-10">Считают 56%</div>
         </div>
         </div>
-	</div>
+    </div>
+    </a>
 </div>
-<div class="col-xs-12 col-sm-6 col-md-4">
-	<div class="media">
-		<div class="pull-left">
-            <img alt="" src="/img/avatar.png" class="lv-img-lg" />
-        </div>
-        <div class="media-body m-t-5">
-        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
-        <div class="pull-left">
-        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
-        </div>
-        <div class="pull-left p-l-10 c-6">
-        	<div class="f-11">Местоположение</div>
-        	<div class="f-10">Считают 56%</div>
-        </div>
-        </div>
-	</div>
-</div>
-<div class="col-xs-12 col-sm-6 col-md-4">
-	<div class="media">
-		<div class="pull-left">
-            <img alt="" src="/img/avatar.png" class="lv-img-lg" />
-        </div>
-        <div class="media-body m-t-5">
-        <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
-        <div class="pull-left">
-        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
-        </div>
-        <div class="pull-left p-l-10 c-6">
-        	<div class="f-11">Местоположение</div>
-        	<div class="f-10">Считают 56%</div>
-        </div>
-        </div>
-	</div>
+<?php } ?>
+
 </div>
 </div>
 </div>
-</div>
+<?php } ?>
 <div class="row" style="margin-top:135px;">
 <div class="col-xs-12  visible-xs text-center">
 <img style="display:inline-block;" class="img-responsive" src="/img/colophon.png" />

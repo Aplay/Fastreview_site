@@ -291,7 +291,7 @@ body.fixed #header {
   width: 60px;
   height: 60px;
 }
-.oblects_view {
+.oblects_view, .oblects_view_main {
     display: block;
     width:100%;
     padding:12px 12px;
@@ -300,10 +300,10 @@ body.fixed #header {
 .oblects_view .media > .pull-left {
     padding-right: 20px;
 }
-a.oblects_view  {
+a.oblects_view, a.oblects_view_main {
     color: inherit;
 }
-.oblects_view:hover {
+.oblects_view:hover, .oblects_view_main:hover {
     background-color: #eaf4fb;
 }
 @media (min-width: 610px) {
