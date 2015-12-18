@@ -196,6 +196,72 @@ class Category extends CActiveRecord {
             return false;
     } 
 
+    // this method is working. on parent_id base. very fast // 0.6sec
+    public static function getRubsByParentId()
+    {
+       /* Выводятся только рубрики, если имеется parent */
+       $connection=Yii::app()->db;
+       $sql = 'SELECT DISTINCT t.categorie, cat.id, cat.title, cat.url, cat.parent_id
+       FROM objects t 
+       LEFT OUTER JOIN category cat 
+       ON (cat.id=t.categorie) 
+       WHERE  t.status='.Objects::STATUS_ACTIVE.'  ORDER BY title';
+       $command = $connection->cache(3600)->createCommand($sql);
+       $cats = $command->queryAll();
+
+        $rubs = array();
+        if($cats){
+            foreach ($cats as $key => $row) {
+                $parent_id = (int)$row['parent_id'];
+                $rubs[$parent_id][]   = $row;
+            }
+        }
+        
+
+        $output =  array();
+
+        if($rubs)
+        {
+            foreach($rubs as $key=>$value)
+            {
+                
+                    $cat = Category::model()->findByPk($key);
+                     if($cat)
+                        $output[$key] = array('id'=>$key,'title'=>$cat->title,'url'=>$cat->url,'par'=>$cat->parent_id);
+                     else 
+                        $output[$key] = array('id'=>$key,'title'=>'','url'=>'','par'=>0);
+                   
+                        for ($i=0;$i<sizeof($value);$i++)
+                        {
+                            if ($value[$i]['title']!='')
+                                $output[$key]['items'][] = array('id'=>$value[$i]['id'],'title'=>$value[$i]['title'],'url'=>$value[$i]['url']);
+                        }
+                    
+                
+                
+            }
+            
+        }
+
+        if($output){
+            foreach($output as $k=>$v){
+                if(!empty($v['par'])){
+                    if(isset($output[$v['par']]['items'])){
+                        $output[$v['par']]['items'][] = $v;
+                        $sorted =  $output[$v['par']]['items'];
+                        usort($sorted, MHelper::get('Array')->sortFunction('title'));
+                        $output[$v['par']]['items'] = $sorted;
+                        unset($output[$k]);
+                    }
+                }
+            }
+            usort($output, MHelper::get('Array')->sortFunction('title'));
+        }
+
+        return $output;
+
+    }
+
     public static function getActiveCategories() {
         return CHtml::listData(self::model()->findAll(), 'id', 'title');
     }

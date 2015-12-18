@@ -42,6 +42,7 @@ class SiteController extends Controller {
     public function actionIndex() {
         
         $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
+        $cats =  Category::getRubsByParentId();
         $this->render('index',array(
             'cats'=>$cats
         ));
