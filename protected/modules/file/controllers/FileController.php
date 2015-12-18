@@ -2,7 +2,7 @@
 
 class FileController extends Controller {
 
-	public $uploadsession = 'orgsfiles';
+	public $uploadsession = 'objectsfiles';
 	
 	public function actions()
     {
@@ -65,7 +65,7 @@ class FileController extends Controller {
 
 
     /* Общий метод для получения данных о картинке логотипа */
-     public function actionLogotipFile($id=null,$model='Wherefind',$filename='filename',$realname=false){
+     public function actionLogotipFile($id=null,$model='Objects',$filename='filename',$realname=false){
         $result = array();
         $id   = (int)$id;
         $model = $model::model()->findByPk($id); 

@@ -194,5 +194,123 @@ class FastreviewController extends Controller {
 					} 
 					return $trueCity;
     }
+    public function actionView()
+    {
+                
+
+          $model = $this->_loadModel(Yii::app()->request->getQuery('url'));
+
+          $this->pageTitle = $model->title.' - '.Yii::app()->name;
+          
+          $modelFirst = $model;
+          
+          $name = $model->title;
+          $query = Objects::model()->cache(3600);
+          $query->active()
+                  ->with('images');
+                  
+        $cr=new CDbCriteria;
+        $cr->addCondition('t.categorie='.$model->id);
+        $query->getDbCriteria()->mergeWith($cr);
+
+
+        $provider = new CActiveDataProvider($query, array(
+            // Set id to false to not display model name in
+            // sort and page params
+            'id'=>false,
+            'pagination'=>array(
+                'pageSize'=>25,
+            )
+        ));
+
+        $provider->sort = Objects::getCSort('t.created_date DESC, t.title');
+            
+        $itemView = '_objects_view';
+
+                
+        $count_items = $provider->totalItemCount;   
+        
+
+        $criteria = new CDbCriteria;
+         $criteria->scopes = 'active';
+         $dataProvider = new CActiveDataProvider('Objects', array(
+                'criteria' => $criteria,
+                'sort'=>array(
+                    'defaultOrder' => 't.created_date DESC',
+                ),
+                'pagination' => array(
+                    'pageSize' => 30,
+                ),
+            ));
+          $sql = 'select count(*) cnt, categorie
+                from objects
+                WHERE objects.status='.Objects::STATUS_ACTIVE.'
+                group by categorie';
+
+          $connection = Yii::app()->db;
+          $command = $connection->createCommand($sql);
+          $rows = $command->queryAll();
+
+
+      $search = false;    
+
+        $this->render('view', array(
+            'provider'=>$provider,
+                        'model' => $model,
+            'itemView'=>$itemView,
+                        'per_page'=>25,
+                        'count_items'=>$count_items,
+                        'rows'=>$rows,
+                        'search'=>$search
+                        //'itemView' => (isset($_GET['view']) && $_GET['view']==='wide') ? '_product_wide' : '_product'
+
+        ));
+    }
+    public function actionItem($id)
+    {
+    	$model = $this->_loadItem($id);
+      $trunc_text = MHelper::String()->truncate($model->title, 400, '..', true, true, false);
+      $this->pageTitle = $trunc_text.' - '.Yii::app()->name;
+      $this->pageTitle = trim(preg_replace('/\s+/', ' ', $this->pageTitle));
+      
+      $pohs = Objects::model()->active()->findAll(array(
+        'condition'=>'categorie='.$model->categorie.' and id!='.$id,
+        'limit'=>5,
+        'order'=>'created_date DESC'
+        ));
+      $this->render('item', array(
+                 'model' => $model,
+                 'pohs'=>$pohs
+
+                 ));
+    }
+  protected function _loadItem($id=null)
+  {
+  		if(!$id && !$url)
+  			throw new CHttpException(404, 'Страница не найдена.');
+
+  	  if($id)
+      {
+      	$model = Objects::model()
+	        ->active()
+	        ->findByPk($id);
+      }
+        if (!$model)
+         throw new CHttpException(404, 'Страница не найдена.');
+
+	    // $model->saveCounters(array('views_count'=>1));
+
+	    return $model;
+	}
+	public function _loadModel($url)
+    {
+        // Find category
+        $model = Category::model()
+                          ->withUrl($url)
+                          ->find();
+        if (!$model) throw new CHttpException(404, 'Категория не найдена.');
+                
+        return $model;
+    }
 }
 ?>

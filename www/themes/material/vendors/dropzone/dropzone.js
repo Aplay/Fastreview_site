@@ -308,6 +308,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       autoProcessQueue: true,
       autoQueue: true,
       addRemoveLinks: false,
+      removeLinksClass: 'dz-remove',
       previewsContainer: null,
       dictDefaultMessage: "Drop files here to upload",
       dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
@@ -434,7 +435,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
             node.innerHTML = this.filesize(file.size);
           }
           if (this.options.addRemoveLinks) {
-            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file._removeLink = Dropzone.createElement("<a class=\" "+ this.options.removeLinksClass +"\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
             file.previewElement.appendChild(file._removeLink);
           }
           removeFileEvent = (function(_this) {

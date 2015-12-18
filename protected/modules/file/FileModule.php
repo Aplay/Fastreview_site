@@ -9,7 +9,6 @@ class FileModule extends BaseModule
 		$this->setImport(array(
 			'file.models.*',
 			'file.components.*',
-			'wherefind.models.*',
 		));
 	}
 

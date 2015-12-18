@@ -14,11 +14,13 @@
 <div class="row" style="margin-top:60px;">
 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 <div class="row-list-3">
-<div class="key">АВТО И МОТО</div>
-<div class="key">ИНТЕРНЕТ, СОФТ, КОМПЬЮТЕРНЫЕ ИГРЫ</div>
-<div class="key">КНИГИ И ЖУРНАЛЫ</div>
-<div class="key">В ГОРОДЕ, ЗАВЕДЕНИЯ</div>
-<div class="key">ПОСУДА</div>
+<?php 
+if(!empty($cats)){
+    foreach ($cats as $cat) {
+        echo '<div class="key t-uppercase">'.$cat->title.'</div>';
+    }
+}
+?>
 </div>
 </div>
 </div>
@@ -38,7 +40,8 @@
         <div class="media-body m-t-5">
         <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
-        <img alt="" src="/img/gud.png" />
+        <!--<img alt="" src="/img/gud.png" />-->
+        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
         </div>
         <div class="pull-left p-l-10 c-6">
         	<div class="f-11">Местоположение</div>
@@ -55,7 +58,7 @@
         <div class="media-body m-t-5">
         <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
-        <img alt="" src="/img/gud.png" />
+        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
         </div>
         <div class="pull-left p-l-10 c-6">
         	<div class="f-11">Местоположение</div>
@@ -72,7 +75,7 @@
         <div class="media-body m-t-5">
         <p class="m-b-5">SANTA MONICA, CALIFORNIA</p>
         <div class="pull-left">
-        <img alt="" src="/img/gud.png" />
+        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
         </div>
         <div class="pull-left p-l-10 c-6">
         	<div class="f-11">Местоположение</div>

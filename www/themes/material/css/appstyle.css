@@ -975,6 +975,7 @@ width: 186px;
     
     z-index: 800;
 }
+
 #dropzone-tmp.lightbox .lightbox-item:not(.p-item) {
     border: 0;
     box-shadow: none;

@@ -112,25 +112,17 @@ EOF_JS;
         <div class="m-b-10">
         <label for="Objects_address ">Добавить фото</label></div>
         <div>
-        <button id="dropzone_opener" class="btn bgm-lightblue btn-icon waves-effect waves-circle waves-float" type="button"><i class="zmdi zmdi-camera"></i></button>
+            <button id="dropzone" class="btn bgm-lightblue btn-icon waves-effect waves-circle waves-float" type="button">
+            <i class="zmdi zmdi-camera"></i>
+            <div class="fallback">
+                <input name="tmpFiles" type="file" multiple="" />
+            </div>
+            </button>
         </div>
-        <div id="dropzone" class="dropzone-box" style="min-height: 270px; margin-top: 10px;margin-bottom:20px;display:none;">
-                        <div class="dz-default dz-message f-20 text-center" style="font-weight:normal;color:#5e5e5e;margin-top:-70px;">
-                            <button type="button" style="width:54px;height:54px;margin-bottom:10px;" class="btn bgm-lightblue btn-icon btn-lg waves-effect waves-circle waves-float" ><i class="zmdi zmdi-cloud-upload" style="font-size:28px;"></i></button><br>
-                            Перетащите файлы сюда<br><span class="f-12 c-gray">или нажмите на иконку чтобы выбрать вручную</span>
-                        </div>
-                            <div class="fallback">
-                                <input name="tmpFiles" type="file" multiple="" />
-                            </div>
-                    </div>
+        
         </div>
         <div class="form-group m-b-20">
-                    <div id="dropzone-tmp"  class="lightbox row"></div>
-                </div>
-        
-
-
-        
+            <div id="dropzone-tmp"  class="lightbox row"></div>
         </div>
         <div class="form-group fg-line green">
         <?php 
@@ -192,9 +184,9 @@ EOF_JS;
 <?php
 
 
-$uploadLink = Yii::app()->createUrl('file/upload/upload',array('inputName'=>'tmpFiles','uploadsession'=>$this->uploadsession));
-$unlinkLink = Yii::app()->createUrl('file/upload/unlink',array('uploadsession'=>$this->uploadsession));
-$deleteLink = Yii::app()->createUrl('file/file/deleteobjectsfile');
+$uploadLink = Yii::app()->createAbsoluteUrl('file/file/upload');
+$unlinkLink = Yii::app()->createAbsoluteUrl('file/file/unlink');
+$deleteLink = Yii::app()->createAbsoluteUrl('file/file/deleteobjectsfile');
 
 $scriptDd = "
 
@@ -236,6 +228,7 @@ if($model->isNewRecord){
     $existFiles = count($model->images);
     $availableFiles = $model->maxFiles - $existFiles;
 }
+
 $scriptDd .= 
 "
 var dropzone = new Dropzone('#dropzone', {
@@ -249,6 +242,7 @@ var dropzone = new Dropzone('#dropzone', {
         },
         previewsContainer:'#dropzone-tmp',
         addRemoveLinks: true,
+        removeLinksClass: 'dz-remove btn bgm-lightblue btn-icon waves-effect waves-circle waves-float',
         dictRemoveFile:'',
         acceptedFiles: '.jpeg,.jpg,.png,.gif',
 ";
@@ -294,9 +288,9 @@ $scriptDd .= "
         thumbnailWidth: 140,
         thumbnailHeight: 140,
 
-        previewTemplate: '<div data-src=\"\" class=\"dz-preview dz-file-preview col-sm-3 col-xs-6 lightbo\">' +
+        previewTemplate: '<div data-src=\"\" class=\"dz-preview dz-file-preview  col-xs-6 col-sm-3 lightbo\">' +
         '<div class=\"dz-thumbnail lightbox-item\">' +
-        '<img data-dz-thumbnail class=\"img-responsive\" style=\"min-height:auto;\"><span class=\"dz-nopreview\">No preview</span>' +
+        '<img data-dz-thumbnail><span class=\"dz-nopreview\">No preview</span>' +
         '<div class=\"dz-error-mark\"><i class=\"md md-highlight-remove\"></i></div>' +
         '<div class=\"dz-error-message\"><span data-dz-errormessage></span></div></div>' +
         '</div>',
@@ -318,6 +312,7 @@ $scriptDd .= "
             return info;
         }
     }).on('addedfile', function(file) {
+       
                 
     }).on('success', function(file, serverResponse){
 

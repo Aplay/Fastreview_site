@@ -343,7 +343,7 @@ class Objects extends BaseModel
         $folder = Yii::getPathOfAlias('webroot').'/uploads/objects/';
         if (is_dir($folder) == false)
             @mkdir($folder, octdec(Yii::app()->params['storeImages']['dirMode']), true);
-        $folder = Yii::getPathOfAlias('webroot').'/uploads/objects/ '.$this->id.'/';
+        $folder = Yii::getPathOfAlias('webroot').'/uploads/objects/'.$this->id.'/';
         if (is_dir($folder) == false)
             @mkdir($folder, octdec(Yii::app()->params['storeImages']['dirMode']), true);
         return $folder;

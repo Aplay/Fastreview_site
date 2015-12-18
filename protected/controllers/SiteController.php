@@ -41,10 +41,10 @@ class SiteController extends Controller {
      */
     public function actionIndex() {
         
-    
-            $this->render('index',array(
-
-            ));
+        $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
+        $this->render('index',array(
+            'cats'=>$cats
+        ));
  
         
     }
