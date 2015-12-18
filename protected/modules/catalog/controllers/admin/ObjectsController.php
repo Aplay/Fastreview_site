@@ -83,6 +83,7 @@ class ObjectsController extends SAdminController {
                 $this->pageTitle = 'Новые объекты';
                 $this->active_link = 'new_objects';
             } 
+            $old_mesto = $model->address;
         }
 
         // Uncomment the following line if AJAX validation is needed
@@ -92,6 +93,30 @@ class ObjectsController extends SAdminController {
         {
 
             $model->attributes=$_POST['Objects'];
+
+            if($new ||  (!empty($old_mesto) && $old_mesto != $model->address)){
+                $words = explode(',',$model->address,2);
+
+                if(!empty($words)){
+                  $city = trim($words[0]);
+                  $trueCity = City::model()->find('LOWER(title)=:title or LOWER(alternative_title)=:title',array(':title'=>MHelper::String()->toLower($city)));
+                  if(!$trueCity)
+                    $trueCity = City::addNewCity($city);
+                  if($trueCity)
+                    $model->city_id = $trueCity->id;
+                }
+                if(isset($words[1])){
+                    $words = explode(',',$words[1],2);
+                    if(isset($words[0]) && !empty($words[0])){
+                        $model->street = trim($words[0]);
+                    }
+                    if(isset($words[1]) && !empty($words[1])){
+                        $model->dom = trim($words[1]);
+                    }
+                }
+                
+              }
+
 
             if($model->save()){
                 

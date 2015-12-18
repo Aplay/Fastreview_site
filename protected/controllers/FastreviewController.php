@@ -65,10 +65,20 @@ class FastreviewController extends Controller {
           $city = trim($words[0]);
           $trueCity = City::model()->find('LOWER(title)=:title or LOWER(alternative_title)=:title',array(':title'=>MHelper::String()->toLower($city)));
           if(!$trueCity)
-            $trueCity = $this->addNewCity($city);
+            $trueCity = City::addNewCity($city);
           if($trueCity)
             $model->city_id = $trueCity->id;
         }
+        if(isset($words[1])){
+			$words = explode(',',$words[1],2);
+			if(isset($words[0]) && !empty($words[0])){
+				$model->street = trim($words[0]);
+			}
+			if(isset($words[1]) && !empty($words[1])){
+				$model->dom = trim($words[1]);
+			}
+		}
+
         
       }
 		}
@@ -117,83 +127,7 @@ class FastreviewController extends Controller {
     	$this->render('_form', array('model'=>$model,'categories_ar'=>$categories_ar));
     }
 
-    public function addNewCity($city)
-    {
-    	$trueCity = null;
-    	if(!empty($city)){ // добавляем город
-						$trueCity = new City;
-						$trueCity->title = $city;
-						$trueCity->alternative_title = $city;
-
-						$address_city = $city;
-						$params = array(
-						    'geocode' => $address_city,         // координаты
-						    'format'  => 'json',                          // формат ответа
-						    'results' => 1,                               // количество выводимых результатов
-						    'kind'=>'locality'
-						  //  'key'     => '...',                           // ваш api key
-						);
-						$trueRegion = $result_region = null;
-						$response = json_decode(@file_get_contents('http://geocode-maps.yandex.ru/1.x/?' . http_build_query($params, '', '&')));
-						if ($response && $response->response->GeoObjectCollection->metaDataProperty->GeocoderResponseMetaData->found > 0)
-						{
-							$result = $response->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos;
-						    if($result){
-						    	$exp_str1 = explode(" ", $result);
-								$trueCity->latitude = $exp_str1[1];
-								$trueCity->longitude = $exp_str1[0]; 
-						    } 
-						    $result = $response->response->GeoObjectCollection->featureMember[0]->GeoObject->name;
-						    if($result){ 
-						    	$trueCity->title = $result;
-						    	$trueCity->alternative_title = $result;
-						     }
-						    $result_region = $response->response->GeoObjectCollection->featureMember[0]->GeoObject->metaDataProperty->GeocoderMetaData->AddressDetails->Country->AdministrativeArea->AdministrativeAreaName;
-						    if($result_region){
-						    	$trueRegion = Region::model()->find('title=:title',array(':title'=>$result_region));
-									if(!$trueRegion){
-										$trueRegion = new Region;
-										$trueRegion->title = $result_region;
-									    $trueRegion->save();
-									}
-						    } 
-						}
-						if($trueCity->latitude)
-						{
-							// склонение 
-							$params = array(
-							    'format'  => 'json',                          // формат ответа
-							    'name'=>$trueCity->title
-							);
-							$response = CJSON::decode(@file_get_contents('http://export.yandex.ru/inflect.xml?' . http_build_query($params, '', '&')));
-							if ($response) 
-							{
-								if(isset($response[2]))
-									$trueCity->rodpad = $response[2];
-								if(isset($response[6]))
-									$trueCity->mestpad = $response[6];
-							}
-
-							if($trueRegion){
-								$trueCity->region = $trueRegion->id;
-							}
-							$trueCity->pos = 10000;
-						    if($trueCity->save()){
-						    	
-						    } else {
-
-						    	if($trueCity->errors && isset($trueCity->errors['title'])){
-						    		if($trueCity->errors['title'][0] == 'Город с таким названием уже существует.'){
-						    			$trueCity = City::model()->find('title=:title or alternative_title=:alternative_title',array(':title'=>$trueCity->title,':alternative_title'=>$trueCity->title));
-						    		}
-						    	}
-						    }
-						}
-
-
-					} 
-					return $trueCity;
-    }
+    
     public function actionView()
     {
                 

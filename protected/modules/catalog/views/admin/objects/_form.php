@@ -93,7 +93,7 @@ $form=$this->beginWidget('CActiveForm', array(
         </div> <!-- / .form-group -->
         
 
-        <div class="form-group">
+        <div class="hide form-group">
                 <?php echo $form->labelEx($model, 'city_id',  array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
                 <div class="col-lg-10 col-md-12 col-sm-12">
                 <?php

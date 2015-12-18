@@ -26,6 +26,7 @@ class Objects extends BaseModel
     public $tmpFiles;
 
  	protected $_newRec = false;
+ 	private $_curr;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -365,22 +366,61 @@ class Objects extends BaseModel
 	public function beforeSave()
 	{
 		if(parent::beforeSave()) {
+			$ydata = false;
+			$reurl = false;
 
 			if($this->isNewRecord) {
-				$this->_newRec = true;
 				$this->ip_address = Yii::app()->request->userHostAddress;
-				$this->author = (Yii::app()->user)?Yii::app()->user->id:null;
-				$this->created_date = date('Y-m-d H:i:s');
-			} 
+				$ydata = true;
+				$this->_newRec = true;
+				$this->author = (!Yii::app()->user->isGuest)?Yii::app()->user->id:null;
+			} else {
+				$this->_curr = self::findByPk($this->id,array('select'=>'city_id,status,address,lat,lng'));
+               if($this->_curr) {
+                	if($this->title != $this->_curr->title)
+                        $reurl = true;
+	        	} 
+				if($this->city_id != $this->_curr->city_id || $this->address != $this->_curr->address || !$this->lat || !$this->lng){
+		                $ydata = true;
+		        }
+			}
 
+			if($ydata == true){
+
+			if(!empty($this->address)){
+
+				$address = $this->address;
+
+				$params = array(
+				    'geocode' => $address, // адрес
+				    'format'  => 'json',                          // формат ответа
+				    'results' => 1,                               // количество выводимых результатов
+				  //  'key'     => '...',                           // ваш api key
+				);
+				$response = json_decode(@file_get_contents('http://geocode-maps.yandex.ru/1.x/?' . http_build_query($params, '', '&')));
+
+				$result = ''; 
+				if ($response && isset($response->response) && $response->response->GeoObjectCollection->metaDataProperty->GeocoderResponseMetaData->found > 0)
+				{
+				    $result = $response->response->GeoObjectCollection->featureMember[0]->GeoObject->Point->pos;
+				    if($result){
+				    	$exp_str1 = explode(" ", $result);
+						$this->lat = $exp_str1[1];
+						$this->lng = $exp_str1[0]; 
+					
+					   // $this->yanData();
+				    }
+				}
+
+			}
+			}
 			// Create slug
 			Yii::import('ext.SlugHelper.SlugHelper');
-	        if(!$this->url){
-	            $this->url = SlugHelper::run($this->title, 'yandex');
+	        if(!$this->url  || $reurl){
+	           $this->url = SlugHelper::run($this->title, 'yandex');
 	        } else {
 	        	$this->url = SlugHelper::run($this->url, 'yandex');
 	        }
-	       
 
 	        $this->updated_date = date('Y-m-d H:i:s');
 

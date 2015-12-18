@@ -71,13 +71,13 @@ if($model->address){
 </div>
 <?php 
 if(!Yii::app()->user->isGuest && Yii::app()->user->id == $model->author){ ?>
-<div class="col-sm-4 p-l-8">
+<div class="hide col-sm-4 p-l-8">
 <div class="card m-mt-30">
 <div class="card-body card-padding" style="padding-left:36px;">
-<div><a href="<?php echo Yii::app()->createAbsoluteUrl('/advert/advert/update', array('city'=>$this->city->url,'id'=>$model->id)); ?>" class="btn btn-success btn-icon">
+<div><a href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/update', array('id'=>$model->id)); ?>" class="btn btn-success btn-icon">
 <i class="md md-mode-edit" style="line-height:40px;"></i></a>
 <span style="margin-left:10px;" class="f-12">Редактировать объект</span></div>
-<div style="margin-top:12px;"><a id="sa-warning"  href="<?php echo Yii::app()->createAbsoluteUrl('/advert/advert/deleteadvert', array('city'=>$this->city->url,'id'=>$model->id)); ?>" class="btn btn-success btn-icon">
+<div style="margin-top:12px;"><a id="sa-warning"  href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/deleteadvert', array('id'=>$model->id)); ?>" class="btn btn-success btn-icon">
 <i class="md md-delete" style="line-height:40px;"></i></a>
 <span style="margin-left:10px;" class="f-12">Удалить объект</span></div>
 </div>              
@@ -139,7 +139,7 @@ if($imgs)
 }
 $mapparams = array();
 if($model->lat && $model->lng){
-      $address = $model->mesto;
+      $address = $model->address;
     $mapparams[] = array(
       'lat'=>floatval($model->lat),
       'lon'=>floatval($model->lng),
