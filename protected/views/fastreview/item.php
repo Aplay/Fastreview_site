@@ -26,7 +26,8 @@ $search = null;
 $images = $model->images;
 $imageShare = '';
 if(!empty($images)){
-  $src = $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant'));
+	$src = $imageShare = $images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant');
+  $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
 	// $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
 ?>
 <div class="card-body m-b-20">
