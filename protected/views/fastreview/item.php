@@ -1,8 +1,13 @@
 <?php  
 $themeUrl = Yii::app()->theme->baseUrl;
+$csrfTokenName = Yii::app()->request->csrfTokenName;
+$csrfToken = Yii::app()->request->csrfToken;
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/light-gallery/lightGallery.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/light-gallery/lightGallery.min.css');
+Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/dropzone/dropzone.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/dropzone/dropzone.css');
 
+$sizeLimit = Yii::app()->params['storeImages']['maxFileSize']/1024/1024;
 $thisUrl = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$model->id, 'dash'=>'-', 'themeurl'=>$model->category->url,'itemurl'=>$model->url));
 $search = null;
   $check = null;
@@ -11,23 +16,24 @@ $search = null;
 ?>
 
 
-<div class="block-header" style="margin-top:45px;">
+<div class="hide block-header" style="margin-top:45px;">
      <h2 class="org_title" style="text-transform:none;"><?php echo CHtml::encode($model->title); ?></h2>
 </div>
-<div class="row">
-<div class="col-sm-8 p-r-8">
+<div class="row m-t-25">
+<div class="col-sm-8 col-sm-offset-2">
 
 <?php
 $images = $model->images;
+$imageShare = '';
 if(!empty($images)){
-	$src = $images[0]->getUrl('800x300xC', 'adaptiveResizeQuadrant');
+	$src = $imageShare = $images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant');
 	// $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
 ?>
 <div class="card-body m-b-20">
-<div style="width:100%;height:300px;overflow: hidden;">
+<div id="item-gal">
 <div id="article_page_header"  onclick="zoomclick();" style="cursor:pointer;background-image:url('<?php echo $src; ?>');">
 </div>
-<div  class="gallery-nav lightbox">
+<div  class="gallery-nav">
 <?php
 if(!empty($images)){ 
         
@@ -36,10 +42,10 @@ if(!empty($images)){
                 // $src = Yii::app()->createAbsoluteUrl('file/company', array('id'=>$foto->id));
                 $src = $model->getOrigFilePath().$foto->filename;
             //  $image = $model->getThumbsFilePaths($foto->filename);
-                $image = $foto->getUrl('500','resize');
+                $image = $foto->getUrl('800x500','resize');
 
               //  echo CHtml::link($image, $src, array('class'=>'', 'data-lightbox'=>'lb-'.$model->id));
-                echo '<div  data-src="'.$src.'"><div class="lightbox-item"><img src="'.$image.'" /></div></div>';
+                echo '<div  data-src="'.$src.'"><div class="item-gal-im" style="background-image:url('.$image.');"></div></div>';
             }
         }
         
@@ -53,21 +59,26 @@ if(!empty($images)){
 }
 ?>
 <div class="card">
-<div class="card-body card-padding advert_item">
+<div class="card-body advert_item">
+<p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?></p>
 <?php 
-?>
+if($model->description){ ?>
+<p class="description"><?php echo nl2br(CHtml::encode($model->description)); ?></p>
+<?php
+  } ?>
 <?php 
 if($model->address){
-	echo '<p style="cursor:pointer;" data-lat="<?php echo $model->lat; ?>" data-lng="<?php echo $model->lng; ?>" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->address).'</span></p>';
+	echo '<p  data-lat="'.$model->lat.'" data-lng="'.$model->lng.'" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->address).'</span></p>';
 }
 ?>
 <?php 
 if($model->link){
-  echo '<p style="cursor:pointer;" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->link).'</span></p>';
+  echo '<p  ><span class="url-link"><a target="_blank" href="'.$model->link.'">'.CHtml::encode($model->link).'</a></span></p>';
 }
 ?>
-<p class="description"><?php echo nl2br(CHtml::encode($model->description)); ?></p>
-<p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; <span style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;<span style="display:inline-block;vertical-align:middle;">
+<p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; 
+<span class="hide" style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;
+<span style="display:inline-block;vertical-align:middle;">
 <?php // echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
 
 
@@ -75,21 +86,19 @@ if($model->link){
 </div><!-- card-body -->
 </div><!--card -->
 </div>
-<?php 
-if(!Yii::app()->user->isGuest && Yii::app()->user->id == $model->author){ ?>
-<div class="hide col-sm-4 p-l-8">
-<div class="card m-mt-30">
-<div class="card-body card-padding" style="padding-left:36px;">
-<div><a href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/update', array('id'=>$model->id)); ?>" class="btn btn-success btn-icon">
-<i class="md md-mode-edit" style="line-height:40px;"></i></a>
-<span style="margin-left:10px;" class="f-12">Редактировать объект</span></div>
-<div style="margin-top:12px;"><a id="sa-warning"  href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/deleteadvert', array('id'=>$model->id)); ?>" class="btn btn-success btn-icon">
-<i class="md md-delete" style="line-height:40px;"></i></a>
-<span style="margin-left:10px;" class="f-12">Удалить объект</span></div>
-</div>              
+
+<div class="col-sm-2">
+<div class="text-left">
+<div>ДОБАВИТЬ:</div>
+<div><button data-toggle="modal" data-target="#add_photo" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
+<i class="zmdi zmdi-camera"></i></button>
+</div>
+<div style="margin-top:60px;">ПОДЕЛИТЬСЯ:</div>
+<?php $this->renderPartial('application.views.common._share',array('thisUrl'=>$thisUrl,'image'=>$imageShare)); ?>           
+
 </div>
 </div> 
-<?php } ?>
+
 </div><!-- row -->
 
 <?php
@@ -188,63 +197,178 @@ if($model->lat && $model->lng){
     ?>
 
 <!-- Modal -->
-<div id="modal_mesto" class="modal fade modal-vcenter" tabindex="-1" role="dialog" style="display:none;">
-  <div class="modal-dialog modal-md" style="height:400px;">
-        <div class="modal-content" style="width:100%;height:100%;">
-            <div class="modal-body" style="width:100%;height:100%;padding:0;position:relative;">
-            <button style="position:absolute;right:20px;top:20px;z-index:10;" type="button" class="close" data-dismiss="modal" aria-hidden="true" style="margin-top:-3px"><img src="/img/close_green.png" /></button>
-            <div  style="width:100%;height:400px;position:absolute;left:0;top:0;z-index:2;">               
-            <?php 
-               $lat = $model->lat;
-               $lng = $model->lng;
-               $this->widget('ext.yandexmap.YandexMap',array(
-                'id'=>'map_mesto',
-                'protocol'=>'//',
-                'load'=>'package.standard,package.clusters',
-                'clusterIcon'=>'/img/clustergreen.png',
-                'width'=>'100%',
-                'height'=>400,
-                'metro'=>false,
-                'clustering'=>true,
-                'zoom'=>14,
-                'center'=>array($lat, $lng),
-                'controls' => array(
-                    'zoomControl' => false,
-                    'typeSelector' => false,
-                    'mapTools' => false,
-                    'smallZoomControl' => true,
-                    'miniMap' => false,
-                    'scaleLine' => false,
-                    'searchControl' => false,
-                    'trafficControl' => false,
-                    'fullscreenControl'=>false,
-                    'geolocationControl'=>false,
-                    'rulerControl'=>false
+<div id="add_photo" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+ 
+      <div class="clearfix"></div>
+            <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'pinboard-form',
+                'enableAjaxValidation'=>true,
+                'enableClientValidation'=>false,
+                'errorMessageCssClass'=>'in-bl-error',
+                'clientOptions'=>array(
+                    'validateOnSubmit'=>true, 
+                    'validateOnChange' => false,
+                    'afterValidate' => "js: function(form, data, hasError) {\n"
+                                ."      if(jQuery.isEmptyObject(data)) {\n"
+                                ."          $('#add_photo').modal('hide');\n"
+                ."      } else {\n"
+                ."        if('flag' in data && data.flag == true){\n"
+                ."          $('#add_photo').modal('hide');\n"
+                ."      location.reload();\n"
+                ."      } \n"
+
+                                ."    return false;\n"
+                                ."}\n"
                 ),
-                'placemark' => $mapparams,
-            ));
+                'htmlOptions'=>array('class'=>'', 'enctype' => 'multipart/form-data')
+                )); 
             ?>
-            </div>
-            </div>
-        </div> 
-    </div>
+      <div class="modal-body p-l-20 p-r-20 ">
+            
+            <input type="hidden" name="PinboardStrict_id" value="" id="hid" />
+            <?php echo $form->hiddenField($model, 'id', array('id'=>'hproject')); ?>
+
+      <div class="form-group m-b-20">
+                    
+                    <div id="dropzone" class="dropzone-box" style="min-height: 270px; margin-top: 10px;margin-bottom:20px;">
+                        <div class="dz-default dz-message f-20 text-center" style="font-weight:normal;color:#5e5e5e;margin-top:-70px;">
+                            <button type="button" style="width:54px;height:54px;margin-bottom:10px;" class="btn bgm-lightblue btn-icon waves-effect waves-circle waves-float btn-lg" ><i class="zmdi zmdi-camera" style="font-size:28px;"></i></button><br>
+                            Перетащите файлы сюда<br><span class="f-12 c-gray">или нажмите на иконку чтобы выбрать вручную</span>
+                        </div>
+                            <div class="fallback">
+                                <input name="tmpFiles" type="file" multiple="" />
+                            </div>
+                    </div>
+                </div>
+                <div class="form-group m-b-20">
+                    <div id="dropzone-tmp"  class="lightbox row"></div>
+                </div>  
+      </div> <!-- / .modal-body -->
+      
+      <div class="modal-footer b-t-0 p-t-0 p-r-20 p-b-20 text-right pull-right">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-default-over btn-sm" id="subButPin">Добавить</button>
+      </div>
+            
+            <div class="clearfix"></div>
+            <?php $this->endWidget(); ?> 
+    </div> <!-- / .modal-content -->
+  </div> <!-- / .modal-dialog -->
 </div> <!-- /.modal -->
+<!-- / Modal -->
+
 <?php
+$uploadLink = Yii::app()->createUrl('file/file/upload');
+$unlinkLink = Yii::app()->createUrl('file/file/unlink');
+$deleteLink = Yii::app()->createUrl('file/file/deleteobjectsfile');
+
 $scriptDd = "
 $(document).ready(function(){
 
+var dropzone = new Dropzone('#dropzone', {
+        url: '".$uploadLink."',
+        paramName: 'tmpFiles', // The name that will be used to transfer the file
+        maxFilesize: ".$sizeLimit.", // MB
+        parallelUploads: 10,
+        params: {
+          '".$csrfTokenName."': '".$csrfToken."'
+        },
+        previewsContainer:'#dropzone-tmp',
+        addRemoveLinks: true,
+        dictRemoveFile:'',
+        removeLinksClass: 'dz-remove btn bgm-lightblue btn-icon waves-effect waves-circle waves-float',
+        acceptedFiles: '.jpeg,.jpg,.png,.gif',
+        removedfile: function(file) {
+            
+            var name = file.name;        
+            $.ajax({
+                type: 'POST',
+                url: '".$unlinkLink."',
+                data: {
+                    'name':name,
+                    '".$csrfTokenName."': '".$csrfToken."'
 
-  /*  $('.modal-vcenter').on('show.bs.modal', reposition);
-    $(window).on('resize', function() {
-        $('.modal-vcenter:visible').each(reposition);
-    }); */
+                },
+                dataType: 'html'
+            });
+        $('input[value=\"'+ name +'\"]').remove();
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;        
+        },
+        dictResponseError: 'Can\'t upload file!',
+        autoProcessQueue: true,
+        thumbnailWidth: 140,
+        thumbnailHeight: 140,
 
-$('#modal_mesto').on('shown.bs.modal', function (e) {
-    var lat = $(e.relatedTarget).data('lat');
-    var lng = $(e.relatedTarget).data('lng');
-  
- });
+        previewTemplate: '<div data-src=\"\" class=\"dz-preview dz-file-preview col-sm-3 col-xs-6 lightbo\">' +
+        '<div class=\"dz-thumbnail lightbox-item\">' +
+        '<img data-dz-thumbnail><span class=\"dz-nopreview\">No preview</span>' +
+        '<div class=\"dz-error-mark\"><i class=\"md md-highlight-remove\"></i></div>' +
+        '<div class=\"dz-error-message\"><span data-dz-errormessage></span></div></div>' +
+        '</div>',
+
+        resize: function(file) {
+            var info = { srcX: 0, srcY: 0, srcWidth: file.width, srcHeight: file.height },
+                srcRatio = file.width / file.height;
+            if (file.height > this.options.thumbnailHeight || file.width > this.options.thumbnailWidth) {
+                info.trgHeight = this.options.thumbnailHeight;
+                info.trgWidth = info.trgHeight * srcRatio;
+                if (info.trgWidth > this.options.thumbnailWidth) {
+                    info.trgWidth = this.options.thumbnailWidth;
+                    info.trgHeight = info.trgWidth / srcRatio;
+                }
+            } else {
+                info.trgHeight = file.height;
+                info.trgWidth = file.width;
+            }
+            return info;
+        }
+    }).on('addedfile', function(file) {
+                
+    }).on('success', function(file, serverResponse){
+
+                var id = $(this.element);
+              //  console.log(id);
+                id.find('.progress').remove();
+                var response = $.parseJSON(serverResponse);
+                if (response && response.success == true && response.fileName){
+                    $('#pinboard-form').append('<input type=\"hidden\" name=\"Objects[tmpFiles][]\" value=\"' + response.fileName + '\" class=\"dr-zone-inputs\">');
+                }
+                
+    });
+
 ";
+$folder = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR;
+$folderLink= '/uploads/tmp/';
+//$url1 = str_replace("\\","/",$url1_thumb);
+if(Yii::app()->session->itemAt($this->uploadsession)){
+    $datas = Yii::app()->session->itemAt($this->uploadsession);
+    if(is_array($datas)){
+        $cnt = 0; 
+        foreach($datas as $key => $value){
+          if(file_exists(Yii::getPathOfAlias('webroot').$folder.$value)){
+              $cnt++;
+
+                $scriptDd .='
+                var sessFile'.$cnt.' = {
+                    "name": "'.$key.'",
+                    "size": "'.filesize(Yii::getPathOfAlias('webroot').$folder.$value).'",
+                    "ext": "'.pathinfo(Yii::getPathOfAlias('webroot').$folder.$value, PATHINFO_EXTENSION).'"
+                };
+                 var linkThumb = "'.$folderLink.$value.'";
+                dropzone.options.addedfile.call(dropzone, sessFile'.$cnt.'); 
+                dropzone.options.thumbnail.call(dropzone, sessFile'.$cnt.', linkThumb);
+
+                $("#pinboard-form").append("<input type=\'hidden\' name=\'Objects[tmpFiles][]\' value=\'" + sessFile'.$cnt.'.name + "\' class=\'dr-zone-inputs\' >");
+
+          ';
+          }
+      }
+    }
+}
 if(!empty($images)){
     $scriptDd .= "
 var gallery = $('.gallery-nav.lightbox').lightGallery();
@@ -253,36 +377,12 @@ zoomclick = function(){
     gallery = $('.gallery-nav.lightbox').lightGallery();
     $('.gallery-nav.lightbox img:eq(0)').trigger( 'click' );
 }
-";
-}
-$scriptDd .= "
-$('#sa-warning').click(function(){
-    swal({   
-        title: 'Подтвердите удаление',   
-        text: '',   
-        type: 'warning',   
-        showCancelButton: true,   
-        confirmButtonColor: '#DD6B55',   
-        cancelButtonText: 'Отмена',
-        confirmButtonText: 'Удалить',   
-        closeOnConfirm: false,
-        closeOnCancel: true
-    }, function(isConfirm){   
-        if (isConfirm) {
-            window.location = $('#sa-warning').attr('href');
-        } else {
-            swal('Отмена', '', 'error');
-        }
-    });
-    return false;
-});
-";
-if($images){ 
-	$scriptDd .= "
+
 	$('#lightGallery').lightGallery({
 		mode:'fade'
 	});";
 }	
+
 $scriptDd .= "
 })";
 	Yii::app()->clientScript->registerScript("scriptgal", $scriptDd, CClientScript::POS_END);

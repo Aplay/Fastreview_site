@@ -48,7 +48,36 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.125) inset;
     box-shadow: none;
 }
-
+.btn-soc {
+    border: 2px solid #ccc;
+}
+.btn-soc i {
+    color:#ccc;
+}
+.btn-soc:hover {
+    border: 2px solid #03a9f4;
+}
+.btn-soc:hover i {
+    color:#03a9f4;
+}
+.modal.in .modal-dialog {
+    z-index: 1100;
+}
+.url-link a {
+    color: #2196f3;
+    border-bottom: 1px solid #2196f3;
+}
+.card {
+    box-shadow: none;
+}
+#item-gal {
+    width:100%;height:280px;overflow: hidden;
+}
+.item-gal-im {
+    width:100%;height:280px;overflow: hidden;
+    background-size: cover; background-repeat: no-repeat;
+    background-position: center center;
+}
 #dropzone-tmp .dz-remove.btn-icon {
     background-image: none;
     border-radius: 50%;
@@ -357,6 +386,9 @@ a.oblects_view, a.oblects_view_main {
 }
 }
 @media(min-width: 992px){ /* 1024 */
+#item-gal, .item-gal-im {
+    height:480px;
+}
     #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
         height: 130px;
     }

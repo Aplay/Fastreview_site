@@ -1,9 +1,7 @@
-<div class="text-center" style="min-height: 34px;">
 <div id="addshare">		
 <noindex>
 <span id="ya_share1"></span>
 </noindex>
-</div>
 </div>
 <?php 
 $scriptAdd = "
@@ -26,9 +24,13 @@ $(document).ready(function(){
             link: '".$thisUrl."',
             title: '".addslashes($this->pageTitle)."',
             description: '".addslashes($this->pageDescription)."',
-            image: '".$image."'
-                 
-});
+            ";
+        if(isset($image) && !empty($image)){
+            $scriptAdd .= "image: '".$image."'";
+        }
+$scriptAdd .= "
+                    
+        });
     })
 })
 ";

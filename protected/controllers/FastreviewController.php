@@ -207,11 +207,60 @@ class FastreviewController extends Controller {
       $this->pageTitle = $trunc_text.' - '.Yii::app()->name;
       $this->pageTitle = trim(preg_replace('/\s+/', ' ', $this->pageTitle));
       
+
       $pohs = Objects::model()->active()->findAll(array(
         'condition'=>'categorie='.$model->categorie.' and id!='.$id,
         'limit'=>5,
         'order'=>'created_date DESC'
         ));
+
+      if(isset($_POST['Objects']))
+    {
+      if(isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form')
+      {
+        $errors = CActiveForm::validate($model);
+        if ($errors !== '[]') {
+               echo $errors;
+               Yii::app()->end();
+            } 
+      }
+
+      $model->attributes=$_POST['Objects'];
+
+      if($model->validate()){
+        
+        if(isset(Yii::app()->session['deleteObjectsFiles']))
+        {
+            $sessAr = unserialize(Yii::app()->session['deleteObjectsFiles']);
+            if(isset($sessAr['id']) && $sessAr['id'] == $model->id && isset($sessAr['files']) && is_array($sessAr['files']))
+          {
+             $files = $model->images;
+             if($files)
+             {
+              foreach ($files as $file) {
+                if(in_array($file->id,$sessAr['files'])){
+                  $file->delete();
+                }
+              }
+             }
+          }
+        }
+        
+        $model->addDropboxFiles($this->uploadsession);
+              Yii::app()->session->remove($this->uploadsession);
+              if(isset(Yii::app()->session['deleteObjectsFiles']))
+            unset(Yii::app()->session['deleteObjectsFiles']);
+
+              
+                if(Yii::app()->request->isAjaxRequest){
+                  echo CJSON::encode(array('flag'=>true, 'message'=>'done'));
+          Yii::app()->end();
+                } else {
+                    $this->refresh();
+                    Yii::app()->end();
+                }
+      } 
+    }
       $this->render('item', array(
                  'model' => $model,
                  'pohs'=>$pohs

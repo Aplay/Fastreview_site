@@ -139,6 +139,9 @@ a.theme-color, a.theme-color:active, a.theme-color:hover, a.theme-color:focus, .
 .f-17{
 	font-size:17px;
 }
+.f-18{
+	font-size:18px;
+}
 .f-20{
 	font-size:20px;
 }
@@ -1043,6 +1046,24 @@ width: 186px;
 	background-size: cover;
 	display:block;
 }
+#ya_share1 .b-share, #ya_share1.b-share_theme_counter .b-share {
+	padding: 0 !important; 
+	white-space: normal !important;
+	font-size: 18px;
+	line-height: 1em;
+}
+#ya_share1.b-share_theme_counter .b-share-btn__wrap {
+	display: block !important;
+    margin-left: 0 !important;
+    
+    float:none;
+}
+#ya_share1 .b-share__handle.b-share__link {
+	margin-top:15px;
+}
+#ya_share1 .b-share-btn__wrap:before {
+  
+}
 .ak-share-icon.btn{
 	width:32px; height:32px;
 	line-height:32px;
@@ -1050,9 +1071,38 @@ width: 186px;
 #ya_share1 .b-share-icon{
 	background: none;
 	background-position: 0 0 !important;
-	width:32px; height:32px;
+	/*width:32px; height:32px;*/
+
 	background-size: cover;
+	width:40px; height: 40px;
+	border-radius: 50%;
+	padding: 0;
+    text-align: center;
+    line-height: 2em;
+    border:2px solid #ccc;
 }
+#ya_share1 .b-share-icon:hover::after {
+	color:#03a9f4;
+}
+#ya_share1 .b-share-icon::after {
+	font-family: "Material-Design-Iconic-Font";
+	font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-weight: normal;
+    text-rendering: auto;
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-language-override: normal;
+    color: #ccc;
+    font-size: 18px;
+    padding-left: 1px;
+    line-height: 2em;
+    
+}
+
 #ya_share1 .b-share__handle.b-share__link,
 #ya_share1 .b-share__handle.b-share__link:hover,
 #ya_share1 .b-share__handle.b-share__link:active,
@@ -1076,15 +1126,24 @@ width: 186px;
 }
 #ya_share1 .b-share-icon.b-share-icon_vkontakte,
 .ak-share-icon.ak-share-icon_vkontakte {
-	background-image:url('/themes/material/img/social/vkontakte2-128.png');
+	/*background-image:url('/themes/material/img/social/vkontakte2-128.png');*/
+}
+#ya_share1 .b-share-icon.b-share-icon_vkontakte::after {
+	content: '\f361';
 }
 #ya_share1 .b-share-icon.b-share-icon_facebook,
 .ak-share-icon.ak-share-icon_facebook {
-	background-image:url('/themes/material/img/social/facebook-128.png');
+	/*background-image:url('/themes/material/img/social/facebook-128.png');*/
+}
+#ya_share1 .b-share-icon.b-share-icon_facebook::after {
+	content: '\f343';
 }
 #ya_share1 .b-share-icon.b-share-icon_twitter,
 .ak-share-icon.ak-share-icon_twitter {
-	background-image:url('/themes/material/img/social/twitter-128.png');
+	/*background-image:url('/themes/material/img/social/twitter-128.png');*/
+}
+#ya_share1 .b-share-icon.b-share-icon_twitter::after {
+	content: '\f360';
 }
 #ya_share1 .b-share-icon.b-share-icon_odnoklassniki,
 .ak-share-icon.ak-share-icon_odnoklassniki {
@@ -1108,31 +1167,37 @@ width: 186px;
 }
 #ya_share1 .b-share__handle.b-share__link .b-share-icon, 
 .ak-share__handle.ak-share__link .ak-share-icon, .share-btn{
-	-webkit-transition: all;
+/*	-webkit-transition: all;
   -o-transition: all;
   transition: all;
   -webkit-transition-duration: 200ms;
-  transition-duration: 200ms;
+  transition-duration: 200ms;*/
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 #ya_share1 .b-share__handle.b-share__link:hover .b-share-icon,
 .ak-share__handle.ak-share__link:hover .ak-share-icon{
-	-webkit-transform: scale(1.2);
+	border:2px solid #03a9f4;
+	
+/*	-webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   -o-transform: scale(1.2);
-  transform: scale(1.2);
+  transform: scale(1.2);*/
 }
+#ya_share1 .b-share__handle.b-share__link:hover .b-share-icon::after {
+	color:#03a9f4;
+}
+#ya_share1 .b-share__handle.b-share__link:hover .b-share-icon
 .share-btn:hover {
-	-webkit-transform: scale(1.1);
+/*	-webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   -o-transform: scale(1.1);
-  transform: scale(1.1);
+  transform: scale(1.1);*/
 }
 #ya_share1 .b-share-counter{
 	color:#777;
-	margin-top:8px;
+	margin-top:12px;
 }
 
 /*
