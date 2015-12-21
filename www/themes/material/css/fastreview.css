@@ -195,7 +195,9 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
    color: #fff;
    text-align: center;
    padding-top: 2em;
-   font-size: 0.9em;
+   font-size: 12px;
+   font-weight: bold;
+   text-transform: uppercase;
 }
 .map_bg {
     position: absolute;

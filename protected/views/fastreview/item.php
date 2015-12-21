@@ -96,7 +96,7 @@ $scriptAdd ='
 
                         var mapLocation = $("#map"),
                         mapPoint = [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng];
-                        marker = "/img/markers/mark-place.png";
+                        marker = "/img/markers/mark-place-w.png";
                         //$("#Record_coords_lat").attr("value", data.results[0].geometry.location.lat);
                         //$("#Record_coords_lng").attr("value", data.results[0].geometry.location.lng);
                         initializSimpleeMap(mapLocation, mapPoint, marker);
