@@ -2,6 +2,16 @@
 $themeUrl = Yii::app()->theme->baseUrl;
 $csrfTokenName = Yii::app()->request->csrfTokenName;
 $csrfToken = Yii::app()->request->csrfToken;
+$cs = Yii::app()->ClientScript;
+  
+  Yii::app()->clientScript->addPackage('googleMap', array(
+      'baseUrl'=>'https://maps.googleapis.com/maps/api',
+      'js'=>array('js?&sensor=false&language=' . Yii::app()->language . '&region='.Yii::app()->language)
+  ));
+  Yii::app()->clientScript->registerPackage('googleMap');
+  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/lib/gmap3.js', CClientScript::POS_END);
+  Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/view/script-map.js', CClientScript::POS_END);
+
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/light-gallery/lightGallery.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/light-gallery/lightGallery.min.css');
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/dropzone/dropzone.js', CClientScript::POS_END);
@@ -27,7 +37,83 @@ $search = null;
   $term = null;
 
 
-?>
+
+if (!empty($model->address)) {
+
+  /*
+  непонятные коордирнаты, могут быть не верны
+  $latlng = '';
+  if (!empty($record->strReserved)) {
+    $strReserved = CJSON::decode($record->strReserved);
+    if(is_array($strReserved) && !empty($strReserved['coords'])  && isset($strReserved['coords']['x']) && isset($strReserved['coords']['y'])){
+      $latlng = '['.$strReserved['coords']['x'].','.$strReserved['coords']['y'].']';
+    }
+  }*/
+  $words = explode(' ',$model->address);
+    $addressParts = ''; $addressArray = array(); $cnt = 0;
+  foreach($words as $word){
+
+
+        if($cnt == 0){
+            $addressParts .= $word;
+        } else {
+            $addressParts .= ' '.$word;
+        }
+        
+        $addressArray[] = $addressParts;
+
+
+        $cnt++;
+   }   
+  if(!empty($addressArray)){
+      $addressArrayReverse = array_reverse($addressArray);
+      foreach($addressArrayReverse as $addr){
+          echo '<input type="hidden" name="addr" class="addrParts" value="'.$addr.'" />';
+      }
+  }
+$scriptAdd ='
+      var addrAr = [];
+            var linkList = $(".addrParts");
+            linkList.each(function (i, item) {
+                var $item = $(item);
+                addrAr.push($item.attr("value")) ;
+
+            });
+            var i =0;
+            doLoop(addrAr);
+
+            function doLoop(addrAr) {
+               //exit condition
+               if (i >= addrAr.length) {
+                  return;
+               }
+               //loop body- call ajax
+               $.ajax({
+               url: "http://maps.googleapis.com/maps/api/geocode/json?address="+ addrAr[i] +"&sensor=false&language='.Yii::app()->language.'",
+               cache: false,
+               success: function(data) {
+                  if (data.status == "OK" && data.results) {
+
+                        var mapLocation = $("#map"),
+                        mapPoint = [data.results[0].geometry.location.lat, data.results[0].geometry.location.lng];
+                        marker = "/img/markers/mark-place.png";
+                        //$("#Record_coords_lat").attr("value", data.results[0].geometry.location.lat);
+                        //$("#Record_coords_lng").attr("value", data.results[0].geometry.location.lng);
+                        initializSimpleeMap(mapLocation, mapPoint, marker);
+
+                    } else {
+                          i++;
+                          //go to next iteration of the loop
+                          doLoop(addrAr);
+                    }
+               }
+               });
+            }
+
+      ';
+Yii::app()->clientScript->registerScript('add-map', $scriptAdd, CClientScript::POS_END);    
+  }
+  ?>
 <div class="row m-t-25">
 <div class="col-sm-8 col-sm-offset-2">
 <div class="card-body m-b-20 p-0">
@@ -87,6 +173,21 @@ $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
    
 </div>
 <div class="clearfix"></div>
+
+<?php if (!empty($model->address)) { ?>
+<div class="card">
+<div class="map_box">
+<div class="triangle"></div>
+<div class="map fcolor" id="map"></div>
+<div class="map_bg">
+<?php if (!empty($model->address)) { ?>
+<div class="address">
+  <?php echo CHtml::encode($model->address); ?>
+</div>
+<?php } ?></div>
+</div>
+</div>
+<?php } ?>
 
 <div class="card m-t-25">
 <div class="card-body advert_item">
@@ -299,6 +400,10 @@ $deleteLink = Yii::app()->createUrl('file/file/deleteobjectsfile');
 
 $scriptDd = "
 $(document).ready(function(){
+
+  $('.map_box .map_bg').click(function(e){
+    $('.map_box').toggleClass('active');
+  });
 
 var dropzone = new Dropzone('#dropzone', {
         url: '".$uploadLink."',

@@ -150,6 +150,52 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     margin:0px 3px;
     width: 10px;
 }
+.map_box {
+    height: 88px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.map_box .map {
+    border: 1px solid #CCCCCC;
+    color: #000000;
+    font-size: 14px;
+    height: 300px;
+    width: 100%;
+   
+   /* border-radius: 12px;*/
+}
+.map_box.active {
+    height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.map_box {
+     margin-top: 4px;
+     position: relative;
+}
+.map_box .triangle {
+     background-image: url('/img/map_arrow_top.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+
+    position: absolute;
+    z-index: 20;
+    left: 49%;
+    top: 0px;
+    bottom: auto;
+    width: 22px;
+    height: 13px;
+    cursor: pointer;
+
+}
+.map_bg {
+    position: absolute;
+    top:0; left:0; width:100%;
+    height: 88px;
+     z-index: 15;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(229, 227, 223, 0));
+
+}
 #dropzone-tmp .dz-remove.btn-icon {
     background-image: none;
     border-radius: 50%;
