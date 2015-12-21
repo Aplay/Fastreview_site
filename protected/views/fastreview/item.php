@@ -413,7 +413,7 @@ zoomclick = function(){
 	$('#lightGallery').lightGallery({
 		mode:'fade'
 	});
-$('.carousel').carousel();
+// $('.carousel').carousel();
 
  /* $('.carousel-inner').Swipe( {
         swipeLeft:function(event, direction, distance, duration, fingerCount) {
