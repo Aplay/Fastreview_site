@@ -131,8 +131,8 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     background-color: transparent;
 }
 #carouselFull.carousel .carousel-indicators li {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid #fff;
+    background-color: #ccc;
+    border: 1px solid #ccc;
     border-radius: 10px;
     cursor: pointer;
     display: inline-block;
@@ -141,9 +141,11 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     text-indent: -999px;
     width: 10px;
     margin:0px 3px;
+    color:#ccc;
 }
 #carouselFull.carousel .carousel-indicators .active {
     background-color: #03a9f4;
+    border: 1px solid #03a9f4;
     height: 10px;
     margin:0px 3px;
     width: 10px;
