@@ -28,38 +28,22 @@ $search = null;
 
 
 ?>
-
-
-<div class="hide block-header" style="margin-top:45px;">
-     <h2 class="org_title" style="text-transform:none;"><?php echo CHtml::encode($model->title); ?></h2>
-</div>
 <div class="row m-t-25">
 <div class="col-sm-8 col-sm-offset-2">
-
+<div class="card-body m-b-20 p-0">
 <?php
 $images = $model->images;
 $imageShare = '';
+
 if(!empty($images)){
-	$src = $imageShare = $images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant');
-  $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
-	Yii::app()->clientScript->registerMetaTag($imageShare, null, null, array('property' => "og:image"));
-  // $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
-?>
-<div class="card-body m-b-20">
-<div id="item-gal">
-<div id="article_page_header"  onclick="zoomclick();" style="cursor:pointer;background-image:url('<?php echo $src; ?>');">
-</div>
-<div  class="gallery-nav">
-
-           
-            
-
-<?php
-if(!empty($images)){ ?>
+$imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
+  Yii::app()->clientScript->registerMetaTag($imageShare, null, null, array('property' => "og:image"));
+ ?>
 <div data-interval="false" data-ride="carousel" class="carousel slide gallery" id="carouselFull">
             <ol class="carousel-indicators">
             <?php
-        
+        $cntI = count($images);
+        if($cntI > 1){  
         foreach($images as $k=>$foto){
             if($foto){
                 // $src = Yii::app()->createAbsoluteUrl('file/company', array('id'=>$foto->id));
@@ -77,9 +61,11 @@ if(!empty($images)){ ?>
             
             }
         }
+      }
         ?>
    </ol>
-                   <div class="carousel-inner" role="listbox">
+                
+            <div class="carousel-inner" role="listbox">
                 <?php  foreach($images as $k=>$foto){
             if($foto){
                 $src = $model->getOrigFilePath().$foto->filename;
@@ -91,21 +77,18 @@ if(!empty($images)){ ?>
                } 
           } ?>             
           </div>
-                    <a data-slide="prev" role="button" href="#carouselFull" class="left carousel-control"><span class="fa fa-chevron-left"></span></a>
+          <?php if($cntI > 1){ ?>   
+                <a data-slide="prev" role="button" href="#carouselFull" class="left carousel-control"><span class="fa fa-chevron-left"></span></a>
                 <a data-slide="next" role="button" href="#carouselFull" class="right carousel-control"><span class="fa fa-chevron-right"></span></a>
-            </div>
+          <?php } ?>
   <?php
     } 
     ?>
    
 </div>
-</div>
-</div>
 <div class="clearfix"></div>
-<?php
-}
-?>
-<div class="card">
+
+<div class="card m-t-25">
 <div class="card-body advert_item">
 <p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?></p>
 <?php 
@@ -130,8 +113,9 @@ if($model->link){
 
 
 
-</div><!-- card-body -->
-</div><!--card -->
+</div>
+</div>
+</div>
 </div>
 
 <div class="col-sm-2">
