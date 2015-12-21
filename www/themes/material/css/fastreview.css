@@ -91,15 +91,32 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     height: 100%;
    
 }
-#carouselFull .carousel-control .fa-chevron-left {
-    left: 50%;
-    margin-left: -10px;
-}
-#carouselFull .carousel-control .fa-chevron-left, .carousel-control .fa-chevron-right {
+#carouselFull .carousel-control .fa-chevron-left, 
+#carouselFull .carousel-control .fa-chevron-right {
     display: inline-block;
     position: absolute;
     top: 50%;
     z-index: 5;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.3);
+    line-height: 2.4em;
+  
+}
+#carouselFull .fa-chevron-left::before {
+   margin-left: -3px;
+}
+#carouselFull .fa-chevron-right::before {
+   margin-right: -3px;
+}
+#carouselFull .carousel-control .fa-chevron-left {
+    left: 10px;
+    margin-left: 0px;
+}
+#carouselFull .carousel-control .fa-chevron-right {
+    margin-right: 0px;
+    right: 10px;
 }
 #carouselFull.carousel .carousel-indicators {
     bottom: 20px;
