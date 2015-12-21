@@ -26,7 +26,7 @@ $search = null;
 $images = $model->images;
 $imageShare = '';
 if(!empty($images)){
-	$src = $imageShare = $images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant');
+  $src = $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant'));
 	// $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
 ?>
 <div class="card-body m-b-20">
@@ -94,7 +94,8 @@ if($model->link){
 <i class="zmdi zmdi-camera"></i></button>
 </div>
 <div style="margin-top:60px;">ПОДЕЛИТЬСЯ:</div>
-<?php $this->renderPartial('application.views.common._share',array('thisUrl'=>$thisUrl,'image'=>$imageShare)); ?>           
+<?php $this->renderPartial('application.views.common._share',array('thisUrl'=>$thisUrl,'image'=>$imageShare));
+ ?>           
 
 </div>
 </div> 
