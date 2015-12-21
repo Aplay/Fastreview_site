@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
 <h3 class="c-blue" style="margin-top:80px;">БЫСТРЫЕ ОТЗЫВЫ</h3>
-<p class="m-t-5">Все преимущества и недостатки любых товаров, улуг и объектов.</p>
+<p class="m-t-5 t-uppercase">Все преимущества и недостатки любых товаров, улуг и объектов</p>
 <form role="form" style="margin-top:60px;" id="mainSearchForm">
 <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
 <input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
@@ -93,7 +93,7 @@ $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id,
             <img alt="" src="<?php echo $im; ?>" class="lv-img-lg" />
         </div>
         <div class="media-body m-t-5">
-        <p class="m-b-5"><?php echo CHtml::encode($last->title);  ?></p>
+        <p class="m-b-5" style="height:19px;overflow:hidden;"><?php echo CHtml::encode($last->title);  ?></p>
         <div class="pull-left">
         <!--<img alt="" src="/img/gud.png" />-->
         <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
