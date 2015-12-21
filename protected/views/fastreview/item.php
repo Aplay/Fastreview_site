@@ -6,6 +6,9 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/light-gallery/l
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/light-gallery/lightGallery.min.css');
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/dropzone/dropzone.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/dropzone/dropzone.css');
+// Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/swipe/swipe.js', CClientScript::POS_END);
+
+
 
 $sizeLimit = Yii::app()->params['storeImages']['maxFileSize']/1024/1024;
 $thisUrl = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$model->id, 'dash'=>'-', 'themeurl'=>$model->category->url,'itemurl'=>$model->url));
@@ -47,8 +50,15 @@ if(!empty($images)){
 <div id="article_page_header"  onclick="zoomclick();" style="cursor:pointer;background-image:url('<?php echo $src; ?>');">
 </div>
 <div  class="gallery-nav">
+
+           
+            
+
 <?php
-if(!empty($images)){ 
+if(!empty($images)){ ?>
+<div data-interval="false" data-ride="carousel" class="carousel slide gallery" id="carouselFull">
+            <ol class="carousel-indicators">
+            <?php
         
         foreach($images as $k=>$foto){
             if($foto){
@@ -58,12 +68,36 @@ if(!empty($images)){
                 $image = $foto->getUrl('800x500','resize');
 
               //  echo CHtml::link($image, $src, array('class'=>'', 'data-lightbox'=>'lb-'.$model->id));
-                echo '<div  data-src="'.$src.'"><div class="item-gal-im" style="background-image:url('.$image.');"></div></div>';
+               // echo '<div  data-src="'.$src.'"><div class="item-gal-im" style="background-image:url('.$image.');"></div></div>';
+           echo  '<li ';
+           if($k==0){
+            echo ' class="active" ';
+           }
+           echo ' data-slide-to="'.$k.'" data-target="#carouselFull"></li>';
+            
             }
         }
-        
+        ?>
+   </ol>
+                   <div class="carousel-inner" role="listbox">
+                <?php  foreach($images as $k=>$foto){
+            if($foto){
+                $src = $model->getOrigFilePath().$foto->filename;
+                echo '<div style="background-image: url('.$src.')" class="galleryItem item';
+                if($k==0){
+                  echo ' active ';
+                  } 
+                echo '"></div>';
+               } 
+          } ?>             
+          </div>
+                    <a data-slide="prev" role="button" href="#carouselFull" class="left carousel-control"><span class="fa fa-chevron-left"></span></a>
+                <a data-slide="next" role="button" href="#carouselFull" class="right carousel-control"><span class="fa fa-chevron-right"></span></a>
+            </div>
+  <?php
     } 
     ?>
+   
 </div>
 </div>
 </div>
@@ -118,14 +152,14 @@ if($model->link){
 <?php
 if(!empty($pohs)){?>
 <div class="row">
-<div class="col-xs-12">
-<div class="rootCategory" style="font-size:20px;font-weight:300;margin-left:20px;margin-bottom:18px;">
+<div class="col-sm-8 col-sm-offset-2">
+<div class="rootCategory" style="font-size:18px;text-align:center;margin-bottom:18px;">
       ПОХОЖЕЕ
  </div>
  </div>
  </div>
 <div class="row">
-<div class="col-sm-8 p-r-8">
+<div class="col-sm-8 col-sm-offset-2">
 <div class="card">
 <div class="col-xs-12 item-article-list five-column">
 <div id="journal_listview" class="list-view">
@@ -394,10 +428,24 @@ zoomclick = function(){
 
 	$('#lightGallery').lightGallery({
 		mode:'fade'
-	});";
+	});
+$('.carousel').carousel();
+
+ /* $('.carousel-inner').Swipe( {
+        swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            $(this).parent().carousel('next'); 
+        },
+        swipeRight: function() {
+            $(this).parent().carousel('prev');
+        }
+    });*/
+  
+";
 }	
 
 $scriptDd .= "
+
+
 })";
 	Yii::app()->clientScript->registerScript("scriptgal", $scriptDd, CClientScript::POS_END);
 

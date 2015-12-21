@@ -78,6 +78,59 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     background-size: cover; background-repeat: no-repeat;
     background-position: center center;
 }
+#carouselFull {
+    height: 280px;
+}
+#carouselFull.carousel .carousel-inner {
+    height: 100%;
+}
+#carouselFull.carousel .carousel-inner .item {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    display: block;
+}
+#carouselFull .carousel-control .fa-chevron-left {
+    left: 50%;
+    margin-left: -10px;
+}
+#carouselFull .carousel-control .fa-chevron-left, .carousel-control .fa-chevron-right {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+}
+#carouselFull.carousel .carousel-indicators {
+    bottom: 20px;
+    left: 50%;
+    list-style: outside none none;
+    margin-left: -30%;
+    padding-left: 0;
+    position: absolute;
+    text-align: center;
+    width: 60%;
+    z-index: 15;
+    background-color: transparent;
+}
+#carouselFull.carousel .carousel-indicators li {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    height: 10px;
+    margin: 1px;
+    text-indent: -999px;
+    width: 10px;
+    margin:0px 3px;
+}
+#carouselFull.carousel .carousel-indicators .active {
+    background-color: #03a9f4;
+    height: 10px;
+    margin:0px 3px;
+    width: 10px;
+}
 #dropzone-tmp .dz-remove.btn-icon {
     background-image: none;
     border-radius: 50%;
@@ -118,6 +171,7 @@ i.in-sm {
     line-height: 1.8em !important;
     font-size: 13px;
 }
+
 .c-6 {
 	color: #666;
 }
@@ -386,7 +440,7 @@ a.oblects_view, a.oblects_view_main {
 }
 }
 @media(min-width: 992px){ /* 1024 */
-#item-gal, .item-gal-im {
+#item-gal, .item-gal-im, #carouselFull {
     height:480px;
 }
     #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
