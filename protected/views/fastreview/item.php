@@ -9,9 +9,20 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/dropzone/dropzon
 
 $sizeLimit = Yii::app()->params['storeImages']['maxFileSize']/1024/1024;
 $thisUrl = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$model->id, 'dash'=>'-', 'themeurl'=>$model->category->url,'itemurl'=>$model->url));
+
+Yii::app()->clientScript->registerMetaTag($model->title, null, null, array('property' => "og:title"));
+Yii::app()->clientScript->registerMetaTag($this->pageDescription, null, null, array('property' => "og:description"));
+Yii::app()->clientScript->registerMetaTag('article', null, null, array('property' => "og:type"));
+Yii::app()->clientScript->registerMetaTag($thisUrl, null, null, array('property' => "og:url"));
+
+
+
+
+
 $search = null;
   $check = null;
   $term = null;
+
 
 ?>
 
@@ -28,7 +39,8 @@ $imageShare = '';
 if(!empty($images)){
 	$src = $imageShare = $images[0]->getUrl('800x500xC', 'adaptiveResizeQuadrant');
   $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
-	// $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
+	Yii::app()->clientScript->registerMetaTag($imageShare, null, null, array('property' => "og:image"));
+  // $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
 ?>
 <div class="card-body m-b-20">
 <div id="item-gal">
