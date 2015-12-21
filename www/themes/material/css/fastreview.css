@@ -78,6 +78,9 @@ a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
     background-size: cover; background-repeat: no-repeat;
     background-position: center center;
 }
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+}
 #carouselFull {
     height: 280px;
 }
