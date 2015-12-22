@@ -122,7 +122,8 @@ $images = $model->images;
 $imageShare = '';
 
 if(!empty($images)){
-$imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
+// $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getOrigFile());
+$imageShare = Yii::app()->createAbsoluteUrl($images[0]->getUrl('500','resize'));
   Yii::app()->clientScript->registerMetaTag($imageShare, null, null, array('property' => "og:image"));
  ?>
 <div data-interval="false" data-ride="carousel" class="carousel slide gallery" id="carouselFull">
