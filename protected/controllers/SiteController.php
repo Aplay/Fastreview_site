@@ -43,10 +43,26 @@ class SiteController extends Controller {
         
        // $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
         $cats =  Category::getRubsByParentId();
-        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>9));
+        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>2));
+        $last_array = array();
+        if(!empty($lasts)){
+            foreach ($lasts as $last) {
+                $last_array[] = $last->id;
+            }
+        }
+        $criteria = new CDbCriteria;
+        $criteria->order = 'created_date DESC';
+        $criteria->limit = 3;
+        $criteria->addNotInCondition('org_id', $last_array);
+        $lasts_poll = PollChoice::model()->findAll($criteria);
+        if(!empty($lasts_poll)){
+            foreach ($lasts_poll as $last_poll) {
+                $lasts[] = $last_poll->org;
+            }
+        }
         $this->render('index',array(
             'cats'=>$cats,
-            'lasts'=>$lasts
+            'lasts'=>$lasts,
         ));
  
         
