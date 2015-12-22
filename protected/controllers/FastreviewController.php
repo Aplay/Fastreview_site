@@ -200,6 +200,53 @@ class FastreviewController extends Controller {
 
         ));
     }
+
+    public function actionSearch(){
+        $count_items = 0;
+        
+        if (($term = Yii::app()->getRequest()->getQuery('q')) !== null) {
+
+            $trunc_text = MHelper::String()->truncate(CHtml::encode($term), 250, '..', true, true, false);
+            $this->pageTitle = $trunc_text.' - '.Yii::app()->name;
+            $this->pageTitle = trim(preg_replace('/\s+/', ' ', $this->pageTitle));
+
+            $query = $term;
+
+            $s = MHelper::String()->toLower(trim($term));
+            $resultsPr = null;
+            if(!empty($s)){
+              $s = addcslashes($s, '%_'); // escape LIKE's special characters
+
+              $criteria = new CDbCriteria;
+              $criteria->scopes='active';
+              $criteria->condition =' ((LOWER(title) LIKE :s))';
+              $criteria->params = array(':s'=>"%$s%");
+              $resultsPr = new CActiveDataProvider('Objects', array(
+                  'criteria' => $criteria,
+                  'sort'       => array(
+                      'defaultOrder' => 'title',
+                  ),
+                  'pagination' => array(
+                      'pageSize' => 10,
+                      'pageVar'=>'page'
+                  ),
+              ));
+            }
+            $this->render('search',array(
+                  'provider'=>$resultsPr,
+                  'term'=>$term
+                        ));
+        } else {
+          $term = $query = '';
+          $resultsPr = null;
+          $this->pageTitle = 'Поиск - '.Yii::app()->name;
+          $this->render('search',array(
+                  'provider'=>$resultsPr,
+                  'term'=>$term
+           ));
+        }
+
+    }
     public function actionItem($id)
     {
     	$model = $this->_loadItem($id);

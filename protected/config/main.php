@@ -241,7 +241,7 @@ return array(
                 '/<action:login|registration|recovery|profile>' => '/users/<action>',
 
                 '/<action:new_object>' =>'/fastreview/<action>',
-
+                '/search/*'=>'/fastreview/search',
                 '/reviews/<themeurl:[0-9A-Za-z_-]+>/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
                 array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
 

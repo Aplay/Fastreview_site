@@ -25,7 +25,7 @@ section#main{
   height: 65px;
   position: absolute;
   border-top: 4px solid #e5e5e5;
-  background: #4285f4 none repeat scroll 0 0;
+  background: #03a9f4 none repeat scroll 0 0;
   transition: all 200ms ease 0s;
   width: 100%;
   z-index:900;
@@ -898,7 +898,7 @@ width: 186px;
 	
 }
 .four-zero{
-	background: #4285f4 none repeat scroll 0 0;
+	background: #03a9f4 none repeat scroll 0 0;
 }
 #placeMap {
 	height: 240px;
@@ -1358,7 +1358,13 @@ div.vote .user_mine {
 -------------- paginations ----------------------*/
 .list-view .pager {text-align: left !important;}
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-	background-color: #4285f4;
+	background-color: #03a9f4;
+}
+.pagination > li > a, .pagination > li > span {
+    border-radius: 50% !important;
+    font-size: 14px;
+    height: 40px;
+    line-height: 28px;
 }
 /*
 ------------------ -------------------------------*/

@@ -2,9 +2,9 @@
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
 <h3 class="c-blue" style="margin-top:80px;">БЫСТРЫЕ ОТЗЫВЫ</h3>
 <p class="m-t-5 t-uppercase">Все преимущества и недостатки любых товаров, улуг и объектов</p>
-<form role="form" style="margin-top:60px;" id="mainSearchForm">
+<form role="form" action="/search" style="margin-top:60px;" id="mainSearchForm">
 <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
-<input  type="search" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
+<input  type="search" name="q" placeholder="ПОИСК" id="searchField" class="form-control input-sm">
 <div class="searchFieldIcon" onclick="$('#mainSearchForm').submit();"><i class="fa fa-search"></i></div>
 </div>
 </form>
