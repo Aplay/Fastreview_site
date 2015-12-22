@@ -94,14 +94,10 @@ $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id,
         </div>
         <div class="media-body m-t-5">
         <p class="m-b-5" style="height:19px;overflow:hidden;"><?php echo CHtml::encode($last->title);  ?></p>
-        <div class="pull-left">
+        
         <!--<img alt="" src="/img/gud.png" />-->
-        <button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
-        </div>
-        <div class="pull-left p-l-10 c-6">
-            <div class="f-11">Местоположение</div>
-            <div class="f-10">Считают 56%</div>
-        </div>
+        <?php  $this->widget('application.modules.poll.widgets.Poll', array('org_id'=>$last->id)); ?>
+        
         </div>
     </div>
     </a>
