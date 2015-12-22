@@ -83,6 +83,9 @@ class WebUser extends RWebUser {
     {
         
         $this->_loadModel();
+        if(!$this->_model){
+            return User::AVATAR_NULL;
+        }
         return $this->_model->getAvatar($header);
     }
 
@@ -121,7 +124,6 @@ class WebUser extends RWebUser {
 
     private function _loadModel()
     {
-
         if(!$this->_model)
             $this->_model = User::model()->findByPk($this->id);
     }

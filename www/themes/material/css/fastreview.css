@@ -459,6 +459,10 @@ body.fixed #header {
   width: 60px;
   height: 60px;
 }
+.lv-img-md {
+  width: 45px;
+  height: 45px;
+}
 .oblects_view, .oblects_view_main {
     display: block;
     width:100%;

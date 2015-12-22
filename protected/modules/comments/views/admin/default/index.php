@@ -79,11 +79,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'filter'=>Comment::getStatuses(),
 			'value'=>'$data->statusTitle',
 		),
-		array(
-			'header' => 'Оценка',
-			'name'=>'rating',
-			'filter'=>false
-		),
+
 		
 		array(
 			'header' => 'Объект',

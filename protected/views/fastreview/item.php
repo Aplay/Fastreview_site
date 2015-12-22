@@ -12,6 +12,7 @@ $cs = Yii::app()->ClientScript;
   Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/lib/gmap3.js', CClientScript::POS_END);
   Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl.'/js/view/script-map.js', CClientScript::POS_END);
 
+Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/jquery-linkifier/jquery.linkify.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/light-gallery/lightGallery.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/light-gallery/lightGallery.min.css');
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/dropzone/dropzone.js', CClientScript::POS_END);
@@ -223,6 +224,10 @@ if($model->link){
 <?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
 </div>
 </div>
+
+<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
+    'model'=>$model,
+  ));  ?>
 
 </div><!-- col-->
 

@@ -114,28 +114,27 @@ class Comment extends BaseModel
 			);
 		} else {
 			$r =  array(
-	            array('name, text, email', 'filter','filter' =>'strip_tags'),
-	            array('name, text, email', 'filter','filter' =>'trim'),
-	            array('rating', 'required', 'message'=>'Необходимо указать оценку'),
-				array('email, name, text', 'required'),
+	            array('name, text', 'filter','filter' =>'strip_tags'),
+	            array('name, text', 'filter','filter' =>'trim'),
+				array('name, text', 'required'),
 				array('email', 'email'),
 				array('status, created, updated', 'required', 'on'=>'update'),
 				array('rating, id_parent, yes, no', 'numerical', 'integerOnly'=>true),
 				array('name', 'length', 'max'=>50),
 				array('text', 'length', 'min'=>3),
 	            array('text', 'length', 'max'=>5000),
-	            array('reCaptcha', 'ReCaptchaValidator',  'secret'=>Yii::app()->reCaptcha->secret, 'message'=>'Неправильный код проверки'),
+	          //  array('reCaptcha', 'ReCaptchaValidator',  'secret'=>Yii::app()->reCaptcha->secret, 'message'=>'Неправильный код проверки'),
 	            array('created', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 	            array('updated', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
 				// array('verifyCode','captcha','allowEmpty'=>$codeEmpty),
 				// Search
 				array('id, user_id, id_parent, yes, no, status, email, name, text, created, updated,rating,ip_address', 'safe', 'on'=>'search'),
 			);
-			if (Yii::app()->user->isGuest) {
+			/* if (Yii::app()->user->isGuest) {
 				if (!($this->reCaptcha = Yii::app()->request->getPost(ReCaptchaValidator::CAPTCHA_RESPONSE_FIELD))) {
 	            	$r[] = array('reCaptcha', 'required');
 	        	}
-	        }
+	        } */
     	}
         return $r;
 	}
@@ -146,7 +145,7 @@ class Comment extends BaseModel
             'fromuser'=>array(self::BELONGS_TO, 'User', 'object_pk'),
             'obj'=>array(self::BELONGS_TO, 'Objects', 'object_pk'),
             'children'=>array(self::HAS_MANY, 'Comment', 'id_parent', 'condition'=>'children.status='.self::STATUS_APPROVED, 'order'=>'children.created'),
-            'countComments'=>array(self::STAT, 'Comment', 'object_pk', 'condition'=>'id_parent is NULL  and status='.self::STATUS_APPROVED, 'select'=>'count(id)')
+           // 'countComments'=>array(self::STAT, 'Comment', 'object_pk', 'condition'=>'id_parent is NULL  and status='.self::STATUS_APPROVED, 'select'=>'count(id)')
 		);
 	}
 	/**
@@ -159,8 +158,8 @@ class Comment extends BaseModel
 			'user_id'    => Yii::t('CommentsModule.core','Автор'),
 			'status'     => Yii::t('CommentsModule.core','Статус'),
 			'email'      => Yii::t('CommentsModule.core','Email'),
-			'name'       => 'Имя',
-			'text'       => 'Ваш отзыв',
+			'name'       => 'Ваше имя',
+			'text'       => 'Отзыв или комментарий',
 			'created'    => Yii::t('CommentsModule.core','Дата создания'),
 			'updated'    => Yii::t('CommentsModule.core','Дата обновления'),
 			'owner_title'=> Yii::t('CommentsModule.core','Владелец'),

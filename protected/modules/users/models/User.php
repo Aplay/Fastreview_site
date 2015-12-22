@@ -16,6 +16,7 @@ class User extends BaseModel {
     const STATUS_SUPERUSER = 1;
     const STATUS_USER = 0;
 
+    const AVATAR_NULL = '/img/avatar.png';
     /**
      * The followings are the available columns in table 'users':
      * @var integer $id
@@ -177,7 +178,7 @@ class User extends BaseModel {
             'fileBehavior'=> array(
                 'class' => 'application.components.behaviors.FileBehavior',
                 'attribute' => 'photo',
-                'cap' => '/img/avatar.png'
+                'cap' => self::AVATAR_NULL
             ));
           /* 'comments' => array(
                 'class'       => 'application.modules.comments.components.CommentBehavior',
@@ -356,7 +357,7 @@ class User extends BaseModel {
         } else {
         	if($header)
         		return false;
-            return '/img/avatar.png';
+            return self::AVATAR_NULL;
         }
     }
 

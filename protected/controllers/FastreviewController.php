@@ -214,6 +214,34 @@ class FastreviewController extends Controller {
         'order'=>'created_date DESC'
         ));
 
+      if(!empty($_POST['Comment'])){
+        Yii::import('application.modules.comments.CommentsModule');
+        Yii::import('application.modules.comments.models.Comment');
+        $comment = new Comment;
+        if(isset($_POST['ajax']) && $_POST['ajax']==='comment-create-form')
+        {
+          $comment->attributes = Yii::app()->request->getPost('Comment');
+          $comment->status = Comment::STATUS_WAITING;
+          if(!Yii::app()->user->isGuest)
+          {
+            $comment->name = Yii::app()->user->getShowname();
+            $comment->email = Yii::app()->user->email;
+          }
+            $errors = CActiveForm::validate($comment);
+            
+            if ($errors !== '[]') {
+               echo $errors;
+            } else {
+              // Load module
+              $module = Yii::app()->getModule('comments');
+              // Validate and save comment on post request
+              $comment = $module->processRequest($model);
+               echo '[]';
+            }
+            Yii::app()->end();
+        }
+      }
+
       if(isset($_POST['Objects']))
     {
       if(isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form')

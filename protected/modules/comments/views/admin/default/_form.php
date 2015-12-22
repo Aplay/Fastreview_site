@@ -37,7 +37,7 @@ if($model->isNewRecord){
             <?php echo $form->textField($model,'name',array('class'=>'form-control','maxlength'=>50, 'placeholder'=>'Имя и фамилия')); ?>
             </div>
         </div> <!-- / .form-group -->
-        <div class="form-group">
+        <div class="form-group hide">
 
             <?php  echo $form->labelEx($model, 'email', array('class'=>'col-md-1 col-sm-2 control-label')); ?>
 
