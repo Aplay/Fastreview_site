@@ -318,8 +318,8 @@ body.fixed #header {
     width:75%;
 }
 #mobilenav_search input::-webkit-input-placeholder {color:#fff;}
-#mobilenav_search input::-moz-placeholder          {color:#fff;}/* Firefox 19+ */
-#mobilenav_search input:-moz-placeholder           {color:#fff;}/* Firefox 18- */
+#mobilenav_search input::-moz-placeholder          {color:#fff; opacity:1;}/* Firefox 19+ */
+#mobilenav_search input:-moz-placeholder           {color:#fff;opacity:1;}/* Firefox 18- */
 #mobilenav_search input:-ms-input-placeholder      {color:#fff;}
 
 #mobilenav_search button {
