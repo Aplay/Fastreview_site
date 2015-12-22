@@ -215,6 +215,20 @@ if($model->link){
 </div><!-- card-body -->
 </div><!-- card -->
 </div><!-- card-body -->
+
+<div class="row" >
+<div  class="col-sm-6 p-r-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_PLUS)); ?>
+</div>
+<div  class="col-sm-6 p-l-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
+</div>
+</div>
+
+<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
+    'model'=>$model,
+  ));  ?>
+  
 </div><!-- col -->
 
 <div class="col-sm-2">
@@ -233,18 +247,7 @@ if($model->link){
 </div><!-- row -->
 <div class="row m-t-25">
 <div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
-<div class="row" >
-<div  class="col-sm-6 p-r-8">
-<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_PLUS)); ?>
-</div>
-<div  class="col-sm-6 p-l-8">
-<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
-</div>
-</div>
 
-<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
-    'model'=>$model,
-  ));  ?>
 </div>
 </div>
 

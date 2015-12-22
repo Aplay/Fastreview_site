@@ -1066,6 +1066,17 @@ div.vote .user_mine {
   /*background: rgba(0, 0, 0, 1) none repeat scroll center center;*/
   
 }
+.article-bg-container:hover .article-bg:after {
+  content: ' ';
+  background-color: rgba(3,169,244,0.5);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  transition: all 0.2s linear 0s;
+  opacity: 1;
+  z-index: 10;
+}
 .article-bg{
   position:relative;
   background-size:cover; 
@@ -1078,6 +1089,7 @@ div.vote .user_mine {
   z-index:10;vertical-align:middle;
   height: 168px;
 }
+
 .article_caption_title {
 	width:100%;font-size:12px;
 	overflow:hidden;
@@ -1085,6 +1097,7 @@ div.vote .user_mine {
     max-height: 50px;
     vertical-align: middle;
     font-weight: bold;
+    z-index: 15;
 }
 .vertical-align-center {
   position: absolute;
