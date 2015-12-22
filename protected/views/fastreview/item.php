@@ -191,9 +191,14 @@ $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getUrl('500','resize'));
 <?php } ?></div>
 </div>
 </div>
-<?php } ?>
+<?php } 
+$item_top_class = '';
+if(!empty($imageShare) || !empty($model->address)){
+$item_top_class = 'm-t-25';
+}
+?>
 
-<div class="card m-t-25">
+<div class="card <?php echo $item_top_class; ?>">
 <div class="card-body advert_item">
 <p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?></p>
 <?php 
@@ -228,7 +233,7 @@ if($model->link){
 <?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
     'model'=>$model,
   ));  ?>
-  
+
 </div><!-- col -->
 
 <div class="col-sm-2">
