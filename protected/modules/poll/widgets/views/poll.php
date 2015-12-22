@@ -8,10 +8,17 @@ $diff = $choice->yes - $choice->no;
 			$weight = 'Считают '.$choice->weight.'%';
 		}
 	}
+	if($choice->type == PollChoice::TYPE_PLUS){
+		$btnstyle = 'btn-success';
+		$btnicon = 'fa-thumbs-up';
+	} else {
+		$btnstyle = 'btn-danger';
+		$btnicon = 'fa-thumbs-down';
+	}
 ?>
 <div style="display:table;">
 <div style="display:table-cell;vertical-align:middle;">
-<button type="button" class="btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa fa-thumbs-up"></i></button>
+<button type="button" class="btn <?php echo $btnstyle; ?> btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa <?php echo $btnicon; ?>"></i></button>
 </div>
 <div style="display:table-cell;vertical-align:middle;" class="p-l-10 c-6">
 <div class="f-11"><?php echo CHtml::encode($choice->label); ?></div>

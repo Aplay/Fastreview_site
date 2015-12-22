@@ -94,8 +94,7 @@ $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id,
         </div>
         <div class="media-body m-t-5">
         <p class="m-b-5" style="height:19px;overflow:hidden;"><?php echo CHtml::encode($last->title);  ?></p>
-        
-        <!--<img alt="" src="/img/gud.png" />-->
+    
         <?php  $this->widget('application.modules.poll.widgets.Poll', array('org_id'=>$last->id)); ?>
         
         </div>
