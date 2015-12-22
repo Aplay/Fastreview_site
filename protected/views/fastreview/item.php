@@ -169,14 +169,16 @@ $imageShare = Yii::app()->createAbsoluteUrl($images[0]->getUrl('500','resize'));
                 <a data-slide="prev" role="button" href="#carouselFull" class="left carousel-control"><span class="fa fa-chevron-left"></span></a>
                 <a data-slide="next" role="button" href="#carouselFull" class="right carousel-control"><span class="fa fa-chevron-right"></span></a>
           <?php } ?>
+  </div>
   <?php
     } 
     ?>
    
-</div>
-<div class="clearfix"></div>
 
+
+<div class="clearfix"></div>
 <?php if (!empty($model->address)) { ?>
+
 <div class="card">
 <div class="map_box">
 <div class="triangle"></div>
@@ -210,26 +212,10 @@ if($model->link){
 <?php // echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span>
 </p>
 
-
-
-</div>
-</div>
-</div>
-
-<div class="row" >
-<div  class="col-sm-6 p-r-8">
-<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_PLUS)); ?>
-</div>
-<div  class="col-sm-6 p-l-8">
-<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
-</div>
-</div>
-
-<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
-    'model'=>$model,
-  ));  ?>
-
-</div><!-- col-->
+</div><!-- card-body -->
+</div><!-- card -->
+</div><!-- card-body -->
+</div><!-- col -->
 
 <div class="col-sm-2">
 <div class="text-left">
@@ -245,52 +231,56 @@ if($model->link){
 </div> 
 
 </div><!-- row -->
+<div class="row m-t-25">
+<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
+<div class="row" >
+<div  class="col-sm-6 p-r-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_PLUS)); ?>
+</div>
+<div  class="col-sm-6 p-l-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
+</div>
+</div>
+
+<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
+    'model'=>$model,
+  ));  ?>
+</div>
+</div>
 
 <?php
-if(!empty($pohs)){?>
+if(!empty($pohs)){ ?>
 <div class="row">
-<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
+<div class="col-sm-12  col-md-10 col-md-offset-1">
 <div class="rootCategory" style="font-size:18px;text-align:center;margin-bottom:18px;">
       ПОХОЖЕЕ
  </div>
- </div>
- </div>
-<div class="row">
-<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
 <div class="card">
-<div class="col-xs-12 item-article-list five-column">
-<div id="journal_listview" class="list-view">
-<div class="row">
+<div class="col-xs-12 item-article-list three-column">
+
 <?php 
 foreach ($pohs as $poh) { 
 
 $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$poh->id, 'dash'=>'-', 'themeurl'=>$poh->category->url,'itemurl'=>$poh->url));
 
-$imgs = ObjectsImages::model()->findAll(array('condition'=>'object='.$poh->id,'order'=>'date_uploaded, id'));
+$imgs = ObjectsImages::model()->find(array('condition'=>'object='.$poh->id,'order'=>'date_uploaded, id'));
 
 if($imgs)
 {
- $src = $imgs[0]->getUrl('320x320xT','adaptiveResizeQuadrant',false,'filename');
+
+ $src = $imgs->getUrl('320x320xT','adaptiveResizeQuadrant',false,'filename');
  } else {
     $src = '/img/cap.gif';
  }
     ?>
     <div class="article-bg-container" >
-    <a href="<?php echo $url; ?>" class="article-bg" style="display:block;background-image:url('<?php echo $src; ?>');z-index:10;"></a>
-    <a href="<?php echo $url; ?>" class="caption" style="display:block;color:#5e5e5e;background-color:#fff;padding:6px 15px; height:60px;width:100%;overflow:hidden;">
-    <table  style="width:100%;height:36px;">
-        <tr>
-        <td  style="height:36px;overflow:hidden;vertical-align:middle;">
-        <div class="article_caption_title" style="line-height:1em;height:28px;font-size:12px;overflow:hidden;"><?php echo CHtml::encode($poh->title); ?></div>
-        <?php 
-        ?>
-        </td>
-    </tr></table></a>
+    <a href="<?php echo $url; ?>" class="article-bg  c-white t-uppercase text-center" style="background-image:url('<?php echo $src; ?>');">
+     <div class="article_caption_title vertical-align-center p-l-20 p-r-20"><?php echo CHtml::encode($poh->title); ?></div>
+    </a>
     </div>
 <?php }
 ?>
-</div>
-</div>
+
 </div>
 </div>
 </div>

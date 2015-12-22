@@ -1054,6 +1054,81 @@ div.vote .user_mine {
 	display: table-cell;
 }
 /*
+------------ columns ------------------------------- */
+.article-bg-container{
+  display:block;
+  position:relative;
+  width:100%;
+  margin-right:0;
+  margin-bottom:5%;
+  float:left;
+  overflow:hidden;
+  /*background: rgba(0, 0, 0, 1) none repeat scroll center center;*/
+  
+}
+.article-bg{
+  position:relative;
+  background-size:cover; 
+  background-color: transparent;
+  background-repeat:no-repeat;
+  background-position:center center;
+  z-index:0;
+  display: block;
+  width:100%;
+  z-index:10;vertical-align:middle;
+  height: 168px;
+}
+.article_caption_title {
+	width:100%;font-size:12px;
+	overflow:hidden;
+	display: inline-block;
+    max-height: 50px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+.vertical-align-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ghost-center {
+  position: relative;
+}
+.ghost-center::before {
+  content: " ";
+  display: inline-block;
+  height: 100%;
+  width: 1%;
+  vertical-align: middle;
+}
+.flex-center-vertically {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow:hidden;
+}
+/*
+.article-bg:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+   
+} */
+/*
+.article-bg:after{
+  content: ' ';
+  background-color: #000;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  transition: all 0.2s linear 0s;
+  opacity: 0;
+}*/
+ 
+
+/*
 ---------- share button ---------------------------------*/
 .ak-share {
     display: inline-block;
@@ -1367,6 +1442,18 @@ div.vote .user_mine {
 	#header.emptypage .header-inner{
 		padding-left:24px;
 	}
+ /* three-column */
+.three-column .article-bg-container{
+    width: 32%;
+    margin-right:2%;
+    margin-bottom:2%;
+ }
+.three-column .article-bg-container:nth-child(2n+0){
+ 	margin-right:2%;
+ }
+.three-column .article-bg-container:nth-child(3n+0){
+    margin-right:0;
+ }
 }
 @media (min-width: 944px) { /* 1024 */
    .useful-li #addshare{
