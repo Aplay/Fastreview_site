@@ -256,7 +256,7 @@ if(!empty($pohs)){ ?>
       ПОХОЖЕЕ
  </div>
 <div class="card">
-<div class="col-xs-12 item-article-list three-column">
+<div class="item-article-list three-column">
 
 <?php 
 foreach ($pohs as $poh) { 
