@@ -43,7 +43,7 @@ class SiteController extends Controller {
         
        // $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
         $cats =  Category::getRubsByParentId();
-        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>2));
+        $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>9));
         $last_array = array();
         if(!empty($lasts)){
             foreach ($lasts as $last) {
