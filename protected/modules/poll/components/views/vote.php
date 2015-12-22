@@ -1,5 +1,5 @@
-<div class="card">
-<div class="card-body card-padding p-l-20 p-r-20">
+<div class="card " style="border:1px solid #ccc;">
+<div class="card-body p-t-20 p-b-20">
 <?php 
 /*$form = $this->beginWidget('CActiveForm', array(
                 'id' => 'pinboard-form',
@@ -24,11 +24,11 @@
                 ));*/
 
 	if($type==1){
-		echo '<div class="c-green f-17">Преимущества</div>';
+		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-up"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Преимущества</div></div>';
 	} else {
-		echo '<div class="c-red f-17">Недостатки</div>';
+		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-danger btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-down"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Недостатки</div></div>';
 	}
-	echo '<div class="poll_box_type_'.$type.'">';
+	echo '<div class="clearfix"></div><div class=" poll_box_type_'.$type.'">';
 	if($modelChoices){
 		$ip = MHelper::Ip()->getIp();
         foreach ($modelChoices as $choice) {
@@ -38,9 +38,9 @@
 				if($choice->weight>0){
 					$weight = 'считают '.$choice->weight.'%';
 				}
-	        	echo '<div class="m-t-20 poll_item_'.$type.'" id="poll_block_'.$choice->id.'" data-weight="'.$choice->weight.'">';
-				echo '<div class="pull-left">'.CHtml::encode($choice->label).'<div class="c-gray f-11" id="mean_'.$choice->id.'">'.$weight.'</div></div>';
-				echo '<div class="pull-right">';
+	        	echo '<div class="vote-line poll_item_'.$type.'" id="poll_block_'.$choice->id.'" data-weight="'.$choice->weight.'">';
+				echo '<div class="vote-line-title">'.CHtml::encode($choice->label).'<div class="c-gray f-11" id="mean_'.$choice->id.'">'.$weight.'</div></div>';
+				echo '<div class="vote-fingers">';
 				$this->render('application.modules.poll.views.poll.yes_no_poll',array('ip'=>$ip,'model'=>$choice));
 				echo '</div>';
 				echo '<div class="clearfix"></div></div>';
@@ -50,21 +50,21 @@
 	echo '</div>';
 	if($type==1){
 		echo '<div style="margin-top:20px"></div>';
-		$place = 'Добавить преимущество';
+		$place = 'ДОБАВИТЬ ПРЕИМУЩЕСТВО';
 	} else {
 	    echo '<div style="margin-top:20px"></div>';
-		$place = 'Добавить недостаток';
+		$place = 'ДОБАВИТЬ НЕДОСТАТОК';
 	} ?>
 	<div class="row">
-<div class="comment col-xs-12">
+<div class="new-poll comment col-xs-12">
 	<div>
-    <div class="comment-body">
+    <div class="comment-body m-l-20 m-r-20 m-b-5">
       <div class="fg-line">
-        <input type="text" id="PollChoice_label_<?php echo $org_id; ?>_<?php echo $type; ?>" name="PollChoice[label]"  class="form-control" placeholder="<?php echo $place; ?>" />
+        <input data-obj="<?php echo $org_id; ?>" data-type="<?php echo $type; ?>" type="text" id="PollChoice_label_<?php echo $org_id; ?>_<?php echo $type; ?>" name="PollChoice[label]"  class="form-control" placeholder="<?php echo $place; ?>" />
         <div style="display: none;" id="PollChoice_label_em_<?php echo $org_id; ?>_<?php echo $type; ?>" class="PollChoice_label_em_ in-bl-error"></div>
         </div>
         <div class="clearfix"></div>
-        <button type="button" onclick="sendPoll(<?php echo $org_id; ?>,<?php echo $type; ?>);" class="m-t-15 btn btn-success btn-sm pull-right">Отправить</button>
+        <button type="button" onclick="sendPoll(<?php echo $org_id; ?>,<?php echo $type; ?>);" class="hide m-t-15 btn btn-success btn-sm pull-right">Отправить</button>
       </div>  
     </div> <!-- / .comment-body -->
   </div> <!-- / .comment -->

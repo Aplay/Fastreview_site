@@ -115,7 +115,7 @@ Yii::app()->clientScript->registerScript('add-map', $scriptAdd, CClientScript::P
   }
   ?>
 <div class="row m-t-25">
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
 <div class="card-body m-b-20 p-0">
 <?php
 $images = $model->images;
@@ -198,11 +198,6 @@ if($model->description){ ?>
 <?php
   } ?>
 <?php 
-if($model->address){
-	echo '<p  data-lat="'.$model->lat.'" data-lng="'.$model->lng.'" ><span class="titles"></span><span class="cities">'.CHtml::encode($model->address).'</span></p>';
-}
-?>
-<?php 
 if($model->link){
   echo '<p  ><span class="url-link"><a target="_blank" href="'.$model->link.'">'.CHtml::encode($model->link).'</a></span></p>';
 }
@@ -210,14 +205,25 @@ if($model->link){
 <p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; 
 <span class="hide" style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;
 <span style="display:inline-block;vertical-align:middle;">
-<?php // echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
+<?php // echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span>
+</p>
 
 
 
 </div>
 </div>
 </div>
+
+<div class="row" >
+<div  class="col-sm-6 p-r-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_PLUS)); ?>
 </div>
+<div  class="col-sm-6 p-l-8">
+<?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
+</div>
+</div>
+
+</div><!-- col-->
 
 <div class="col-sm-2">
 <div class="text-left">
@@ -237,14 +243,14 @@ if($model->link){
 <?php
 if(!empty($pohs)){?>
 <div class="row">
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
 <div class="rootCategory" style="font-size:18px;text-align:center;margin-bottom:18px;">
       ПОХОЖЕЕ
  </div>
  </div>
  </div>
 <div class="row">
-<div class="col-sm-8 col-sm-offset-2">
+<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
 <div class="card">
 <div class="col-xs-12 item-article-list five-column">
 <div id="journal_listview" class="list-view">

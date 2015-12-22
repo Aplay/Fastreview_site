@@ -7,7 +7,7 @@ $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$data->id,
 $im = '/img/cap.gif';
 $alt = '';
 
- if($data->images){ 
+if($data->images){ 
   
   $im = $data->images[0]->getUrl('180x180','adaptiveResize','filename');
   $alt = $data->title;

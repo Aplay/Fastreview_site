@@ -79,3 +79,13 @@ toVotePoll = function(id, vote){
         }
     });
 }
+$(document).ready(function(){
+
+$('.new-poll input').keypress(function (e) {
+  if (e.which == 13) {
+    sendPoll($(this).data('obj'),$(this).data('type'));
+    return false;
+  }
+});
+
+});

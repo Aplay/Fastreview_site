@@ -1,11 +1,12 @@
 <?php 
 
 	$vote = PollVote::model()->find(array('condition'=>'choice_id=:id and ip_address=:ip','params'=>array(':id'=>$model->id,':ip'=>$ip)));
-	if($vote){ ?>
+
+  if($vote){ ?>
 
 	<div class="vote  c-9" id="vote<?php echo $model->id; ?>">
     <span class="user_votes">
-    <span  class="user_pro <?php if($vote->vote == 1) { echo 'user_mine';} ?>"><i class="md md-thumb-up"></i></span> 
+    <span  class="user_pro <?php if($vote->vote == 1) { echo 'user_mine';} ?>"><i class="zmdi zmdi-thumb-up"></i></span> 
     <?php 
    $diff = $model->yes - $model->no;
     
@@ -19,16 +20,17 @@
    	echo '<span class="user_n"></span>';
    }
    ?>  
-   <span class="user_contra <?php if($vote->vote != 1) { echo 'user_mine';} ?>" ><i class="md md-thumb-down"></i></span> 
+   <span class="user_contra <?php if($vote->vote != 1) { echo 'user_mine';} ?>" ><i class="zmdi zmdi-thumb-down"></i></span> 
    </span>
    </div>
 	
 	<?php } else {
        
 	?>
+
   <div class="vote  c-9 active" id="vote<?php echo $model->id; ?>">
    <span class="user_votes">
-   <span class="user_pro" onclick="toVotePoll(<?php echo $model->id; ?>, 1);" ><i class="md md-thumb-up"></i></span> 
+   <span class="user_pro" onclick="toVotePoll(<?php echo $model->id; ?>, 1);" ><i class="zmdi zmdi-thumb-up"></i></span> 
    
    <?php 
    $diff = $model->yes - $model->no;
@@ -43,7 +45,7 @@
    }
    ?> 
 
-   <span class="user_contra" onclick="toVotePoll(<?php echo $model->id; ?>, 0);"><i class="md md-thumb-down"></i></span> 
+   <span class="user_contra" onclick="toVotePoll(<?php echo $model->id; ?>, 0);"><i class="zmdi zmdi-thumb-down"></i></span> 
    </span>
    </div>
 	<?php
