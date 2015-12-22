@@ -59,15 +59,9 @@ $this->renderPartial('application.views.common._flashMessage');
   'columns'=>array(
   	'label',
   	array(
-			'header' => 'Фирма',
+			'header' => 'Объект',
             'type'=>'raw',
-			'value'=>'CHtml::link($data->org->title, Yii::app()->createAbsoluteUrl("/catalog/admin/company/update", array("id"=>$data->org_id)), array("target"=>"_blank"))',
-			'filter'=>false
-		),
-  	array(
-			'header' => 'Город',
-            'type'=>'raw',
-			'value'=>'$data->org->city->title',
+			'value'=>'CHtml::link($data->org->title, Yii::app()->createAbsoluteUrl("/catalog/admin/objects/update", array("id"=>$data->org_id)), array("target"=>"_blank"))',
 			'filter'=>false
 		),
     array(
