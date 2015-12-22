@@ -1,3 +1,7 @@
+<?php 
+$themeUrl = Yii::app()->theme->baseUrl;
+Yii::app()->clientScript->registerScriptFile($themeUrl.'/vendors/matchHeight/jquery.matchHeight-min.js', CClientScript::POS_END);
+?>
 <div class="row">
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 text-center">
 <h3 class="c-blue" style="margin-top:80px;">БЫСТРЫЕ ОТЗЫВЫ</h3>
@@ -82,7 +86,7 @@ if($last->images){
 $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id, 'dash'=>'-', 'themeurl'=>$last->category->url,'itemurl'=>$last->url));
  ?>
    <div class="col-xs-12 col-sm-6 col-md-4">
-   <a class="oblects_view_main" href="<?php echo $url; ?>">
+   <a class="oblects_view_main" data-mh="group-1" href="<?php echo $url; ?>">
     <div class="media">
         <div class="pull-left">
             <img alt="" src="<?php echo $im; ?>" class="lv-img-lg" />
@@ -120,3 +124,13 @@ $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id,
 <img src="/img/googleplay.png" />
 </div>
 </div>
+<?php 
+$script = "
+$(document).ready(function(){
+    $(window).on('debouncedresize', function(){
+        $.fn.matchHeight._update();
+    });
+})
+";
+Yii::app()->clientScript->registerScript("script", $script, CClientScript::POS_END);
+?>
