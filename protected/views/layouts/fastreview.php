@@ -55,8 +55,8 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 <body>
 <div class="mobilenav" style="display: none;">
       <div id="mobilenav_search" style="display: none;">
-      <form action="/" class="searchform" method="get" role="search">
-        <input type="search" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Ваш текст..." name="s" class="field">
+      <form action="/search" class="searchform" method="get" role="search">
+        <input type="search" name="q"  placeholder="Поиск" class="field">
         <button id="searchsubmit" type="submit"><i class="fa fa-search"></i></button>
       </form>
       </div>
@@ -105,11 +105,11 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 $this->renderPartial('//layouts/__footer');
 $this->renderPartial('//layouts/__counter');
 ?>
-<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="search-modal modal fade in" id="search-modal" style="display: none;">
+<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="hide search-modal modal fade in" id="search-modal" style="display: none;">
     <a aria-hidden="true" data-dismiss="modal" class="close">×</a>
     <div class="modal-dialog">
-      <form action="/" class="searchform" method="get" role="search">
-        <input type="search" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Введите ваш текст..." name="s" class="field">
+      <form action="/search" class="searchform" method="get" role="search">
+        <input type="search" name="q"  value="Поиск"  class="field">
         <button id="searchsubmit" type="submit"><i class="fa fa-search"></i></button>
       </form>
     </div>

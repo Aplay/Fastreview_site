@@ -317,6 +317,11 @@ body.fixed #header {
     font-size: 36px;
     width:75%;
 }
+#mobilenav_search input::-webkit-input-placeholder {color:#fff;}
+#mobilenav_search input::-moz-placeholder          {color:#fff;}/* Firefox 19+ */
+#mobilenav_search input:-moz-placeholder           {color:#fff;}/* Firefox 18- */
+#mobilenav_search input:-ms-input-placeholder      {color:#fff;}
+
 #mobilenav_search button {
     background-color: transparent;
     border: medium none;
@@ -472,6 +477,8 @@ body.fixed #header {
 .oblects_view .media > .pull-left {
     padding-right: 20px;
 }
+
+
 a.oblects_view, a.oblects_view_main {
     color: inherit;
 }
