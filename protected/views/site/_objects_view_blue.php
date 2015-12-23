@@ -29,10 +29,10 @@ if($data->images){
           echo '<p class="object_descr m-b-5">'.nl2br(CHtml::encode($data->description)).'</p>';
         } ?>
         
-         <div class="pull-left" style="width:50%">
+         <div class="pull-left" style="width:48%">
          <?php  $this->widget('application.modules.poll.widgets.Poll', array('org_id'=>$data->id, 'type'=>PollChoice::TYPE_PLUS)); ?>
          </div>
-         <div class="pull-right" style="width:50%">
+         <div class="pull-right" style="width:48%">
          <?php  $this->widget('application.modules.poll.widgets.Poll', array('org_id'=>$data->id, 'type'=>PollChoice::TYPE_MINUS)); ?>
          </div>
          <div class="clearfix"></div>
