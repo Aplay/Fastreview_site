@@ -54,6 +54,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 </head>
 <body>
 <div class="mobilenav" style="display: none;">
+  <div id="mobilenav_blue"></div>
       <div id="mobilenav_search" style="display: none;">
       <div class="container">
       <div class="row m-t-20">

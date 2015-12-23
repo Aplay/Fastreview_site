@@ -301,13 +301,42 @@ body.fixed #header {
 	color: rgba(60, 156, 220, 1);
 	font-size: 22px;
 }
+.mobilenav {
+    
+    display: none;
+    font-family: inherit;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    
+}
+#mobilenav_blue {
+    background: rgba(60, 156, 220, 0.9) none repeat scroll 0 0;
+    height: 100%;
+    left: 0;
+    position: fixed;
+     width: 100%;
+     z-index: 20;
+}
 #mobilenav_search {
     margin: 0 auto;
    /* padding: 20px 0;*/
     position: absolute;
     top: 0; left:0; right:0;
+    z-index: 400;
+    padding-bottom: 50px;
+
    /* max-width: 600px;
     text-align: center;*/
+}
+#mobilenav_links{
+    position: absolute;
+    z-index: 400;
+    top: 0; left:0; right:0;
 }
 #mobilenav_search input {
     background-color: transparent;
@@ -370,19 +399,7 @@ body.fixed #header {
     position: absolute;
     transition: all 0.6s cubic-bezier(0.75, 0, 0.29, 1.01) 0s;
 }
-.mobilenav {
-    background: rgba(60, 156, 220, 0.9) none repeat scroll 0 0;
-    display: none;
-    font-family: inherit;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    text-transform: uppercase;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-    overlow-y: scroll;
-}
+
 .mobilenav li {
     color: #fff;
     font-size: 220%;
