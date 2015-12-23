@@ -17,7 +17,7 @@ $diff = $choice->yes - $choice->no;
 	}
 ?>
 <div style="display:table;">
-<div style="display:table-cell;vertical-align:middle;">
+<div style="display:table-cell;vertical-align:middle;position:relative;">
 <button type="button" class="btn <?php echo $btnstyle; ?> btn-icon btn-icon waves-effect waves-circle waves-float finger-circle"><i class="fa <?php echo $btnicon; ?>"></i></button>
 </div>
 <div style="display:table-cell;vertical-align:middle;" class="p-l-10 c-6">

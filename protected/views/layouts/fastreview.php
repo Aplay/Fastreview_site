@@ -30,6 +30,7 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/socicon/socicon.
 Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css");
 Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/mediaelement/build/mediaelementplayer.css");
 Yii::app()->clientScript->registerCssFile($themeUrl . "/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css");
+Yii::app()->clientScript->registerScriptFile($baseUrl.'/js/view/search_blue.js', CClientScript::POS_END);
 
 
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/app.min.1.css');
@@ -37,7 +38,6 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/css/app.min.2.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/appstyle.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/fastreview.css');
 
-Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/jquery.debounced-resize.js', CClientScript::POS_END); 
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jquery.autosize.min.js', CClientScript::POS_END); 
 // Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/salvattore/salvattore.min.js', CClientScript::POS_END); 
 
@@ -55,10 +55,20 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 <body>
 <div class="mobilenav" style="display: none;">
       <div id="mobilenav_search" style="display: none;">
-      <form action="/search" class="searchform" method="get" role="search">
-        <input type="search" name="q"  placeholder="Поиск" class="field">
-        <button id="searchsubmit" type="submit"><i class="fa fa-search"></i></button>
+      <div class="container">
+      <div class="row m-t-20">
+      <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
+      <form style="margin-top:116px;" class="searchform p-l-30" method="get" role="search">
+        <div class="form-group" style="max-width:400px;margin:0;position:relative;">
+
+        <input type="search" id="searchFieldReviewObjectBlue" name="q"  placeholder="Поиск" class="field" autocomplete="off">
+        <div id="searchFieldIconBlue" type="submit"><i class="fa fa-search"></i></div>
+        </div>
       </form>
+      <div id="results_blue" class="m-t-30"></div>
+      </div>
+      </div>
+      </div>
       </div>
       <div id="mobilenav_links" style="display: none;">
         <ul>
@@ -105,15 +115,6 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 $this->renderPartial('//layouts/__footer');
 $this->renderPartial('//layouts/__counter');
 ?>
-<div aria-hidden="false" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="hide search-modal modal fade in" id="search-modal" style="display: none;">
-    <a aria-hidden="true" data-dismiss="modal" class="close">×</a>
-    <div class="modal-dialog">
-      <form action="/search" class="searchform" method="get" role="search">
-        <input type="search" name="q"  value="Поиск"  class="field">
-        <button id="searchsubmit" type="submit"><i class="fa fa-search"></i></button>
-      </form>
-    </div>
-  </div>
 
 <input type="hidden" id="csfr" name="<?php echo Yii::app()->request->csrfTokenName; ?>" value="<?php echo Yii::app()->request->csrfToken; ?>" />
 

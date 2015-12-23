@@ -72,6 +72,7 @@ class SiteController extends Controller {
         
         $count_items = 0;
         $term = Yii::app()->getRequest()->getParam('q',null);
+        $type = Yii::app()->getRequest()->getParam('t',0);
         if ($term) {
 
             $query = $term;
@@ -98,6 +99,13 @@ class SiteController extends Controller {
                   ),
               ));
             }
+            /*
+            Не удается обновить clistview, загруженную без параметров q и page через ajax
+            Т.е. нажимаешь пагинацию в первый раз, идет переход
+            См. в сторону jquery.yiilistview.js options.url = $.param.querystring(options.url, options.data);
+            Или нужно на лету изменять параметры в адресной строке, но хотелось бы, чтобы всегда был адрес
+            /review_objects без параметров.
+            */
             if(Yii::app()->request->isAjaxRequest){
                $cs = Yii::app()->clientScript;
 
@@ -108,10 +116,13 @@ class SiteController extends Controller {
 
                 $cs->scriptMap['styles.css'] = false;
                 $cs->scriptMap['pager.css'] = false;
-         
+               $objects_view = 'application.views.fastreview._objects_view';
+               if($type)
+                    $objects_view = '_objects_view_blue';
                $this->renderPartial('_search',array(
                   'provider'=>$resultsPr,
-                  'term'=>$term), false, true);
+                  'term'=>$term,
+                  'objects_view'=>$objects_view), false, true);
               Yii::app()->end();
             } else {
 

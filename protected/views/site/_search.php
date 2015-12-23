@@ -8,7 +8,7 @@ if($provider){
             'id'=>'objects_list',
             'template'=>"{items}\n{pager}",
           //  'summaryText'=>'<div class="summary_show">Показано</div><div><span class="summary_end">{end}</span> из {count}</div>',
-            'itemView'=>'application.views.fastreview._objects_view',
+            'itemView'=>$objects_view,
             'emptyText'=>'',
             'pager'=>array(
               'maxButtonCount'=>5,
