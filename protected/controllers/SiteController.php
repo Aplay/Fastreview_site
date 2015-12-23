@@ -86,13 +86,14 @@ class SiteController extends Controller {
               $criteria->scopes='active';
               $criteria->condition =' ((LOWER(title) LIKE :s))';
               $criteria->params = array(':s'=>"%$s%");
+
               $resultsPr = new CActiveDataProvider('Objects', array(
                   'criteria' => $criteria,
                   'sort'       => array(
                       'defaultOrder' => 'title',
                   ),
                   'pagination' => array(
-                      'pageSize' => 10,
+                      'pageSize' => $type?11:10,
                       'pageVar'=>'page',
                      // 'params' => array('q'=>$query),
                      // 'route'=>$this->createUrl('site/review_objects'),
@@ -122,7 +123,7 @@ class SiteController extends Controller {
                $this->renderPartial('_search',array(
                   'provider'=>$resultsPr,
                   'term'=>$term,
-                  'objects_view'=>$objects_view), false, true);
+                  'objects_view'=>$objects_view,'type'=>$type), false, true);
               Yii::app()->end();
             } else {
 

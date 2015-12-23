@@ -1,5 +1,9 @@
 <?php
 
+if($index == 10){
+  echo '<div style="width:100%;margin-top:30px;text-align:center;"><a class="btn btn-default-over" href="/search/q/'.$term.'">Показать все</button></a>';
+  return;
+}
 $themeUrl = '/themes/bootstrap_311/';
 
 $url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$data->id, 'dash'=>'-', 'themeurl'=>$data->category->url,'itemurl'=>$data->url));

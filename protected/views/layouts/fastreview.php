@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
         <div class="form-group" style="max-width:400px;margin:0;position:relative;">
 
         <input type="search" id="searchFieldReviewObjectBlue" name="q"  placeholder="Поиск" class="field" autocomplete="off">
-        <div id="searchFieldIconBlue" type="submit"><i class="fa fa-search"></i></div>
+        <div id="searchFieldIconBlue" style="cursor:default;" type="button"><i class="fa fa-search"></i></div>
         </div>
       </form>
       <div id="results_blue" class="m-t-30"></div>
