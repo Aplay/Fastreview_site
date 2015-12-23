@@ -155,31 +155,31 @@ class SiteController extends Controller {
     public function actionAbout()
     {
 
-        $this->layout = '//layouts/page';
+       // $this->layout = '//layouts/page';
         $this->render("/pages/about");
     }
 
     public function actionCorporate()
     {
-        $this->layout = '//layouts/page';
+       // $this->layout = '//layouts/page';
         $this->render("/pages/corporate");
     }
 
     public function actionPartner()
     {
-        $this->layout = '//layouts/page';
+       // $this->layout = '//layouts/page';
         $this->render("/pages/partner");
     }
 
     public function actionLegal()
     {
-        $this->layout = '//layouts/emptyerror';
+        // $this->layout = '//layouts/emptyerror';
         $this->render("/pages/legal");
     }
 
     public function actionPrivacy()
     {
-        $this->layout = '//layouts/emptyerror';
+        // $this->layout = '//layouts/emptyerror';
         $this->render("/pages/privacy");
     }
 public function actionFile($id){
@@ -450,10 +450,7 @@ public function actionFile($id){
 
         Yii::app()->end();
     }
-    /**
-     * Displays the login page
-     */
-    public function actionLogin() {
+     public function actionLogin() {
       // Yii::app()->user->loginRequired();
       //  Yii::app()->end();
         $this->redirect('/login');
@@ -478,6 +475,7 @@ public function actionFile($id){
         // display the login form
         $this->render('login', array('model' => $model));
     }
+
 
     /**
      * Logs out the current user and redirect to homepage.
@@ -711,7 +709,7 @@ public function actionFile($id){
 		return $ret; 
     }
 
-    /* Авторизация через Facebook
+     /* Авторизация через Facebook
      */
     public function actionFblogin()
     {
@@ -758,7 +756,7 @@ public function actionFile($id){
 
         $login = 'fb'.$accountInfo['id'];
         $password = crc32($accountInfo['id']);
-	    $authenticate = $this->enterSite($login, $password);
+        $authenticate = $this->enterSite($login, $password);
 
         if (!Yii::app()->user->isGuest){ // вошли
 
@@ -983,7 +981,7 @@ public function actionFile($id){
             die();
         }
       //  $access_token = $twitter->getAccessToken($_REQUEST['oauth_verifier']);
- 		$access_token = $twitter->getAccessToken($_REQUEST['oauth_verifier'], $_REQUEST['oauth_token']);
+        $access_token = $twitter->getAccessToken($_REQUEST['oauth_verifier'], $_REQUEST['oauth_token']);
         /* Save the access tokens. Normally these would be saved in a database for future use. */
         Yii::app()->session['access_token'] = $access_token;
  
@@ -1115,7 +1113,7 @@ public function actionFile($id){
          //set some session info
          Yii::app()->session['oauth_token'] = $token =  $request_token['oauth_token'];
          Yii::app()->session['oauth_token_secret'] = $request_token['oauth_token_secret'];
- 	   // Yii::app()->session['oauth_token'] = $token =  Yii::app()->twitter->oauth_token;
+       // Yii::app()->session['oauth_token'] = $token =  Yii::app()->twitter->oauth_token;
        //  Yii::app()->session['oauth_token_secret'] = Yii::app()->twitter->oauth_secret;
  
         if($twitter->http_code == 200){

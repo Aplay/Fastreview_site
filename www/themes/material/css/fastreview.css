@@ -14,6 +14,9 @@ ul, ol {
 a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
  color: #4d4d4d;
 }
+.bg-blue {
+    background-color: #03a9f4;
+}
 .btn-icon .zmdi {
     font-size: 18px;
     padding-left:1px;
@@ -258,7 +261,9 @@ i.in-sm {
 	font-size: 10px;
 }
 .navbar-nav {
-    margin: 0px 15px;
+    padding: 0px 15px;
+    margin: 0;
+    width:100%;
 }
 .navbar-nav > li {
     float: left;

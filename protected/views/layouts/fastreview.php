@@ -85,7 +85,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 <nav id="header" class="header">
 <div class="container">
 <ul class="navbar-nav">
-<li>
+<li class="pull-left">
 <a class="menu-trigger" href="javascript:void(0)">
        <div class="hamburger">
          <div class="menui top-menu"></div>
@@ -94,16 +94,44 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
        </div>
     </a>
 </li>
-<li>
+<li class="pull-left">
 <a class="search-trigger" href="javascript:void(0)">
 <i class="fa fa-search"></i>
 </a>
 </li>
-<li>
+<li class="pull-left">
 <a class="scribe-trigger" href="/review_objects">
 <i class="fa fa-pencil"></i>
 </a>
 </li>
+<li class="pull-right mob2">  
+               <ul class="header-inner sub">
+                <li id="nav-li-last" style="position:relative;width:30px;text-align:right;" class="dropdown mymenu ">
+                    <?php if(!Yii::app()->user->isGuest){ 
+                    $user_avatar = Yii::app()->user->getAvatar(true);
+                  ?>
+                    <a id="header_user_box" data-container="body"   class="user-menu" href="javascript:void(0)">
+                    </a>
+                    <?php if($user_avatar){ ?>
+                       <img  class="header_user_box_img" src="<?php echo $user_avatar; ?>"  />
+                    <?php } else { ?>
+                      <span style="" class="header_user_box_span btn-label hdr icon zmdi zmdi-account"></span>
+                    <?php } ?>
+                   <div id="user_header_menu" class="hide">
+                    <ul id="user_header_menu_ul">
+
+                    <li><a  href="<?php echo Yii::app()->createAbsoluteUrl('/logout'); ?>"><i class="zmdi zmdi-mail-reply flip-vertical m-r-5"></i> Выход</a></li>
+                    </ul> 
+                  </div>
+                  <?php } else { ?>
+                  <a id="header_user_box2" data-toggle="modal" data-target="#login_modal"  class="user-menu" href="javascript:void(0)"></a>
+                  <span style="" class="header_user_box_span btn-label hdr icon zmdi zmdi-account"></span>
+                  <!--<img  class="header_user_box_img" src="/img/site_avatar.png"  />-->
+                  <?php } ?>
+                </li>
+                
+                 </ul>
+             </li>
 </ul>
 </div>
 </nav>

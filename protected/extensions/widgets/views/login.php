@@ -2,8 +2,8 @@
 <div id="login_modal" class="modal modal-styled fade" tabindex="-1" role="dialog" style="display:none;">
 <div class="modal-dialog">
 	  <div id="l-login" class="lc-block toggled">
-	  <div class="modal-header bg-green" style="padding:13px 20px 13px 40px;">
-        	<i class="close md md-highlight-remove c-white" style="margin:7px 0;"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></i>
+	  <div class="modal-header bg-blue" style="padding:13px 20px 13px 40px;">
+        	<i class="close zmdi zmdi-close-circle c-white" style="margin:7px 0;"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></i>
         	<h4 class="modal-title light-head-title c-white">Вход или регистрация</h4>
        </div>
 	  <div class="row">
@@ -21,14 +21,7 @@
                 'clientOptions'=>array(
 	            'validateOnSubmit'=>true, 
 	            'validateOnChange' => false,  
-	             'afterValidate' => "js: function(form, data, hasError) {\n"
-                                ."    //if no error in validation, send form data with Ajax\n"
-                                ."      if (!hasError) {\n"
-                                ."       yaCounter33639359.reachGoal('main_input');\n"
-                                ."      }\n"
-                                ."    return false;\n"
-                                ."}\n"
-                    ),                          
+	                                       
 
         			),
               //  'focus'=>array($model,'username'),
@@ -46,21 +39,21 @@
 	          <?php echo $form1->error($modelLogin,'password'); ?>
 	        </div>
 	        <div class="text-center">
-            <a href="#"  onclick="$('.lc-block').toggleClass('toggled');return false;"  class="modal_navigate c-green">Забыли пароль?</a>
+            <a href="#" style="text-decoration:underline;" onclick="$('.lc-block').toggleClass('toggled');return false;"  class="modal_navigate c-blue">Забыли пароль?</a>
             <div class="clearfix"></div>
-            <button type="submit" class="btn btn-success" style="margin-top:26px;margin-bottom:33px;padding-left:33px;padding-right:33px;">Войти</button>
+            <button type="submit" class="btn btn-default-over" style="margin-top:26px;margin-bottom:33px;padding-left:33px;padding-right:33px;">Войти</button>
             </div>
             
             
             <?php $this->endWidget(); ?>
-            <div class="go-social">
+            <div class="go-social hide">
             <div class="card-body p-b-0 text-center">
-	            <a class="gos facebook" href="<?php echo Yii::app()->fbApi->getAuthUrl($return_url); ?>" >
-	            </a>
-	            <a class="gos vkontakte" href="<?php echo Yii::app()->vkApi->getAuthUrl($return_url); ?>" >
-	            </a>
-	            <a class="gos twitter" href="<?php echo Yii::app()->twApi->getAuthUrl($return_url); ?>" >
-
+	            <a class="gos facebook btn btn-icon" href="<?php echo Yii::app()->fbApi->getAuthUrl($return_url); ?>" >
+	            <i class="zmdi zmdi-facebook"></i></a>
+	            <a class="gos vkontakte btn btn-icon" href="<?php echo Yii::app()->vkApi->getAuthUrl($return_url); ?>" >
+	            <i class="zmdi zmdi-vk"></i></a>
+	            <a class="gos twitter btn btn-icon" href="<?php echo Yii::app()->twApi->getAuthUrl($return_url); ?>" >
+                <i class="zmdi zmdi-twitter"></i>        
 	            </a>
 	            <!--
 	            <a href="" class="col-xs-3">
@@ -89,7 +82,6 @@
 	            'afterValidate' => "js: function(form, data, hasError) {\n"
                                 ."    //if no error in validation, send form data with Ajax\n"
 								."		if (!hasError) {\n"
-                                ."       yaCounter33639359.reachGoal('main_reg');\n"
 								."       location.reload();\n"
 								."		}\n"
                                 ."    return false;\n"
@@ -117,7 +109,7 @@
 	          <?php echo $form3->error($modelRegister,'password'); ?>
 	        </div>
 	        <div class="text-center">
-            <button type="submit" class="btn btn-success" style="margin-top:20px;padding-left:30px;padding-right:30px;" >Регистрация</button>
+            <button type="submit" class="btn btn-default-over" style="margin-top:20px;padding-left:30px;padding-right:30px;" >Регистрация</button>
             </div>
             <?php $this->endWidget(); ?>
          
@@ -127,15 +119,15 @@
             </div> 
             </div>
             <div class="c-gray f-12" style="padding:10px 40px ;width:100%;min-height:40px;text-align:center;border-top:1px solid #e0e0e0;">
-            Вход или регистрация означает согласие с <a class="c-green" href="/legal">Пользовательским соглашением</a>
+            Вход или регистрация означает согласие с <a class="c-blue" href="/legal">Пользовательским соглашением</a>
             </div>
         </div><!-- #l-login -->
         
         <!-- Forgot Password -->
         <div id="l-forget-password" class="lc-block">
-        <div class="modal-header bg-green" style="padding:13px 20px 13px 70px;position:relative;">
-        	<i id="login_modal_back" style="float:left;margin:7px 0;" onclick="$('.lc-block').toggleClass('toggled');return false;" class="md md-keyboard-backspace c-white modal_navigate" ></i>
-        	<i class="close md md-highlight-remove c-white" style="margin:7px 0;"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></i>
+        <div class="modal-header bg-blue" style="padding:13px 20px 13px 70px;position:relative;">
+        	<i id="login_modal_back" style="float:left;margin:0;" onclick="$('.lc-block').toggleClass('toggled');return false;" class="zmdi zmdi-long-arrow-left c-white modal_navigate" ></i>
+        	<i class="close zmdi zmdi-close-circle c-white" style="margin:7px 0;"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></i>
         	<h4 class="modal-title light-head-title c-white text-center">Забыли пароль?</h4>
        </div>
 
@@ -177,13 +169,13 @@
 	        </div>
 	        </div>
 	        </div>
-            <button type="submit" class="btn btn-success p-l-20 p-r-20" style="margin-top:38px;">Отправить</button>
+            <button type="submit" class="btn btn-default-over p-l-20 p-r-20" style="margin-top:38px;">Отправить</button>
             </div>
             
             <?php $this->endWidget(); ?>
            </div>
             <div class="c-gray f-12" style="padding:10px 40px;width:100%;min-height:40px;text-align:center;border-top:1px solid #e0e0e0;">
-            Вход или регистрация означает согласие с <a class="c-green" href="/legal">Пользовательским соглашением</a>
+            Вход или регистрация означает согласие с <a class="c-blue" href="/legal">Пользовательским соглашением</a>
             </div>
         </div>
 </div>
