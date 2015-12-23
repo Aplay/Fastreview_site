@@ -22,9 +22,11 @@ $(document).ready(function() {
 
   $(".search-trigger").click(function () {
       if(!$('body').hasClass('fixed')){
+
         $(".mobilenav").fadeToggle(500);
         $("#mobilenav_links").hide();
         $("#mobilenav_search").show();
+        $('#searchFieldReviewObjectBlue').focus();
         $('body').toggleClass('fixed');
         $(".top-menu").toggleClass("top-animate");
         $(".mid-menu").toggleClass("mid-animate");
