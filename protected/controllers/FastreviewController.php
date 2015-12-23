@@ -232,18 +232,31 @@ class FastreviewController extends Controller {
                   ),
               ));
             }
+            if(Yii::app()->request->isAjaxRequest){
+               $this->renderPartial('_search',array(
+                  'provider'=>$resultsPr,
+                  'term'=>$term
+                        ));
+              Yii::app()->end();
+            } else {
             $this->render('search',array(
                   'provider'=>$resultsPr,
                   'term'=>$term
                         ));
+            }
         } else {
-          $term = $query = '';
-          $resultsPr = null;
-          $this->pageTitle = 'Поиск - '.Yii::app()->name;
-          $this->render('search',array(
-                  'provider'=>$resultsPr,
-                  'term'=>$term
-           ));
+              $term = $query = '';
+              $resultsPr = null;
+              $this->pageTitle = 'Поиск - '.Yii::app()->name;
+              if(Yii::app()->request->isAjaxRequest){
+                echo '';
+                Yii::app()->end();
+              } else {
+                $this->render('search',array(
+                        'provider'=>$resultsPr,
+                        'term'=>$term
+                 ));
+              }
         }
 
     }

@@ -70,12 +70,74 @@ class SiteController extends Controller {
     
     public function actionReview_objects() {
         
-    
-            $this->render('review_objects',array());
- 
-        
-    }
+        $count_items = 0;
+        $term = Yii::app()->getRequest()->getParam('q',null);
+        if ($term) {
 
+            $query = $term;
+
+            $s = MHelper::String()->toLower(trim($term));
+            $resultsPr = null;
+            if(!empty($s)){
+              $s = addcslashes($s, '%_'); // escape LIKE's special characters
+
+              $criteria = new CDbCriteria;
+              $criteria->scopes='active';
+              $criteria->condition =' ((LOWER(title) LIKE :s))';
+              $criteria->params = array(':s'=>"%$s%");
+              $resultsPr = new CActiveDataProvider('Objects', array(
+                  'criteria' => $criteria,
+                  'sort'       => array(
+                      'defaultOrder' => 'title',
+                  ),
+                  'pagination' => array(
+                      'pageSize' => 10,
+                      'pageVar'=>'page',
+                     // 'params' => array('q'=>$query),
+                     // 'route'=>$this->createUrl('site/review_objects'),
+                  ),
+              ));
+            }
+            if(Yii::app()->request->isAjaxRequest){
+               $cs = Yii::app()->clientScript;
+
+                $cs->scriptMap['jquery-2.1.1.min.js'] = false;
+                $cs->scriptMap['jquery.debouncedresize.js'] = false;
+                $cs->scriptMap['jquery.ba-bbq.js'] = false;
+                $cs->scriptMap['jquery.yiilistview.js'] = false;
+
+                $cs->scriptMap['styles.css'] = false;
+                $cs->scriptMap['pager.css'] = false;
+         
+               $this->renderPartial('_search',array(
+                  'provider'=>$resultsPr,
+                  'term'=>$term), false, true);
+              Yii::app()->end();
+            } else {
+
+            
+            $this->render('review_objects',array(
+                  'provider'=>$resultsPr,
+                  'term'=>$term
+                        ));
+            }
+        } else {
+              $term = $query = '';
+              $resultsPr = null;
+
+              if(Yii::app()->request->isAjaxRequest){
+                echo '';
+                Yii::app()->end();
+              } else {
+                $this->render('review_objects',array(
+                        'provider'=>$resultsPr,
+                        'term'=>$term
+                 ));
+              }
+        }
+
+
+    }
     
 
     public function actionAbout()

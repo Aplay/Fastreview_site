@@ -23,7 +23,6 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/trunk8/trunk
            if($provider){
            $this->widget('zii.widgets.CListView', array(
             'dataProvider'=>$provider,
-            'viewData'=>array('city'=>$this->city),
             'ajaxUpdate'=>false,
             'template'=>"{items}\n{pager}",
           //  'summaryText'=>'<div class="summary_show">Показано</div><div><span class="summary_end">{end}</span> из {count}</div>',

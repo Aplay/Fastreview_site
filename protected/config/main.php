@@ -234,7 +234,7 @@ return array(
                 SETTINGS_ADMINPATH.'/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/admin/<controller>/<action>/<id>',
 
                  // pages:
-                '/<page:about|legal|privacy|review_objects>' => '/site/<page>',
+                '/<page:about|legal|privacy>' => '/site/<page>',
                 // site:
                 
                 '/<action:logout|feedback|captcha>' => '/site/<action>',
@@ -242,7 +242,11 @@ return array(
                 '/<action:login|registration|recovery|profile>' => '/users/<action>',
 
                 '/<action:new_object>' =>'/fastreview/<action>',
+
                 '/search/*'=>'/fastreview/search',
+                
+                '/review_objects/*'=>'/site/review_objects',
+
                 '/reviews/<themeurl:[0-9A-Za-z_-]+>/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
                 array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
 

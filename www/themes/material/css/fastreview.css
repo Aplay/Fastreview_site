@@ -424,13 +424,26 @@ body.fixed #header {
 	border-color:  #545454;
 	padding-right: 35px;
 }
-#searchFieldIconReviewObject {
+#searchFieldIconReviewObject, #searchFieldIcon {
 	position: absolute;
 	top:-2px;
 	right:0px;
 	cursor: pointer;
 	font-size: 28px;
 	color:#545454;
+}
+#searchFieldIcon i:before {
+    content: '\f002';
+}
+#searchFieldIcon.loading i {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+   /* -webkit-animation: fa-spin 1s infinite steps(8); 
+    animation: fa-spin 1s infinite steps(8);*/
+}
+#searchFieldIcon.loading i:before {
+    content: '\f110';
+  /*  content : '\f021';*/
 }
 .row-list-2, .row-list-3, .row-list-4, .row-list-6{
 -moz-column-count: 1;
@@ -524,7 +537,7 @@ a.oblects_view, a.oblects_view_main {
 #searchFieldReviewObject{
 	padding-right: 0;
 }
-#searchFieldIconReviewObject {
+#searchFieldIconReviewObject, #searchFieldIcon {
 	right: -35px;
 
 }
