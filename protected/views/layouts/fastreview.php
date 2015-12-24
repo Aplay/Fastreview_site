@@ -104,12 +104,13 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 <i class="fa fa-pencil"></i>
 </a>
 </li>
-<li class="pull-right mob2">  
-               <ul class="header-inner sub">
-                <li id="nav-li-last" style="position:relative;width:30px;text-align:right;" class="dropdown mymenu ">
+<li class="pull-right">
+  <ul class="header-inner">
+  <li id="nav-li-last" style="position:relative;width:30px;" class="dropdown mymenu">
                     <?php if(!Yii::app()->user->isGuest){ 
                     $user_avatar = Yii::app()->user->getAvatar(true);
-                  ?>
+                    $user_link = Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));
+                      ?>
                     <a id="header_user_box" data-container="body"   class="user-menu" href="javascript:void(0)">
                     </a>
                     <?php if($user_avatar){ ?>
@@ -118,9 +119,11 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
                       <span style="" class="header_user_box_span btn-label hdr icon zmdi zmdi-account"></span>
                     <?php } ?>
                    <div id="user_header_menu" class="hide">
-                    <ul id="user_header_menu_ul">
-
-                    <li><a  href="<?php echo Yii::app()->createAbsoluteUrl('/logout'); ?>"><i class="zmdi zmdi-mail-reply flip-vertical m-r-5"></i> Выход</a></li>
+                    <ul id="user_header_menu_ul">                    
+                    <li><a  href="javascript:void(0);" onclick="$('#header_user_box').popover('hide');$('#user_profile_modal').modal();return false;"><i class="md md-settings m-r-5"></i> Настройки</a></li>
+                    
+                    
+                    <li><a  href="/logout"><i class="md md-reply flip-vertical m-r-5"></i> Выход</a></li>
                     </ul> 
                   </div>
                   <?php } else { ?>
@@ -128,10 +131,9 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
                   <span style="" class="header_user_box_span btn-label hdr icon zmdi zmdi-account"></span>
                   <!--<img  class="header_user_box_img" src="/img/site_avatar.png"  />-->
                   <?php } ?>
-                </li>
-                
-                 </ul>
-             </li>
+  </li>
+  </ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -141,6 +143,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
 
 
 <?php 
+$this->renderPartial('//layouts/__user');
 $this->renderPartial('//layouts/__footer');
 $this->renderPartial('//layouts/__counter');
 ?>
