@@ -58,7 +58,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
       <div id="mobilenav_search" style="display: none;">
       <div class="container">
       <div class="row m-t-20">
-      <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
+      <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
       <form style="margin-top:116px;" class="searchform p-l-30" method="get" role="search">
         <div class="form-group" style="max-width:400px;margin:0;position:relative;">
 

@@ -2,6 +2,7 @@ $(function(){
 // Hook up keyup on input
     var container = document.getElementById('results_blue');
     var input = document.getElementById('searchFieldReviewObjectBlue');
+    var lastdata;
     input.addEventListener('keyup', function (e) {
         
             if (this.value != this.liveSearchLastValue) {
@@ -9,6 +10,11 @@ $(function(){
 
                 var q = this.value;
 
+                if(q.length == 0) {
+                    $('#searchFieldIconBlue').removeClass('loading');
+                    container.innerHTML = '';
+                    return;
+                }
                 if(q.length < 3) {
                     $('#searchFieldIconBlue').removeClass('loading');
                     return;
@@ -25,6 +31,7 @@ $(function(){
                     
                 // Wait a little then send the request
                 var self = this;
+                
 
                 this.liveSearchTimer = setTimeout(function () {
                     if (q) {
@@ -34,6 +41,7 @@ $(function(){
                             success: function (data) {
                                 $('#searchFieldIconBlue').removeClass('loading');
                                 container.innerHTML = data;
+                                lastdata = data;
                             }
                         });
                     }
@@ -43,7 +51,9 @@ $(function(){
                 }, 300);
 
                 this.liveSearchLastValue = this.value;
-            } 
+            } else {
+                container.innerHTML = lastdata;
+            }
         });
 
 });

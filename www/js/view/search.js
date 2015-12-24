@@ -2,6 +2,7 @@ $(function(){
 // Hook up keyup on input
     var container = document.getElementById('results');
     var input = document.getElementById('searchFieldReviewObject');
+    var lastdata;
     input.addEventListener('keyup', function (e) {
         
             if (this.value != this.liveSearchLastValue) {
@@ -9,6 +10,11 @@ $(function(){
 
                 var q = this.value;
 
+                if(q.length == 0) {
+                    $('#searchFieldIconBlue').removeClass('loading');
+                    container.innerHTML = '';
+                    return;
+                }
                 if(q.length < 3) {
                     $('#searchFieldIcon').removeClass('loading');
                     return;
@@ -34,6 +40,7 @@ $(function(){
                             success: function (data) {
                                 $('#searchFieldIcon').removeClass('loading');
                                 container.innerHTML = data;
+                                lastdata = data;
                             }
                         });
                     }
@@ -43,7 +50,9 @@ $(function(){
                 }, 300);
 
                 this.liveSearchLastValue = this.value;
-            } 
+            } else {
+                container.innerHTML = lastdata;
+            }
         });
 
 });
