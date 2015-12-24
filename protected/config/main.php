@@ -203,7 +203,7 @@ return array(
                 '/gotwitter' => '/site/gotwitter',
                 '/authvk' => '/site/vklogin',
                 '/authfb' => '/site/fblogin',
-                '/callback' => '/site/twlogin',
+                '/authtw' => '/site/twlogin',
 
                 'auth/admin/captcha'=>'admin/auth/captcha',
 
@@ -323,7 +323,7 @@ return array(
                 'class' => 'ext.yiitwitteroauth.YiiTwitter',
                 'consumer_key' => '3QbOTif6za9JbYNcD4Lme8SGc',
                 'consumer_secret' => 'LkKbXXTbe82oMAvMq7NKiykRiHBbX3tbqvFZrVUesuCua7tmAX',
-                'callback' => 'http://'.SETTINGS_SERVERNAME.'/callback',
+                'callback' => 'http://'.SETTINGS_SERVERNAME.'/authtw',
 
             ),
         'reCaptcha'=>array(
