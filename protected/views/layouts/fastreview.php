@@ -111,7 +111,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
                     $user_avatar = Yii::app()->user->getAvatar(true);
                     $user_link = Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));
                       ?>
-                    <a id="header_user_box" data-container="body"   class="user-menu" href="javascript:void(0)">
+                    <a id="header_user_box" data-container="#nav-li-last"   class="user-menu" href="javascript:void(0)">
                     </a>
                     <?php if($user_avatar){ ?>
                        <img  class="header_user_box_img" src="<?php echo $user_avatar; ?>"  />

@@ -279,7 +279,7 @@ div.mymenu.sep {
 }
 .popover.select_city_popover.user_header_popover{
 	width:120px;
-	left: calc(100% - 125px) !important;
+	left: -79px !important;
 /*	border:0;
 	padding: 0px; */
 }
@@ -1474,10 +1474,7 @@ div.vote .user_mine {
 }
 	
 @media (min-width: 720px) { /* 800 */
-.popover.select_city_popover.user_header_popover{
-	width:120px;
-	left: calc(100% - 140px) !important;
-}
+
 .p-r-8 {
 	padding-right:8px;
 }
@@ -1514,10 +1511,7 @@ div.vote .user_mine {
 	}
 }
 @media (min-width: 1200px) { /* 1280 */
-.popover.select_city_popover.user_header_popover{
-	width:120px;
-	left: calc(100% - 170px) !important;
-}
+
 	.useful-li table{
   	margin-top:10px;
   }
@@ -1564,6 +1558,7 @@ div.vote .user_mine {
 	}
 }
 @media (min-width: 1520px) { /* 1600 */
+
 	#top-search-wrap {
 		width: 710px;
 	}
