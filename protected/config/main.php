@@ -305,14 +305,14 @@ return array(
         ),
 		'vkApi' => array(
             'class' => 'vkApi',
-            'clientId' => '5010953',
-            'clientSecret' => 'kqjAKYniPqQHcKoPa42e',
+            'clientId' => '5199324',
+            'clientSecret' => 'X4htSSJmUQ1CV9SOoG1y',
             'redirectUri' => 'http://'.SETTINGS_SERVERNAME.'/authvk',
         ),
         'fbApi' => array(
             'class' => 'fbApi',
-            'clientId' => '1482610845366075',
-            'clientSecret' => '5800c1e085ef4c0a68d2a55eb57d5b24',
+            'clientId' => '1052949411392044',
+            'clientSecret' => '00c8745e03bca3a6fc5872938774d4b4',
             'redirectUri' => 'http://'.SETTINGS_SERVERNAME.'/authfb',
         ),
         'twApi' => array(
@@ -321,8 +321,8 @@ return array(
             ),
         'twitter' => array(
                 'class' => 'ext.yiitwitteroauth.YiiTwitter',
-                'consumer_key' => '3G1HLEl812JaHcIwTduFHAVNG',
-                'consumer_secret' => '3MdaEkwG7fgVquyw0iADlYxgOZX59JBsGQsG3KyY9j0i4vUB8n',
+                'consumer_key' => '3QbOTif6za9JbYNcD4Lme8SGc',
+                'consumer_secret' => 'LkKbXXTbe82oMAvMq7NKiykRiHBbX3tbqvFZrVUesuCua7tmAX',
                 'callback' => 'http://'.SETTINGS_SERVERNAME.'/callback',
 
             ),

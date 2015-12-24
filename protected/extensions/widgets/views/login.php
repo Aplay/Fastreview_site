@@ -46,7 +46,7 @@
             
             
             <?php $this->endWidget(); ?>
-            <div class="go-social hide">
+            <div class="go-social">
             <div class="card-body p-b-0 text-center">
 	            <a class="gos facebook btn btn-icon" href="<?php echo Yii::app()->fbApi->getAuthUrl($return_url); ?>" >
 	            <i class="zmdi zmdi-facebook"></i></a>
