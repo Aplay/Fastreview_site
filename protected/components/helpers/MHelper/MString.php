@@ -559,12 +559,17 @@ class MString extends MHelperBase
             return $titles[ ($number%100>4 && $number%100<20)? 2 : $cases[min($number%10, 5)] ];
         }
         
+        public function simple_ucfirst($string) { 
+        	$string = trim($string);
+        	return $this->toUpper($this->substr($string, 0, 1)) . $this->substr($string, 1, $this->len($string));
+        }	
+
         public function my_ucfirst($string) { 
             if (!empty($string)) { 
                 $string = preg_replace('/[^0-9A-Za-zА-Яа-я _-]/u', '', $string); // удаляем все символы кроме цифр, букв, пробелов, ниж.подч. и тире
                 $string = mb_ereg_replace("^[\ ]+","", $string);  // Сначала удаляем пробелы в начале строки, если они есть, так как они могут повлиять на результат. Trim здесь не сработает, поэтому используем регулярное выражение "^[\ ]+" и функцию mb_ereg_replace
                 $string = $this->toLower($string);
-                $string = $this->toUpper($this->substr($string, 0, 1, "UTF-8"), "UTF-8").$this->substr($string, 1, $this->len($string), "UTF-8" );  
+                $string = $this->toUpper($this->substr($string, 0, 1, "UTF-8"), "UTF-8").$this->substr($string, 1, $this->len($string), "UTF-8" );  	
             } 
             else { 
                 $string = ucfirst($string); 

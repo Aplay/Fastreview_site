@@ -67,7 +67,7 @@ class PollChoice extends CActiveRecord
 
  public function checkUniqueLabel($attribute,$params)
  {
-   $this->label = MHelper::String()->my_ucfirst($this->label);
+   $this->label = MHelper::String()->simple_ucfirst($this->label);
   if(PollChoice::model()->count('LOWER(label)=:label AND org_id=:org_id AND type=:type',
       array(':label'=>MHelper::String()->toLower($this->label),':org_id'=>$this->org_id, ':type'=>$this->type)) > 0)
   { 
