@@ -17,7 +17,7 @@ $activkey = ((isset($_GET['activkey'])) ? $_GET['activkey'] : '');
 
         <div class="modal-dialog">
         <div id="l-register" class="lc-block toggled">
-        <div class="modal-header bg-green" style="padding:13px 20px 13px 70px;position:relative;">
+        <div class="modal-header bg-blue" style="padding:13px 20px 13px 70px;position:relative;">
         	<i class="close md md-highlight-remove c-white" style="margin:7px 0;"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></i>
         	<h4 class="modal-title light-head-title c-white text-center">Новый пароль</h4>
        </div>
@@ -62,7 +62,7 @@ $activkey = ((isset($_GET['activkey'])) ? $_GET['activkey'] : '');
             <div class="clearfix"></div>
             
             <div class="text-center">
-             	<button type="submit" class="btn btn-success" style="margin-top:20px;padding-left:30px;padding-right:30px;">Изменить</button>
+             	<button type="submit" class="btn btn-default-over" style="margin-top:20px;padding-left:30px;padding-right:30px;">Изменить</button>
            
             </div>
             <?php $this->endWidget(); ?>

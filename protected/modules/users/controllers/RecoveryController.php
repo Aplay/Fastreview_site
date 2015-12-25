@@ -81,8 +81,10 @@ class RecoveryController extends Controller {
                             ));
 
                        // UsersModule::sendMail($user->email, $subject, $message);
-                        SendMail::send($user->email,$subject,$message,true);
-
+                        $send = SendMail::send($user->email,$subject,$message,true);
+                        if(!isset($send->ErrorInfo) && !empty($send->ErrorInfo)){
+                            VarDumper::dump($send->ErrorInfo); die(); // Ctrl + X    Delete line
+                        }    
                         $message = Yii::t('site',"Please check your e-mail.<br> Instruction was sent to your e-mail address.");
 
                         if(Yii::app()->request->isAjaxRequest){
