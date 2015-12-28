@@ -245,6 +245,7 @@ var dropzone = new Dropzone('#dropzone', {
         dictRemoveFile:'',
         acceptedFiles: '.jpeg,.jpg,.png,.gif',
 ";
+
 if(!$model->isNewRecord){ 
 $scriptDd .= "
         init: function() {

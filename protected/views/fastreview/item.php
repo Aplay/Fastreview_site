@@ -410,6 +410,9 @@ $deleteLink = Yii::app()->createUrl('file/file/deleteobjectsfile');
 
 $scriptDd = "
 $(document).ready(function(){
+$('#add_photo').on('hidden.bs.modal', function () {
+  $('#dropzone-tmp').html('');
+})
 
   $('.map_box .map_bg').click(function(e){
     $('.map_box').toggleClass('active');
@@ -491,6 +494,7 @@ var dropzone = new Dropzone('#dropzone', {
 $folder = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR;
 $folderLink= '/uploads/tmp/';
 //$url1 = str_replace("\\","/",$url1_thumb);
+/*
 if(Yii::app()->session->itemAt($this->uploadsession)){
     $datas = Yii::app()->session->itemAt($this->uploadsession);
     if(is_array($datas)){
@@ -515,7 +519,7 @@ if(Yii::app()->session->itemAt($this->uploadsession)){
           }
       }
     }
-}
+} */
 if(!empty($images)){
     $scriptDd .= "
 var gallery = $('.gallery-nav.lightbox').lightGallery();
