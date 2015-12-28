@@ -1166,7 +1166,9 @@ div.vote .user_mine {
   opacity: 0;
 }*/
  
-
+.article-bg-container.video:nth-child(even){
+  margin-right:0%;
+}
 /*
 ---------- share button ---------------------------------*/
 .ak-share {
@@ -1502,7 +1504,14 @@ div.vote .user_mine {
  }
 }
 @media (min-width: 944px) { /* 1024 */
-
+.item-article-list .article-bg-container.video {
+ 	width: 49%;
+ }
+ .item-article-list .article-bg-container{
+    width: 32%;
+    margin-right:2%;
+    margin-bottom:2%;
+ }
    .useful-li #addshare{
   	margin-top:0px;
   }

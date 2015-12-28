@@ -302,16 +302,15 @@ class FastreviewController extends Controller {
         }
       }
 
-      if(isset($_POST['Objects']))
+    if(isset($_POST['Objects']) && isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form')
     {
-      if(isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form')
-      {
+
         $errors = CActiveForm::validate($model);
         if ($errors !== '[]') {
                echo $errors;
                Yii::app()->end();
-            } 
-      }
+        } 
+      
 
       $model->attributes=$_POST['Objects'];
 
@@ -342,12 +341,32 @@ class FastreviewController extends Controller {
               
                 if(Yii::app()->request->isAjaxRequest){
                   echo CJSON::encode(array('flag'=>true, 'message'=>'done'));
-          Yii::app()->end();
+                  Yii::app()->end();
                 } else {
                     $this->refresh();
                     Yii::app()->end();
                 }
       } 
+    }
+    if(isset($_POST['Objects']) && isset($_POST['ajax']) && $_POST['ajax']==='pinboard-video-form')
+    {
+
+        $errors = CActiveForm::validate($model);
+        if ($errors !== '[]') {
+               echo $errors;
+               Yii::app()->end();
+        } 
+        $model->attributes=$_POST['Objects'];
+
+        if(!empty($model->video_link) && $model->validate()){
+          $model->video = array($model->video_link);
+          $model->video_comments = array('');
+          $model->setHttp($model->video, $model->video_comments, false, ObjectsHttp::TYPE_VIDEO);
+          echo CJSON::encode(array('flag'=>true, 'message'=>'done'));
+          Yii::app()->end();
+        }
+        echo '[]';
+        Yii::app()->end();
     }
       $this->render('item', array(
                  'model' => $model,

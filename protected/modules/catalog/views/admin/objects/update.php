@@ -10,5 +10,6 @@
 <?php } ?>
 <?php $this->renderPartial('_form', array(
 	'model'=>$model,
-    'categories_ar'=>$categories_ar
+    'categories_ar'=>$categories_ar,
+    'video'=>$video,
 	)); ?>

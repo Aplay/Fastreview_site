@@ -24,6 +24,9 @@ class Objects extends BaseModel
     public $categories_ar;
     public $maxFiles = 25;
     public $tmpFiles;
+    public $video_link;
+    public $video;
+	public $video_comments;
 
  	protected $_newRec = false;
  	private $_curr;
@@ -62,16 +65,16 @@ class Objects extends BaseModel
 				array('city_id, views_count, categorie, rating_id, author, status', 'numerical', 'integerOnly'=>true),
 				array('street, dom', 'filter', 'filter'=>array( $this, 'removeCommas' )),
 				array('ip_address', 'length', 'max'=>50),
-				array('title, link, address, url', 'length', 'max'=>255),
+				array('title, link, address, url, video_link', 'length', 'max'=>255),
 				array('description, tmpFiles, lat, lng', 'safe'),
-				array('link', 'url', 'validateIDN'=>true, 'defaultScheme'=>'http'),
+				array('link, video_link', 'url', 'validateIDN'=>true, 'defaultScheme'=>'http'),
 				array('verified','boolean'),
 				array('created_date', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 	            array('updated_date', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
-	            array('tmpFiles, categories_ar', 'safe'),
+	            array('tmpFiles, categories_ar, video, video_comments', 'safe'),
 				// The following rule is used by search().
 				// @todo Please remove those attributes that should not be searched.
-				array('id, title, description, link, address, city_id, street, dom, views_count, created_date, updated_date, categorie, author, url, status', 'safe', 'on'=>'search'),
+				array('id, title, description, link, address, city_id, street, dom, views_count, created_date, updated_date, categorie, author, url, status, video_link', 'safe', 'on'=>'search'),
 			);
 	}
 
@@ -94,6 +97,7 @@ class Objects extends BaseModel
 			'authorid'=>array(self::BELONGS_TO, 'User', 'author'),
 			'category'=>array(self::BELONGS_TO, 'Category', 'categorie'),
 			'images' => array(self::HAS_MANY, 'ObjectsImages', 'object'),
+			'objectsVideo' => array(self::HAS_MANY, 'ObjectsHttp', 'object', 'condition'=>'"objectsVideo"."type"='.ObjectsHttp::TYPE_VIDEO),
 			'comments' => array(self::HAS_MANY, 'Comment', 'object_pk', 'condition'=>'comments.parent_id is NULL'),
 		);
 	}
@@ -122,7 +126,9 @@ class Objects extends BaseModel
             'reCaptcha'=>'Код проверки',
             'url'=>'URL',
             'verified'=>'Проверка',
-            'address'=>'Адрес'
+            'address'=>'Адрес',
+            'video'=>'Видео',
+            'video_link'=>'Видео'
 		);
 	}
 
@@ -244,7 +250,76 @@ class Objects extends BaseModel
         ));
         return $this;
     }
- 
+ 	public function setHttp(array $http, array $http_comments, $add = false, $type = ObjectsHttp::TYPE_LINK)
+	{
+        $errors = array();      
+        $dontDelete = array();
+        if(!empty($http)){ // массив http . Обычно есть хоть одна пустая строка
+		foreach($http as $k=>$c){
+			$c = trim(strip_tags($c));
+			if(empty($c))
+				continue;
+			$found = ObjectsHttp::model()->findByAttributes(array(
+				'site'=>$c,
+				'object'=>$this->id,
+				'type'=>$type
+			));
+			// если не было email - делаем
+			if(!$found){
+				$record = new ObjectsHttp;
+				$record->site = $c;
+				if(isset($http_comments[$k]))
+					$record->description = $http_comments[$k];
+				if(!Yii::app()->user->isGuest){
+					$record->user_id = Yii::app()->user->id;
+				}
+				$record->object = $this->id;
+				$record->type = $type;
+				if($record->save()){
+					$dontDelete[] = $record->id;
+				} else {
+					$errors['email'] = $c;
+					$errors['error'] = $record->errors;
+				}           
+			} else { // обновляем описание
+				$dontDelete[] = $found->id;
+				if(isset($http_comments[$k])){
+					$fk = trim(strip_tags($http_comments[$k]));
+					if($found->description != $fk){
+						$found->description = $fk;
+						$found->save(true, array('description'));
+						if(!$found->save(true,array('description'))){
+
+						}
+					}
+				}
+			}
+		}
+		}
+		if($add === false){
+			// Удаляем все категории, которых не было в массиве
+			if(sizeof($dontDelete) > 0){
+				$cr = new CDbCriteria;
+				$cr->addNotInCondition('id', $dontDelete);
+
+				ObjectsHttp::model()->deleteAllByAttributes(array(
+					'object'=>$this->id,
+					'type'=>$type
+				), $cr);
+			} else { // удаляем все телефоны, т.к. пустой массив
+				// Delete all relations
+				ObjectsHttp::model()->deleteAllByAttributes(array(
+					'object'=>$this->id,
+					'type'=>$type
+				));
+			}  
+		}
+		if(!empty($errors))
+			return $errors;
+		else
+			return true;
+	}
+
 	protected function checkUniqueUrl($unique){
         // Check if url available
             if($this->isNewRecord) {

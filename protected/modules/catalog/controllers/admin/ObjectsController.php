@@ -120,6 +120,8 @@ class ObjectsController extends SAdminController {
 
             if($model->save()){
                 
+                $model->setHttp($model->video, array(), false, ObjectsHttp::TYPE_VIDEO);
+
                 if(isset(Yii::app()->session['deleteObjectsFiles']))
                 {
                     $sessAr = unserialize(Yii::app()->session['deleteObjectsFiles']);
@@ -160,10 +162,12 @@ class ObjectsController extends SAdminController {
         }
 
         $categories_ar[] = $model->categorie;
+        $video = $model->objectsVideo;
 
         $this->render('update',array(
             'model'=>$model,
-            'categories_ar'=>$categories_ar
+            'categories_ar'=>$categories_ar,
+            'video'=>$video,
         ));
     }
 

@@ -229,8 +229,24 @@ if($model->link){
 <?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
 </div>
 </div>
+ <?php 
+$videos = $model->objectsVideo;
+if($videos){ ?>
+<div class="row">
+<div class="col-xs-12">
+<div class="item-article-list">
+<?php
 
-<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
+  foreach ($videos as $key => $video) {
+
+    $this->renderPartial('_video',array('data'=>$video));
+  } ?>
+</div>
+</div>
+</div>
+<?php
+}
+  $this->renderPartial('application.modules.comments.views.comment.new_comment_obj', array(
     'model'=>$model,
   ));  ?>
 
@@ -241,6 +257,9 @@ if($model->link){
 <div>ДОБАВИТЬ:</div>
 <div><button data-toggle="modal" data-target="#add_photo" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
 <i class="zmdi zmdi-camera"></i></button>
+</div>
+<div><button data-toggle="modal" data-target="#add_video" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
+<i class="zmdi zmdi-videocam"></i></button>
 </div>
 <div style="margin-top:60px;">ПОДЕЛИТЬСЯ:</div>
 <?php $this->renderPartial('application.views.common._share',array('thisUrl'=>$thisUrl,'image'=>$imageShare));
@@ -338,7 +357,60 @@ if($model->lat && $model->lng){
       );
     }
     ?>
+<!-- Modal -->
+<div id="add_video" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+ 
+      <div class="clearfix"></div>
+<?php
+$js2 = <<< EOF_JS
+function(form, data, hasError) {
+    if (!data.flag) {
+        
+    } else { 
+        location.reload();
+    }
+    return false;
+}
+EOF_JS;
+            $form1 = $this->beginWidget('CActiveForm', array(
+                'id' => 'pinboard-video-form',
+                'enableAjaxValidation'=>true,
+                'enableClientValidation'=>false,
+                'errorMessageCssClass'=>'in-bl-error',
+                'clientOptions'=>array(
+                    'validateOnSubmit'=>true, 
+                    'validateOnChange' => false,
+                    'afterValidate' => "js:{$js2}"
+                   
+                ),
+                'htmlOptions'=>array('class'=>'')
+                )); 
+            ?>
+      <div class="modal-body p-l-20 p-r-20 m-t-30">
+            
+           <div class="form-group fg-line green m-b-20">
+            <?php echo $form1->textField($model,'video_link',array('class'=>'form-control','placeholder'=>'Добавьте ссылку на видео')); ?>
+            <?php  echo $form1->error($model,'video_link'); ?>
+          </div>   
+          <div class="form-group m-t-30" id="video_container" style="display:none;">
 
+          </div>      
+
+      </div> <!-- / .modal-body -->
+      
+      <div class="modal-footer b-t-0 p-t-0 p-r-20 p-b-20 text-right pull-right">
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-default-over btn-sm">Добавить</button>
+      </div>
+            
+            <div class="clearfix"></div>
+            <?php $this->endWidget(); ?> 
+    </div> <!-- / .modal-content -->
+  </div> <!-- / .modal-dialog -->
+</div> <!-- /.modal -->
+<!-- / Modal -->
 <!-- Modal -->
 <div id="add_photo" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
   <div class="modal-dialog">
@@ -371,8 +443,6 @@ if($model->lat && $model->lng){
             ?>
       <div class="modal-body p-l-20 p-r-20 ">
             
-            <input type="hidden" name="PinboardStrict_id" value="" id="hid" />
-            <?php echo $form->hiddenField($model, 'id', array('id'=>'hproject')); ?>
 
       <div class="form-group m-b-20">
                     

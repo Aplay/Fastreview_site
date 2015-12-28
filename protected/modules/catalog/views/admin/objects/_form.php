@@ -136,6 +136,53 @@ $form=$this->beginWidget('CActiveForm', array(
                 ?>
                 </div>
         </div>
+          <?php
+        if($video){
+                    foreach($video as $key=>$ht){
+                        if($key == 0){
+                            $buttn = '<button type="button" class="btn btn-success addVideo"><span class="btn-label icon fa fa-plus-square"></span></button>';
+                        } else {
+                            $buttn = '<button type="button" class="btn btn-danger remVideo"><span class="btn-label icon fa fa-minus-square"></span></button>';
+                        }
+                        ?>
+                   <div class="form-group">
+                    <?php  echo $form->label($model, 'video', array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
+                    <div class="col-lg-10 col-md-12 col-sm-12">
+                    <div class="input-group">
+                        <input type="text" value="<?php echo $ht->site; ?>"  name="Objects[video][]" placeholder="Видео" maxlength="255" class="form-control">
+                        <span class="input-group-btn">
+                            <?php echo $buttn; ?>
+                        </span>
+                    </div>
+                    </div>
+                    </div> <!-- / .form-group -->
+                
+
+                    <?php
+                    if($key == 0){ ?>
+                    <div id="customFieldsVideo">
+                    <?php }
+
+                    } ?>
+                    </div>
+                    <?php
+
+        } else {
+
+        ?>
+        <div class="form-group">
+            <?php  echo $form->label($model, 'video', array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+            <div class="input-group">
+                <input type="text" value=""  name="Objects[video][]" placeholder="Видео" maxlength="255" class="form-control">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-success addVideo"><span class="btn-label icon fa fa-plus-square"></span></button>
+                </span>
+            </div>
+            </div>
+        </div> <!-- / .form-group -->
+         <div id="customFieldsVideo"></div>
+        <?php } ?>
         <!-- logotip -->
         <div class="form-group widget-comments">
         <?php echo $form->label($model, 'tmpFiles', array('class' => 'col-lg-2 col-md-2 col-sm-3 control-label')); ?>
@@ -344,8 +391,23 @@ $('#dropzone_opener').on('click', function(){
         $('input.dr-zone-inputs').attr('disabled', false);
     }
 });
-
-
+$('.addVideo').click(function(){
+    $('#customFieldsVideo').append('<div class=\"form-group added\">' +
+            '<label class=\"col-lg-2 col-md-12 col-sm-12 control-label\">Видео</label>' +
+            '<div class=\"col-lg-10 col-md-12 col-sm-12\">' +
+            '<div class=\"input-group\">' +
+            '<input type=\"text\" value=\"\"  name=\"Objects[video][]\" placeholder=\"Видео\" maxlength=\"255\" class=\"form-control\">' +
+                '<span class=\"input-group-btn\">' +
+                    '<button type=\"button\" class=\"btn btn-danger remVideo\"><span class=\"btn-label icon fa fa-minus-square\"></span></button>' +
+                '</span>' +
+            '</div>' +
+            '</div>' +
+        '</div>');
+});
+$('#customFieldsVideo').on('click', '.remVideo', function(){
+  
+    $(this).parent().parent().parent().parent().remove();
+});
 
 })
 
