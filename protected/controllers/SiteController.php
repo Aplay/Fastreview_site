@@ -6,7 +6,7 @@ class SiteController extends Controller {
     public function filters()
     {
      return array(
-        'ajaxOnly + getcities, getcitiesbig, feedback, feedbackupdate, getmaps',
+        'ajaxOnly + getcities, getcitiesbig, preview_video, feedback, feedbackupdate, getmaps',
         );
     }
    
@@ -67,7 +67,29 @@ class SiteController extends Controller {
  
         
     }
-    
+    public function actionPreview_video() {
+        
+        $video = Yii::app()->getRequest()->getParam('v',null);
+        if(!empty($video)){
+                $cs = Yii::app()->clientScript;
+
+                $cs->scriptMap['jquery-2.1.1.min.js'] = false;
+                $cs->scriptMap['jquery.debouncedresize.js'] = false;
+                $cs->scriptMap['jquery.ba-bbq.js'] = false;
+                $cs->scriptMap['jquery.yiilistview.js'] = false;
+
+                $cs->scriptMap['styles.css'] = false;
+                $cs->scriptMap['pager.css'] = false;
+                $data = new ObjectsHttp;
+                $data->site = $video;
+                $data->description = null;
+                $this->renderPartial('application.views.fastreview._video',array(
+                  'data'=>$data,
+                  ), false, true);
+        }
+        Yii::app()->end();
+
+    }
     public function actionReview_objects() {
         
         $count_items = 0;

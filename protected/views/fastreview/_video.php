@@ -24,7 +24,7 @@ if (strpos($data->site, 'youtube') > 0) {
 </iframe>
  </div>   	
 
-	<div class="caption" style="color:#5e5e5e;background-color:#fff;padding:12px 20px; height:60px;width:100%;overflow:hidden;">
+	<div class="caption hide" style="color:#5e5e5e;background-color:#fff;padding:12px 20px; height:60px;width:100%;overflow:hidden;">
 	<table  style="width:100%;height:36px;">
 		<tr><?php 
 		$num =  substr($data->description, 0, strspn($data->description, "0123456789"));

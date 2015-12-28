@@ -394,7 +394,7 @@ EOF_JS;
             <?php echo $form1->textField($model,'video_link',array('class'=>'form-control','placeholder'=>'Добавьте ссылку на видео')); ?>
             <?php  echo $form1->error($model,'video_link'); ?>
           </div>   
-          <div class="form-group m-t-30" id="video_container" style="display:none;">
+          <div class="form-group m-t-30" id="video_container">
 
           </div>      
 
