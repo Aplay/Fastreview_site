@@ -59,6 +59,7 @@ class PollChoice extends CActiveRecord
       array('votes', 'length', 'max'=>11),
       array('label', 'length', 'max'=>255),
       array('label', 'checkUniqueLabel'),
+      array('label', 'nolinks'),
       array('created_date', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
       array('ip_address', 'length', 'max'=>50),
       array('status, org_id, type, label', 'safe', 'on'=>'search'),
@@ -76,6 +77,15 @@ class PollChoice extends CActiveRecord
   } else { 
   	  return true;
   }
+ }
+ 
+ public function nolinks($attribute,$params)
+ {
+  if (false !== mb_strpos($this->$attribute, '://')) {
+     $this->addError($attribute, 'Размещение веб-ссылок запрещено');
+      return false;
+  }
+  return true;
  }
 
   /**

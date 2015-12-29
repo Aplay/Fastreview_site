@@ -69,6 +69,7 @@ class Objects extends BaseModel
 				array('description, tmpFiles, lat, lng', 'safe'),
 				array('link, video_link', 'url', 'validateIDN'=>true, 'defaultScheme'=>'http'),
 				array('verified','boolean'),
+				array('description','nolinks'),
 				array('created_date', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 	            array('updated_date', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
 	            array('tmpFiles, categories_ar, video, video_comments', 'safe'),
@@ -86,6 +87,15 @@ class Objects extends BaseModel
 	    $value = trim($value,',');
 	    return strtoupper($value);
 	}
+
+	public function nolinks($attribute,$params)
+	{
+	  if (false !== mb_strpos($this->$attribute, '://')) {
+	     $this->addError($attribute, 'Размещение веб-ссылок запрещено');
+	      return false;
+	  }
+	  return true;
+	 }
 	/**
 	 * @return array relational rules.
 	 */

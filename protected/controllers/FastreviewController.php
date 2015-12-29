@@ -53,10 +53,7 @@ class FastreviewController extends Controller {
 	           echo CJSON::encode(array('success'=>false, 'message'=>$errors));
 	           Yii::app()->end();
 	    } 
-      if (false !== mb_strpos($model->description, '://')) {
-             echo CJSON::encode(array('success'=>false, 'message'=>array('Objects_description'=>array('Размещение веб-ссылок запрещено'))));
-             Yii::app()->end();
-      }
+
       
       if($new ||  (!empty($old_mesto) && $old_mesto != $model->address)){
         $words = explode(',',$model->address,2);

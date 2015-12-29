@@ -109,6 +109,7 @@ class Comment extends BaseModel
 	            array('id_parent,status', 'numerical', 'integerOnly'=>true),
 	            array('text', 'length', 'min'=>3),
 	            array('text', 'length', 'max'=>5000),
+	            array('text','nolinks'),
 	            array('created', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 				array('updated', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
 			);
@@ -123,6 +124,7 @@ class Comment extends BaseModel
 				array('name', 'length', 'max'=>50),
 				array('text', 'length', 'min'=>3),
 	            array('text', 'length', 'max'=>5000),
+	            array('text','nolinks'),
 	          //  array('reCaptcha', 'ReCaptchaValidator',  'secret'=>Yii::app()->reCaptcha->secret, 'message'=>'Неправильный код проверки'),
 	            array('created', 'default', 'value' => date('Y-m-d H:i:s'), 'setOnEmpty' => true, 'on' => 'insert'),
 	            array('updated', 'default', 'value' => '0000-00-00 00:00:00', 'setOnEmpty' => true, 'on' => 'insert'),
@@ -138,6 +140,16 @@ class Comment extends BaseModel
     	}
         return $r;
 	}
+
+	public function nolinks($attribute,$params)
+	 {
+	  if (false !== mb_strpos($this->$attribute, '://')) {
+	     $this->addError($attribute, 'Размещение веб-ссылок запрещено');
+	      return false;
+	  }
+	  return true;
+	 }
+
         public function relations()
 	{
 		return array(
