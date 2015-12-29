@@ -20,13 +20,20 @@ class ObjectsController extends SAdminController {
 
         $this->pageTitle = 'Объекты';
         $this->active_link = 'objects';
+
         $model = new Objects('search');
         $model->unsetAttributes();  // clear any default values
+
+        if(!empty($_GET['Objects']))
+            $model->attributes = $_GET['Objects'];
+
         $additionalCriteria = new CDbCriteria;
         $additionalCriteria->condition = 't.verified = true';
-        $model_search = $model->search(array(),$additionalCriteria);
+
+        $dataProvider = $model->search(array(),$additionalCriteria);
+
         $this->render('index',array(
-            'model'=>$model, 'model_search'=>$model_search
+            'model'=>$model, 'dataProvider'=>$dataProvider
         ));
     }
 
@@ -34,17 +41,20 @@ class ObjectsController extends SAdminController {
 
         $this->pageTitle = 'Новые объекты';
         $this->active_link = 'new_objects';
+
         $model = new Objects('search');
         $model->unsetAttributes();  // clear any default values
 
+        if(!empty($_GET['Objects']))
+            $model->attributes = $_GET['Objects'];
 
         $additionalCriteria = new CDbCriteria;
         $additionalCriteria->condition = 't.verified = false';
 
-        $model_search = $model->search(array(),$additionalCriteria);
+        $dataProvider = $model->search(array(),$additionalCriteria);
          
         $this->render('index',array(
-            'model'=>$model, 'model_search'=>$model_search
+            'model'=>$model, 'dataProvider'=>$dataProvider
         ));
     }
 

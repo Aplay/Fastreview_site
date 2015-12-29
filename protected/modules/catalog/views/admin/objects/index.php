@@ -12,8 +12,8 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/bootstrap-da
 	'id'=>'objects-grid',
 	//'itemsCssClass'=>'table  table-hover',
     //'htmlOptions'=>array('class'=>'panel-info'),
-	'dataProvider'=>$model_search,
-	// 'filter'=>$model,
+	'dataProvider'=>$dataProvider,
+	'filter'=>$model,
 	'ajaxUpdate' => true,
   //  'afterAjaxUpdate' => "function(id,data){ plusScripts();  updateScripts();  }",
    // 'loadingCssClass'=>'empty-loading',
@@ -33,23 +33,9 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/bootstrap-da
 		array(
             'header' => 'Название',
             'name' => 'title',
-           /* 'value'=>function($data) { 
-                return CHtml::encode($data->title);
-            },*/
-            'type' => 'raw',
-            'filter'=>false,
-           /* 'filter'=>$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                        'model'=>$model,
-                        'attribute'=>'title',
-                        'source'=>Yii::app()->createUrl('catalog/admin/company/autocompletetitle'),
 
-                        'options'=>array(
-                             'minLength'=>'2',
-                             'showAnim'=>'fold',
-                             
-                        ),
-                        'htmlOptions'=>array('autocomplete'=>'off'),
-            ),true),*/
+            'type' => 'raw',
+  
             'htmlOptions'=>array('class'=>'widget-support-tickets'),
         ),
         array(
