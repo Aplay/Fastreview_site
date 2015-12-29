@@ -59,8 +59,8 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
       <div class="container">
       <div class="row m-t-20">
       <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-      <form style="margin-top:116px;" class="searchform p-l-30" method="get" role="search">
-        <div class="form-group" style="max-width:400px;margin:0;position:relative;">
+      <form style="margin-top:116px;" class="searchform" method="get" role="search">
+        <div class="form-group" style="max-width:400px;margin:0 auto;position:relative;">
 
         <input type="search" id="searchFieldReviewObjectBlue" name="q"  placeholder="Поиск" class="field" autocomplete="off">
         <div id="searchFieldIconBlue" style="cursor:default;" type="button"><i class="fa fa-search"></i></div>
