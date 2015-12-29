@@ -128,7 +128,7 @@ class Category extends CActiveRecord {
             'criteria' => $criteria,
             'sort'       => Category::getCSort(),
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 30,
             ),
         ));
     }

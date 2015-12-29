@@ -78,7 +78,7 @@ class PollChoice extends CActiveRecord
   	  return true;
   }
  }
- 
+
  public function nolinks($attribute,$params)
  {
   if (false !== mb_strpos($this->$attribute, '://')) {
@@ -207,6 +207,9 @@ class PollChoice extends CActiveRecord
 
     return new CActiveDataProvider($this, array(
       'criteria'=>$criteria,
+      'pagination' => array(
+                'pageSize' => 30,
+        ),
     ));
   }
 
