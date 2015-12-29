@@ -83,7 +83,7 @@ $im = '/img/cap.gif';
 if($last->images){ 
   $im = $last->images[0]->getUrl('180x180','adaptiveResize','filename');
 }
-$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id, 'dash'=>'-', 'themeurl'=>$last->category->url,'itemurl'=>$last->url));
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$last->id, 'dash'=>'-', 'itemurl'=>$last->url));
  ?>
    <div class="col-xs-12 col-sm-6 col-md-4">
    <a class="oblects_view_main" data-mh="group-1" href="<?php echo $url; ?>">

@@ -110,7 +110,7 @@ class FastreviewController extends Controller {
             unset(Yii::app()->session['deleteObjectsFiles']);
 
 
-                $objects_url =  Yii::app()->createAbsoluteUrl('/fastreview/item', array('id'=>$model->id,'dash'=>'-', 'themeurl'=>$model->category->url,'itemurl'=>$model->url));
+                $objects_url =  Yii::app()->createAbsoluteUrl('/fastreview/item', array('id'=>$model->id,'dash'=>'-', 'itemurl'=>$model->url));
                 if(Yii::app()->request->isAjaxRequest){
                 	
                     echo CJSON::encode(array('success'=>true, 'message'=>array('url'=>$objects_url)));
@@ -134,7 +134,7 @@ class FastreviewController extends Controller {
 
           $model = $this->_loadModel(Yii::app()->request->getQuery('url'));
 
-          $this->pageTitle = $model->title.' - '.Yii::app()->name;
+          $this->pageTitle = $model->title.' - Быстрые отзывы покупателей';
           
           $modelFirst = $model;
           
@@ -264,7 +264,7 @@ class FastreviewController extends Controller {
     {
     	$model = $this->_loadItem($id);
       $trunc_text = MHelper::String()->truncate($model->title, 400, '..', true, true, false);
-      $this->pageTitle = $trunc_text.' - '.Yii::app()->name;
+      $this->pageTitle = $trunc_text.' - Быстрые отзывы покупателей';
       $this->pageTitle = trim(preg_replace('/\s+/', ' ', $this->pageTitle));
       
 

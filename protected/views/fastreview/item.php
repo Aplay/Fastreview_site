@@ -22,7 +22,7 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/vendors/dropzone/dropzon
 
 
 $sizeLimit = Yii::app()->params['storeImages']['maxFileSize']/1024/1024;
-$thisUrl = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$model->id, 'dash'=>'-', 'themeurl'=>$model->category->url,'itemurl'=>$model->url));
+$thisUrl = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$model->id, 'dash'=>'-', 'itemurl'=>$model->url));
 
 Yii::app()->clientScript->registerMetaTag($model->title, null, null, array('property' => "og:title"));
 Yii::app()->clientScript->registerMetaTag($this->pageDescription, null, null, array('property' => "og:description"));
@@ -200,7 +200,7 @@ $item_top_class = 'm-t-25';
 
 <div class="card <?php echo $item_top_class; ?>">
 <div class="card-body advert_item">
-<p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?></p>
+<p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?> - отзывы</p>
 <?php 
 if($model->description){ ?>
 <p class="description"><?php echo nl2br(CHtml::encode($model->description)); ?></p>
@@ -208,7 +208,7 @@ if($model->description){ ?>
   } ?>
 <?php 
 if($model->link){
-  echo '<p  ><span class="url-link"><a target="_blank" href="'.$model->link.'">'.CHtml::encode($model->link).'</a></span></p>';
+  echo '<p  ><span class="url-link"><a target="_blank" rel="nofollow" href="'.$model->link.'">'.CHtml::encode($model->link).'</a></span></p>';
 }
 ?>
 <p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; 
@@ -288,7 +288,7 @@ if(!empty($pohs)){ ?>
 <?php 
 foreach ($pohs as $poh) { 
 
-$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$poh->id, 'dash'=>'-', 'themeurl'=>$poh->category->url,'itemurl'=>$poh->url));
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$poh->id, 'dash'=>'-', 'itemurl'=>$poh->url));
 
 $imgs = ObjectsImages::model()->find(array('condition'=>'object='.$poh->id,'order'=>'date_uploaded, id'));
 

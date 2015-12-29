@@ -72,7 +72,7 @@ EOF_JS;
 <div class="col-xs-12 col-sm-12 col-md-12">
   <div class="form-group fg-line green">
         <?php echo $form->labelEx($model, 'title'); ?>
-        <?php echo $form->textField($model, 'title', array('class' => 'form-control input-sm', 'placeholder'=>'Введите название', 'maxlength'=>55)); ?>
+        <?php echo $form->textField($model, 'title', array('class' => 'form-control input-sm', 'placeholder'=>'Введите название', 'maxlength'=>255)); ?>
         <?php echo $form->error($model,'title'); ?>
     </div>
   <div class="form-group p-relative">

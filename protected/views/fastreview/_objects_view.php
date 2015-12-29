@@ -2,7 +2,7 @@
 
 $themeUrl = '/themes/bootstrap_311/';
 
-$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$data->id, 'dash'=>'-', 'themeurl'=>$data->category->url,'itemurl'=>$data->url));
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$data->id, 'dash'=>'-', 'itemurl'=>$data->url));
 
 $im = '/img/cap.gif';
 $alt = '';

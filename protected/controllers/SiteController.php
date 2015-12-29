@@ -42,6 +42,7 @@ class SiteController extends Controller {
     public function actionIndex() {
         
        // $cats = Category::model()->findAll(array('condition'=>'lft=1 and rgt=2 and level=1','order'=>'title'));
+        $this->pageTitle = 'Быстрые отзывы покупателей о товарах и услугах';
         $cats =  Category::getRubsByParentId();
         $lasts = Objects::model()->active()->findAll(array('order'=>'created_date DESC', 'limit'=>9));
         $last_array = array();

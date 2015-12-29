@@ -24,9 +24,9 @@
                 ));*/
 
 	if($type==1){
-		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-up"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Преимущества</div></div>';
+		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-success btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-up"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Отзывы-Преимущества</div></div>';
 	} else {
-		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-danger btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-down"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Недостатки</div></div>';
+		echo '<div><button type="button" style="display:block;float:left;" class="m-l-20 btn btn-danger btn-icon btn-icon waves-effect waves-circle waves-float finger-circle m-r-10"><i class="fa fa-thumbs-down"></i></button> <div style="display:block;float:left;" class="card f-14 t-uppercase p-t-5">Отзывы-Недостатки</div></div>';
 	}
 	echo '<div class="clearfix"></div><div class=" poll_box_type_'.$type.'">';
 	if($modelChoices){
