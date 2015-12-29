@@ -148,7 +148,7 @@ class CatalogController extends Controller
             ));
          // Load last comments
 		 $comments = Comment::getLastComments(5, $this->city->id);
-		 $lastImages = OrgsImages::getLastImages(5, $this->city->id);
+		 $lastImages = ObjectsImages::getLastImages(5, $this->city->id);
          $this->beginClip('cityheader');
          $this->renderPartial('_city_header_no_slider'); 
 		 $this->endClip();
@@ -229,7 +229,7 @@ class CatalogController extends Controller
 	    }
 	    $this->breadcrumbs[] = $name;
 
-	    $this->query = new Orgs(null);
+	    $this->query = new Objects(null);
 
         $this->query->pureactive()
                 ->with(array(

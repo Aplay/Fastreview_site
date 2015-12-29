@@ -302,14 +302,15 @@ class FastreviewController extends Controller {
         }
       }
 
-    if(isset($_POST['Objects']) && isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form')
+    if(isset($_POST['Objects']) && isset($_POST['itemData']) && $_POST['itemData'] == 1)
     {
-
-        $errors = CActiveForm::validate($model);
-        if ($errors !== '[]') {
-               echo $errors;
-               Yii::app()->end();
-        } 
+        if(isset($_POST['ajax']) && $_POST['ajax']==='pinboard-form'){
+          $errors = CActiveForm::validate($model);
+          if ($errors !== '[]') {
+                 echo $errors;
+                 Yii::app()->end();
+          } 
+      }
       
 
       $model->attributes=$_POST['Objects'];
@@ -348,14 +349,15 @@ class FastreviewController extends Controller {
                 }
       } 
     }
-    if(isset($_POST['Objects']) && isset($_POST['ajax']) && $_POST['ajax']==='pinboard-video-form')
+    if(isset($_POST['Objects']) && isset($_POST['itemData']) && $_POST['itemData'] == 2)
     {
-
+        if(isset($_POST['ajax']) && $_POST['ajax']==='pinboard-video-form'){
         $errors = CActiveForm::validate($model);
         if ($errors !== '[]') {
                echo $errors;
                Yii::app()->end();
         } 
+      }
         $model->attributes=$_POST['Objects'];
 
         if(!empty($model->video_link) && $model->validate()){

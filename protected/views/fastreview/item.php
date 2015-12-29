@@ -402,7 +402,7 @@ EOF_JS;
       
       <div class="modal-footer b-t-0 p-t-0 p-r-20 p-b-20 text-right pull-right">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Отмена</button>
-        <button type="submit" class="btn btn-default-over btn-sm">Добавить</button>
+        <button type="submit" name="itemData" value="2" class="btn btn-default-over btn-sm">Добавить</button>
       </div>
             
             <div class="clearfix"></div>
@@ -463,7 +463,7 @@ EOF_JS;
       
       <div class="modal-footer b-t-0 p-t-0 p-r-20 p-b-20 text-right pull-right">
         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Отмена</button>
-        <button type="submit" class="btn btn-default-over btn-sm" id="subButPin">Добавить</button>
+        <button type="submit" name="itemData" value="1" class="btn btn-default-over btn-sm" id="subButPin">Добавить</button>
       </div>
             
             <div class="clearfix"></div>
@@ -492,6 +492,7 @@ var dropzone = new Dropzone('#dropzone', {
         url: '".$uploadLink."',
         paramName: 'tmpFiles', // The name that will be used to transfer the file
         maxFilesize: ".$sizeLimit.", // MB
+        maxFiles: ".$model->maxFiles.",
         parallelUploads: 10,
         params: {
           '".$csrfTokenName."': '".$csrfToken."'
