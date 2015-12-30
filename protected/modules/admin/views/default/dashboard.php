@@ -4,7 +4,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/morris/morri
 
 ?>
 <div class="row">
-<div class="col-sm-4">
+<div class="col-sm-6">
 
 <!-- 11. $EXAMPLE_ACCOUNT_OVERVIEW =================================================================
 
@@ -39,15 +39,51 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/morris/morri
 								<!-- Extra small text -->
 								<span class="text-xs"><?php echo Yii::t('site', 'object|objects', $objects); ?></span>
 							</div>
+							<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+								<span class="text-bg"><strong><?php echo $polls; ?></strong></span><br>
+								<span class="text-xs"><?php echo Yii::t('site', 'poll|polls', $polls); ?></span>
+						</div>
 							
 						</div> <!-- /.stat-counters -->
 					</div> <!-- /.stat-row -->
+					<div class="stat-row">
+					<div class="stat-counters bg-success no-border-b no-padding text-center">
+						<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+								<span class="text-bg"><strong><?php echo $photos; ?></strong></span><br>
+								<span class="text-xs"><?php echo Yii::t('site', 'photo|photos', $photos); ?></span>
+						</div>
+						<div class="stat-cell col-xs-4 padding-sm no-padding-hr">
+								<span class="text-bg"><strong><?php echo $videos; ?></strong></span><br>
+								<span class="text-xs">видео</span>
+						</div>
+					</div>
+					</div>
 				</div> <!-- /.stat-panel -->
 <!-- /11. $EXAMPLE_ACCOUNT_OVERVIEW -->
 
 			</div>
-
-
+<div class="col-sm-6">
+<div class="row">
+<?php
+if($objectsNew) { ?>	
+		<div class="col-sm-6">
+			<div class="stat-panel">
+					<!-- Success background. vertically centered text -->
+					<a href="<?php echo Yii::app()->createUrl('catalog/admin/objects/new_objects'); ?>" class="stat-cell bg-danger valign-middle">
+						<!-- Stat panel bg icon -->
+						<i class="fa fa-briefcase bg-icon"></i>
+						<!-- Extra large text -->
+						<span class="text-xlg"><strong><?php echo $objectsNew; ?></strong></span><br>
+						<!-- Big text -->
+						<span class="text-bg"><?php echo Yii::t('site', 'objectsNew|objectsNew', $objectsNew); ?></span><br>
+						<!-- Small text -->
+						<span class="text-sm"><?php echo Yii::t('site', 'wait|waits', $objectsNew); ?></span>
+					</a> <!-- /.stat-cell -->
+				</div> <!-- /.stat-panel -->
+		</div>
+		<?php } ?>
+</div>
+</div>
 </div>
 <div class="row">
 <div class="col-md-12">
