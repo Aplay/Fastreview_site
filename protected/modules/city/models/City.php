@@ -820,14 +820,18 @@ class City extends CActiveRecord
 							if($trueRegion){
 								$trueCity->region = $trueRegion->id;
 							}
-							$trueCity->pos = 10000;
+							$trueCity->pos = 0;
+							$trueCityCheck = City::model()->find('LOWER(title)=:title or LOWER(alternative_title)=:alternative_title',array(':title'=>MHelper::String()->toLower($trueCity->title),':alternative_title'=>MHelper::String()->toLower($trueCity->title)));
+							if($trueCityCheck) // потому-что ввести могут что угодно, а город обозначится только после запроса к яндексу.
+								return $trueCityCheck;
+
 						    if($trueCity->save()){
 						    	
 						    } else {
 
 						    	if($trueCity->errors && isset($trueCity->errors['title'])){
 						    		if($trueCity->errors['title'][0] == 'Город с таким названием уже существует.'){
-						    			$trueCity = City::model()->find('title=:title or alternative_title=:alternative_title',array(':title'=>$trueCity->title,':alternative_title'=>$trueCity->title));
+						    			$trueCity = City::model()->find('LOWER(title)=:title or LOWER(alternative_title)=:alternative_title',array(':title'=>MHelper::String()->toLower($trueCity->title),':alternative_title'=>MHelper::String()->toLower($trueCity->title)));
 						    		}
 						    	}
 						    }
