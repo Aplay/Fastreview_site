@@ -793,7 +793,7 @@ class City extends CActiveRecord
 						     }
 						    $result_region = $response->response->GeoObjectCollection->featureMember[0]->GeoObject->metaDataProperty->GeocoderMetaData->AddressDetails->Country->AdministrativeArea->AdministrativeAreaName;
 						    if($result_region){
-						    	$trueRegion = Region::model()->find('title=:title',array(':title'=>$result_region));
+						    	$trueRegion = Region::model()->find('LOWER(title)=:title',array(':title'=>MHelper::String()->toLower($result_region)));
 									if(!$trueRegion){
 										$trueRegion = new Region;
 										$trueRegion->title = $result_region;
