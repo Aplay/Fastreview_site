@@ -67,6 +67,7 @@ class Objects extends BaseModel
 				array('ip_address', 'length', 'max'=>50),
 				array('title, link, address, url, video_link', 'length', 'max'=>255),
 				array('description, tmpFiles, lat, lng', 'safe'),
+				array('link','checkpunycode'),
 				array('link, video_link', 'url', 'validateIDN'=>true, 'defaultScheme'=>'http'),
 				array('verified','boolean'),
 				array('description','nolinks'),
@@ -80,7 +81,6 @@ class Objects extends BaseModel
 	}
 
 	
-
 	public function removeCommas($value)
 	{
 	    //trim out commas
@@ -96,6 +96,12 @@ class Objects extends BaseModel
 	  }
 	  return true;
 	 }
+
+	public function checkpunycode($attribute,$params)
+	{
+		if(Helper::isPunycode($this->$attribute))
+            $this->$attribute = Helper::DecodePunycodeIDN($this->$attribute);
+    }
 	/**
 	 * @return array relational rules.
 	 */
