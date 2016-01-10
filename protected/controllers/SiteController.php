@@ -58,7 +58,11 @@ class SiteController extends Controller {
         $lasts_poll = PollChoice::model()->findAll($criteria);
         if(!empty($lasts_poll)){
             foreach ($lasts_poll as $last_poll) {
-                $lasts[] = $last_poll->org;
+                if(!in_array($last_poll->org->id, $last_array)){
+                    $last_array[] = $last_poll->org->id;
+                    $lasts[] = $last_poll->org;
+                }
+                
             }
         }
         $this->render('index',array(
