@@ -103,6 +103,12 @@ class ObjectsController extends SAdminController {
         {
 
             $model->attributes=$_POST['Objects'];
+            if(!$model->categories_ar || !is_array($model->categories_ar)){
+                $model->categories_ar = array();
+                $model->categorie = null;
+              } else {
+                $model->categorie = $model->categories_ar[0];
+              }
 
             if($new ||  (!empty($old_mesto) && $old_mesto != $model->address)){
                 $words = explode(',',$model->address,2);
