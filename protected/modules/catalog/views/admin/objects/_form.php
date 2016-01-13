@@ -72,7 +72,7 @@ $form=$this->beginWidget('CActiveForm', array(
             <?php  echo $form->label($model, 'description', array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
 
             <div class="col-lg-10 col-md-12 col-sm-12">
-            <?php echo $form->textArea($model,'description',array('class'=>'form-control','maxlength'=>255)); ?>
+            <?php echo $form->textArea($model,'description',array('class'=>'form-control')); ?>
             </div>
         </div> <!-- / .form-group -->
         <div class="form-group">
