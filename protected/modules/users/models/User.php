@@ -1,5 +1,6 @@
 <?php
 Yii::import('ext.phpthumb.PhpThumbFactory');
+Yii::import('application.modules.comments.models.Comment');
 class User extends BaseModel {
 
 	public $verifyPassword;
@@ -612,8 +613,8 @@ class User extends BaseModel {
         if(!parent::beforeDelete())
             return false;
         Comment::model()->updateAll(array('user_id'=>0),array('condition'=>'user_id='.$this->id));
-        OrgsImages::model()->updateAll(array('uploaded_by'=>null),array('condition'=>'uploaded_by='.$this->id));
-        Orgs::model()->updateAll(array('author'=>null),array('condition'=>'author='.$this->id));
+        ObjectsImages::model()->updateAll(array('uploaded_by'=>null),array('condition'=>'uploaded_by='.$this->id));
+        Objects::model()->updateAll(array('author'=>null),array('condition'=>'author='.$this->id));
 
         $this->deleteModelDir(); // удалили модель? удаляем и файл и всю папку
         return true;
