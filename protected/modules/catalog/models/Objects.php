@@ -90,7 +90,10 @@ class Objects extends BaseModel
 
 	public function nolinks($attribute,$params)
 	{
-	  if (false !== mb_strpos($this->$attribute, '://')) {
+	  $pattern = '#(www\.|https?://)?[a-z0-9]+\.[a-z0-9]{2,4}\S*#i';	
+	  preg_match_all($pattern, $this->$attribute, $matches, PREG_PATTERN_ORDER);
+	  if(isset($matches[0]) && !empty($matches[0])){
+	 // if (false !== mb_strpos($this->$attribute, '://')) {
 	     $this->addError($attribute, 'Размещение веб-ссылок запрещено');
 	      return false;
 	  }
