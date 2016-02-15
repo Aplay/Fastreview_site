@@ -86,7 +86,7 @@ class DefaultController extends SAdminController {
                     }
 
                 } else {
-                    if($model->saveNode()){
+                    if($model->saveNode()   && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))){
                         $err = false;
                     }
                 }
@@ -131,9 +131,9 @@ class DefaultController extends SAdminController {
                 $target = null;
                 if ($parent_id_old == $model->parent_id) { // if sending parent_id == current parrent_id do nothing;
 
-                    if ($model->saveNode()){
-                    	$model->addDropboxLogoFiles($this->uploadlogosession);
-                		Yii::app()->session->remove($this->uploadlogosession);
+                    if ($model->saveNode()  && $model->storeTypeAttributes(Yii::app()->getRequest()->getPost('attributes', []))){
+                    	/*$model->addDropboxLogoFiles($this->uploadlogosession);
+                		Yii::app()->session->remove($this->uploadlogosession);*/
                         $err = false;
                     }
                 } else { // move node

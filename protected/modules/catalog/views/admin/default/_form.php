@@ -58,7 +58,54 @@ if($model->isNewRecord){
                 ?>
                 </div>
         </div>
-
+    <div class="row">
+    <?php $tree = [];
+    $selectedAttributes = [];
+    $model->refresh();
+    foreach ($model->typeAttributes as $attribute) {
+        $selectedAttributes[] = $attribute->id;
+    }
+  /*  foreach ((array)EavOptionsGroup::model()->findAll() as $group) {
+        $items = [];
+        $groupHasNotSelectedAttribute = false;
+        $groupItems = (array)$group->groupAttributes;
+        foreach ($groupItems as $item) {
+            $selected = in_array($item->id, $selectedAttributes);
+            if (!$selected) {
+                $groupHasNotSelectedAttribute = true;
+            }
+            $items[] = ['text' => CHtml::tag('div', ['class' => 'checkbox'], CHtml::label(CHtml::checkBox('attributes[]', $selected, ['value' => $item->id]) . $item->title, null))];
+        }
+        $tree[] = [
+            'text' => CHtml::tag(
+                'div',
+                ['class' => 'checkbox'],
+                CHtml::label(CHtml::checkBox('', count($groupItems) && !$groupHasNotSelectedAttribute, ['class' => 'group-checkbox']) . $group->name, null)
+            ),
+            'children' => $items
+        ];
+    } */
+    foreach ((array)EavOptions::model()->findAllByAttributes(['group_id' => null]) as $attribute) {
+        $tree[] = [
+            'text' => CHtml::tag(
+                'div',
+                ['class' => 'checkbox'],
+                CHtml::label(CHtml::checkBox('attributes[]', in_array($attribute->id, $selectedAttributes), ['value' => $attribute->id]) . $attribute->title, null)
+            )
+        ];
+    }
+    ?>
+    <div class="col-sm-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <?php echo 'Атрибуты'; ?>
+            </div>
+            <div class="panel-body">
+                <?php $this->widget('CTreeView', ['data' => $tree, 'collapsed' => true]); ?>
+            </div>
+        </div>
+    </div>
+</div>    
   
 
         <div style="margin-bottom: 0;" class="form-group">

@@ -75,6 +75,15 @@ class Category extends CActiveRecord {
         // class name for the relations automatically generated below.
         return array(
             'parent'=>array(self::BELONGS_TO, 'Category', 'parent_id'),
+            'attributeRelation' => array(self::HAS_MANY, 'EavTypeAttribute', 'type_id'),
+            'typeAttributes' => array(
+                self::HAS_MANY,
+                'EavOptions',
+                array('attribute_id' => 'id'),
+                'through' => 'attributeRelation',
+               /* 'with' => 'group',
+                'order' => 'group.position ASC',*/
+            ),
         );
     }
 
@@ -195,6 +204,35 @@ class Category extends CActiveRecord {
         } else
             return false;
     } 
+
+    /**
+     * @param $attributes
+     * @return bool
+     */
+    public function storeTypeAttributes(array $attributes)
+    {
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+
+            EavTypeAttribute::model()->deleteAllByAttributes(['type_id' => $this->id]);
+
+            foreach ($attributes as $attributeId) {
+                $typeAttribute = new EavTypeAttribute();
+                $typeAttribute->type_id = $this->id;
+                $typeAttribute->attribute_id = (int)$attributeId;
+                $typeAttribute->save();
+            }
+
+            $transaction->commit();
+
+            return true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
 
     // this method is working. on parent_id base. very fast // 0.6sec
     public static function getRubsByParentId()
