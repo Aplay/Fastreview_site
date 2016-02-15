@@ -38,7 +38,7 @@ $this->renderPartial('application.views.common._flashMessage');
   'filter'=>$model,
   'columns'=>array(
   	'title',
-    'group_id',
+  //  'group_id',
 
     array(
       'name' => 'type',
