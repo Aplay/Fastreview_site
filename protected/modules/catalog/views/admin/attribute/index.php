@@ -43,7 +43,8 @@ $this->renderPartial('application.views.common._flashMessage');
     array(
       'name' => 'type',
       'value' => 'CHtml::encode($data->getTypeTitle($data->type))',
-      'filter' => CHtml::activeDropDownList($model, 'type', $model->getTypesList()),
+      'filter'=>false
+      //'filter' => CHtml::activeDropDownList($model, 'type', $model->getTypesList()),
     ),
 
     array(
