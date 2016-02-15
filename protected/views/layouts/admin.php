@@ -245,6 +245,9 @@ var init = [];
                 <li <?php if($this->active_link == 'catalog'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('catalog/admin/default'); ?>"><i class="menu-icon fa fa-tasks"></i><span class="mm-text">Рубрики</span></a>
                 </li>
+                <li <?php if($this->active_link == 'attribute'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/attribute'); ?>"><i class="menu-icon fa fa-list-ul"></i><span class="mm-text">Атрибуты</span></a>
+                </li>
                 <li <?php if($this->active_link == 'new_objects'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('catalog/admin/objects/new_objects'); ?>"><i class="menu-icon fa fa-briefcase"></i><span class="mm-text">Новые объекты</span></a>
                 </li>
@@ -274,7 +277,7 @@ var init = [];
             'tagName'=>'ul', // will change the container to ul
             'activeLinkTemplate'=>'<li><a href="{url}">{label}</a></li>', // will generate the clickable breadcrumb links 
             'inactiveLinkTemplate'=>'<li class="active">{label}</li>', // will generate the current page url : <li>News</li>
-            'homeLink'=>'<div class="breadcrumb-label text-light-gray">'.Yii::t('site','You are here:').' </div><li><a href="'.Yii::app()->homeUrl.'">'.Yii::t('site','Home').'</a></li>',
+            'homeLink'=>'<div class="breadcrumb-label text-light-gray">'.Yii::t('site','You are here:').' </div><li><a href="'.Yii::app()->createAbsoluteUrl('admin/default/index').'">'.Yii::t('site','Dashboard').'</a></li>',
             'htmlOptions'=>array('class'=>'breadcrumb breadcrumb-page'),
             'separator'=>' '
         ));

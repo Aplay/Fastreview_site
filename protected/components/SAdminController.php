@@ -74,8 +74,7 @@ class SAdminController extends RController
             Yii::app()->request->redirect($this->createUrl('/'.Yii::app()->params['adminPath'].'/auth'));
         }   
                 Yii::app()->errorHandler->errorAction = '/admin/errors/error';
-        
-                
+               
         return true;
     }
 
