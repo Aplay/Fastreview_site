@@ -85,17 +85,18 @@ if($model->isNewRecord){
             'children' => $items
         ];
     } */
-    foreach ((array)EavOptions::model()->findAllByAttributes(['group_id' => null]) as $attribute) {
-        $tree[] = [
+    foreach ((array)EavOptions::model()->findAllByAttributes(array('group_id' => null),array('order'=>'title')) as $attribute) {
+        $tree[] = array(
             'text' => CHtml::tag(
                 'div',
-                ['class' => 'checkbox'],
+                array('class' => 'checkbox no-padding-t'),
                 CHtml::label(CHtml::checkBox('attributes[]', in_array($attribute->id, $selectedAttributes), ['value' => $attribute->id]) . $attribute->title, null)
             )
-        ];
+        );
     }
     ?>
-    <div class="col-sm-7">
+    <div class="col-md-1 col-sm-2"></div>
+    <div class="col-md-11 col-sm-10">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php echo 'Атрибуты'; ?>
