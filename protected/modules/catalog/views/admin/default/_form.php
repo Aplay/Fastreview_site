@@ -140,6 +140,11 @@ $('#Category_parent_id').select2({
             }
     });
 
+$('input[type=\"checkbox\"].group-checkbox').change(function () {
+    var prev = $(this).parent().parent('.treecheck');
+    $(prev).next('ul').find('input[type=\"checkbox\"]').prop('checked', this.checked);
+  });
+
 });
 ";
 Yii::app()->clientScript->registerScript("selScript", $scriptDd, CClientScript::POS_END);
