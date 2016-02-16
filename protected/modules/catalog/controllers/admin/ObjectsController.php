@@ -10,7 +10,7 @@ class ObjectsController extends SAdminController {
         return array(
             'accessControl', // perform access control for CRUD operations
             'rights',
-            'ajaxOnly + delete, statuslocator, updatestatus,  deletefile, deletelogofile, uploadlogo, unlinklogo, autocompletetitle,  autocompleteaddress, autocompleteloguser, autocompletecity, autocompletestreet, autocompletedom, autocompleterubrics',
+            'ajaxOnly + delete, getattributes, statuslocator, updatestatus,  deletefile, deletelogofile, uploadlogo, unlinklogo, autocompletetitle,  autocompleteaddress, autocompleteloguser, autocompletecity, autocompletestreet, autocompletedom, autocompleterubrics',
         );
     }
 
@@ -101,7 +101,7 @@ class ObjectsController extends SAdminController {
 
         if(isset($_POST['Objects']))
         {
-
+            $typeAttributes = Yii::app()->getRequest()->getPost('EavOptions', array());
             $model->attributes=$_POST['Objects'];
             if(!$model->categories_ar || !is_array($model->categories_ar)){
                 $model->categories_ar = array();
@@ -134,9 +134,9 @@ class ObjectsController extends SAdminController {
               }
 
 
-            if($model->save()){
+            if($model->saveData(array(), $typeAttributes, array(), array(), $model->video)){
                 
-                $model->setHttp($model->video, array(), false, ObjectsHttp::TYPE_VIDEO);
+                
 
                 if(isset(Yii::app()->session['deleteObjectsFiles']))
                 {
@@ -276,7 +276,21 @@ class ObjectsController extends SAdminController {
         Yii::app()->end();
     }
 
+    /**
+     * @param $id
+     * @throws CException
+     * @throws CHttpException
+     */
+    public function actionGetAttributes($id)
+    {
+        $type = Category::model()->findByPk($id);
 
+        if (null === $type) {
+            throw new CHttpException(404);
+        }
+
+        $this->renderPartial('_attribute_form', array('groups' => $type->getAttributeGroups(), 'model' => new Objects()));
+    }
    
     /**
      * Returns the data model based on the primary key given in the GET variable.

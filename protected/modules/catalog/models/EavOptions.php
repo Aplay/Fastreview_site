@@ -182,10 +182,18 @@ class EavOptions extends BaseModel
         return [self::TYPE_CHECKBOX_LIST];
     }
 
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function isType($type)
+    {
+        return $type == $this->type;
+    }
 	/**
 	 * @return string html field based on attribute type
 	 */
-	public function renderField($value = null)
+/*	public function renderField($value = null)
 	{
 		$name = 'EavOptions['.$this->name.']';
 		switch ($this->type):
@@ -220,13 +228,13 @@ class EavOptions extends BaseModel
 			break;
 		endswitch;
 	}
-
+*/
 	/**
 	 * Get attribute value
 	 * @param $value
 	 * @return string attribute value
 	 */
-	public function renderValue($value)
+	/* public function renderValue($value)
 	{
 		switch ($this->type):
 			case self::TYPE_TEXT:
@@ -263,7 +271,7 @@ class EavOptions extends BaseModel
 					return $data[$value];
 			break;
 		endswitch;
-	}
+	} */
         
         /**
 	 * @return string html id based on name

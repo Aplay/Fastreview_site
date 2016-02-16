@@ -28,12 +28,13 @@ $form=$this->beginWidget('CActiveForm', array(
 )); ?>
 <div class="row">
 <div class="col-md-12">
-<div class="panel">
-    <div class="panel-heading">
-        <span class="panel-title">Объявление</span>
-    </div>
-    <div class="panel-body">
-
+<div class="panel_" style="margin-bottom:20px;">
+    <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#main_tab">Объет</a></li>
+    <li><a data-toggle="tab" href="#attributes_tab">Атрибуты</a></li>
+    </ul>
+    <div class="panel-body tab-content tab-content-bordered">
+    <div id="main_tab" class="tab-pane fade in active">
         <div class="form-group">
 
             <?php  echo $form->labelEx($model, 'title', array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
@@ -204,8 +205,16 @@ $form=$this->beginWidget('CActiveForm', array(
                     </div>
                 </div>
         </div>
-        
     </div>
+    <div id="attributes_tab" class="tab-pane fade">
+        <div id="attributes-panel">
+            <?php $this->renderPartial(
+                '_attribute_form',
+                array('groups' => $model->getAttributeGroups(), 'model' => $model)
+            ); ?>
+        </div>
+    </div>
+    </div><!-- tab-content tab-content-bordered -->
  </div>
  </div>
 </div>
@@ -244,6 +253,14 @@ $('#Objects_categories_ar').select2({
        // minimumResultsForSearch: -1,
         allowClear: true,
         placeholder: 'Выберите рубрику'
+}).on('change',function(){
+    var typeId = $(this).val();
+    if (typeId) {
+        $('#attributes-panel').load('". Yii::app()->createAbsoluteUrl('catalog/admin/objects/getAttributes')."/?id=' + typeId);
+    }
+    else {
+        $('#attributes-panel').html('');
+    }
 });
 $('#Objects_status').select2({
        // minimumResultsForSearch: -1,
@@ -408,6 +425,10 @@ $('#customFieldsVideo').on('click', '.remVideo', function(){
   
     $(this).parent().parent().parent().parent().remove();
 });
+
+
+
+
 
 })
 

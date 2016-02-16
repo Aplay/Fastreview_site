@@ -30,6 +30,10 @@ class Objects extends BaseModel
 
  	protected $_newRec = false;
  	private $_curr;
+ 	/**
+     * @var
+     */
+    protected $_typeAttributes;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,6 +41,26 @@ class Objects extends BaseModel
 	{
 		return 'objects';
 	}
+	/*public function __get($name)
+	{
+		if(substr($name,0,4) === 'eav_')
+		{
+			if($this->getIsNewRecord())
+				return null;
+
+			$attribute = substr($name, 4);
+			$eavData = $this->getEavAttributes();
+
+			if(isset($eavData[$attribute]))
+				$value = $eavData[$attribute];
+			else
+				return null;
+
+			$attributeModel = EavOptions::model()->with('options')->findByAttributes(array('name'=>$attribute));
+			return $attributeModel->renderValue($value);
+		}
+		return parent::__get($name);
+	}*/
 	public function scopes()
 	{
 		
@@ -151,6 +175,17 @@ class Objects extends BaseModel
 		);
 	}
 
+	/*public function behaviors()
+	{
+		return array(
+			'eavAttr' => array(
+				'class'     => 'ext.behaviors.eav.EEavBehavior',
+				'tableName' => 'eav_variants',
+				'entityField' => 'product_id',
+				'attributeField' => 'attribute_name',
+
+			));
+	}*/
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -261,6 +296,162 @@ class Objects extends BaseModel
 		);
 	}
 
+	/**
+     * @return array
+     */
+    public function getAttributeGroups()
+    {
+        if (empty($this->category)) {
+            return [];
+        }
+
+        return $this->category->getAttributeGroups();
+    }
+
+    /**
+     * @param array $attributes
+     * @param array $typeAttributes
+     * @param array $variants
+     * @param array $categories
+     * @return bool
+     */
+    public function saveData(array $attributes, array $typeAttributes, array $variants, array $categories = [], array $video)
+    {
+        
+
+        $transaction = Yii::app()->getDb()->beginTransaction();
+
+        try {
+
+           // $this->setAttributes($attributes);
+            $this->setTypeAttributes($typeAttributes);
+       
+            if ($this->save()) {
+
+               // $this->saveVariants($variants);
+               // $this->saveCategories($categories);
+
+                $this->saveTypeAttributes($typeAttributes);
+                // Process attributes
+				// $this->processAttributes($typeAttributes);
+                $this->setHttp($video, array(), false, ObjectsHttp::TYPE_VIDEO);
+
+                $transaction->commit();
+
+                return true;
+            } 
+
+            return false;
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        }
+    }
+
+    /**
+	 * Save model attributes
+	 * @param Products $model
+	 * @return boolean
+	 */
+	protected function processAttributes($attributes)
+	{
+		$attributes = new CMap($attributes);
+
+		if(empty($attributes))
+			return false;
+
+		$this->deleteEavAttributes(array(), true);
+
+		// Delete empty values
+		foreach($attributes as $key=>$val)
+		{
+			if(is_string($val) && $val === '')
+				$attributes->remove($key);
+		}
+
+		return $this->setEavAttributes($attributes->toArray(), true);
+	}
+    /**
+     * @param array $attributes
+     * @return bool
+     */
+    public function saveTypeAttributes(array $attributes)
+    {
+      //  $transaction = Yii::app()->getDb()->beginTransaction();
+
+      //  try {
+
+            EavProductVariant::model()->deleteAll('product_id = :id', array(':id' => $this->id));
+            
+            foreach ($attributes as $attribute => $value) {
+
+                if (null == $value || (is_array($value) && empty($value))) {
+                    continue;
+                }
+
+                //сохраняем значения
+                if(!is_array($value)){
+	                $model = new EavProductVariant();
+	                $model->store($attribute, $value, $this);
+            	} else {
+            		foreach ($value as $val) {
+            			$model = new EavProductVariant();
+	                	$model->store($attribute, $val, $this);
+            		}
+            	}
+
+            }
+
+      /*      $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+
+            return false;
+        } */
+    }
+
+    
+    /**
+     * @param array $attributes
+     */
+    public function setTypeAttributes(array $attributes)
+    {
+        $this->_typeAttributes = $attributes;
+    }
+
+    /**
+     * @param $attribute
+     * @param null $default
+     * @return bool|float|int|null|string
+     */
+    public function attribute($attribute, $default = null)
+    {
+        if ($this->getIsNewRecord()) {
+            return null;
+        }
+
+        //@TODO переделать на получение в 1 запрос
+        $models = EavProductVariant::model()->with('attribute')->findAll(
+            'product_id = :product AND attribute_id = :attribute',
+            array(
+                ':product' => $this->id,
+                ':attribute' => $attribute->id,
+            )
+        );
+
+        if (null === $models || empty($models)) {
+            return null;
+        }
+        $ret = array();
+        if(count($models)==1){
+        	return $models[0]->value($default);
+        }
+        foreach ($models as $model) {
+        	$ret[] = $model->value($default);
+        }
+        return $ret;
+    }
 	public function withUrl($url, $alias = 't')
     {
         $this->getDbCriteria()->mergeWith(array(

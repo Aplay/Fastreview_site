@@ -234,6 +234,23 @@ class Category extends CActiveRecord {
         }
     }
 
+    /**
+     * @return array
+     */
+    public function getAttributeGroups()
+    {
+        $attributeGroups = [];
+
+        foreach ($this->typeAttributes as $attribute) {
+            if ($attribute->group) {
+                $attributeGroups[$attribute->group->name][] = $attribute;
+            } else {
+                $attributeGroups[''][] = $attribute;
+            }
+        }
+
+        return $attributeGroups;
+    }
     // this method is working. on parent_id base. very fast // 0.6sec
     public static function getRubsByParentId()
     {

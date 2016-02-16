@@ -192,12 +192,14 @@ class EEavBehavior extends CActiveRecordBehavior {
 	 */
 	public function __construct() {
 		// Prepare attributes collection.
+		
 		$this->attributes = new CAttributeCollection;
 		$this->attributes->caseSensitive = TRUE;
 		// Prepare safe attributes list.
 		$this->safeAttributes = new CList;
 		// Prepare changed attributes list.
 		$this->changedAttributes = new CList;
+
 	}
 
 	/**
@@ -265,6 +267,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 		if ($this->preload) {
 			if($this->owner->getPrimaryKey()) // Added by firstrow@gmail.com
 				$this->loadEavAttributes($this->getSafeAttributesArray());
+
 		}
 		// Call parent method for convenience.
 		parent::afterFind($event);
@@ -353,9 +356,11 @@ class EEavBehavior extends CActiveRecordBehavior {
 	 */
 	public function deleteEavAttributes($attributes = array(), $save = FALSE) {
 		// If not set attributes for deleting, delete all.
+		
 		if (empty($attributes)) {
 			$attributes = $this->attributes->keys;
 		}
+
 		// Delete each attributes.
 		foreach ($attributes as $attribute) {
 			$this->attributes->remove($attribute);
@@ -409,11 +414,14 @@ class EEavBehavior extends CActiveRecordBehavior {
 		}
 		// Values array.
 		$values = array();
+
 		// Queue for load.
 		$loadQueue = new CList;
 		foreach ($attributes as $attribute) {
 			// Check is safe.
+
 			if ($this->hasSafeAttribute($attribute)) {
+
 				$values[$attribute] = $this->attributes->itemAt($attribute);
 				// If attribute not set and not load, prepare array for loaded.
 				if (!$this->preload && $values[$attribute] === NULL) {
@@ -427,6 +435,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 			foreach ($loadQueue as $attribute) {
 				$values[$attribute] = $this->attributes->itemAt($attribute);
 			}
+
 		}
 		// Delete load queue.
 		unset($loadQueue);
