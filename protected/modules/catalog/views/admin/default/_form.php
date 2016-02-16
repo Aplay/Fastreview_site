@@ -65,7 +65,7 @@ if($model->isNewRecord){
     foreach ($model->typeAttributes as $attribute) {
         $selectedAttributes[] = $attribute->id;
     }
-    foreach ((array)EavOptionsGroup::model()->findAll() as $group) {
+    foreach ((array)EavOptionsGroup::model()->findAll(array('order'=>'name')) as $group) {
         $items = [];
         $groupHasNotSelectedAttribute = false;
         $groupItems = (array)$group->groupAttributes;

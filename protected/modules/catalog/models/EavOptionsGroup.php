@@ -60,7 +60,7 @@ class EavOptionsGroup extends BaseModel
     public function relations()
     {
         return array(
-            'groupAttributes' => array(self::HAS_MANY, 'EavOptions', 'group_id'),
+            'groupAttributes' => array(self::HAS_MANY, 'EavOptions', 'group_id',  'order'=>'"groupAttributes"."title" ASC'),
         );
     }
 
