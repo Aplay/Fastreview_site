@@ -668,6 +668,10 @@ textarea.form-control.textareaDescrUser{height:100px;}
   color: red;
   font-size: smaller;
 }
+.treecheck {
+  padding-top:0 !important;
+  min-height: 16px !important;
+}
 @media (min-width: 350px) {
     .hidden-td-350 {display: table-cell;}
     

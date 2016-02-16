@@ -1408,7 +1408,10 @@ div.vote .user_mine {
 .useful-li #addshare{
   	margin-top:10px;
   }
-
+.treecheck {
+	padding-top:0;
+	min-height: 16px;
+}
 /*
 ---------- end old style ------------------------------- */
 

@@ -9,7 +9,7 @@ class AttributeController extends SAdminController {
         return array(
             'accessControl', // perform access control for CRUD operations
             'rights',
-            'ajaxOnly + delete',
+            'ajaxOnly + delete,deletegroup',
         );
     }
 
@@ -19,10 +19,10 @@ class AttributeController extends SAdminController {
 	  public function actionIndex()
 	  {
 	  	$this->pageTitle = 'Атрибуты';
-	    $model_group=new EavOptionsGroup('search');
-	    $model_group->unsetAttributes();  // clear any default values
+	    $modelgroup=new EavOptionsGroup('search');
+	    $modelgroup->unsetAttributes();  // clear any default values
 	    if(isset($_GET['EavOptionsGroup']))
-	      $model_group->attributes=$_GET['EavOptionsGroup'];
+	      $modelgroup->attributes=$_GET['EavOptionsGroup'];
 
       $model=new EavOptions('search');
       $model->unsetAttributes();  // clear any default values
@@ -30,7 +30,7 @@ class AttributeController extends SAdminController {
         $model->attributes=$_GET['EavOptions'];
 
 	    $this->render('index',array(
-	      'model_group'=>$model_group,
+	      'modelgroup'=>$modelgroup,
         'model'=>$model,
 	    ));
 	  }
@@ -141,15 +141,38 @@ class AttributeController extends SAdminController {
 
   public function actionDeleteGroup($id)
   {
- 
+      $error = 'Ошибка';
       $model=EavOptionsGroup::model()->findByPk($id);
-    if($model===null)
-      throw new CHttpException(404,'The requested page does not exist.');
-      if ($model)
-      {
-            $model->delete();
-      }
-        echo '[]';
+      if(!$model)
+        throw new CHttpException(404,'The requested page does not exist.');
+
+        $attrs = $model->groupAttributes;
+        $check = null;
+        if($attrs){
+          foreach ($attrs as $attr) {
+            $check = EavOptions::model()->find(array(
+              'condition'=>'title=:title and group_id is null',
+              'params'=>array(':title'=>$attr->title)
+              ));
+            if(!$check)
+            $check = EavOptions::model()->find(array(
+              'condition'=>'name=:name and group_id is null',
+              'params'=>array(':name'=>$attr->name)
+              ));
+            if($check)
+              break;
+          }
+        }
+        if(!$check){
+          $model->delete();
+          echo CJSON::encode(array('success'=>true));
+          Yii::app()->end();
+        } else {
+          $error = 'Нельзя удалить, т.к. имеются атрибуты с похожим названием. Проверьте атрибут '.$check->title;
+        }
+      
+       echo CJSON::encode(array('success'=>false, 'message'=>$error)); 
+       Yii::app()->end(); 
 
   }
     /**

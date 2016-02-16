@@ -294,7 +294,7 @@ class EavOptions extends BaseModel
 		$criteria->compare('t.position',$this->position);
 
 		$sort = new CSort;
-		$sort->defaultOrder = 't.position ASC';
+		$sort->defaultOrder = 't.title ASC';
 		$sort->attributes=array(
 			'*',
 			'title' => array(

@@ -40,6 +40,9 @@ class EavOptionsGroup extends BaseModel
 
           $name = MHelper::String()->simple_ucfirst($this->$attribute);
           $condition = 'LOWER('.$attribute.')=:label';
+          if($this->id){
+            $condition .= ' AND id!='.$this->id;
+          }
           $cnt = EavOptionsGroup::model()->count($condition,
               array(
                 ':label'=>MHelper::String()->toLower($name), 
@@ -47,7 +50,7 @@ class EavOptionsGroup extends BaseModel
 
           if($cnt > 0)
           { 
-              $this->addError($attribute, $attribute.' уже существует');
+              $this->addError($attribute, $this->getAttributeLabel($attribute).' уже существует');
               return false;
           } else { 
               return true;
@@ -57,7 +60,7 @@ class EavOptionsGroup extends BaseModel
     public function relations()
     {
         return array(
-            'groupOptions' => array(self::HAS_MANY, 'EavOptions', 'group_id'),
+            'groupAttributes' => array(self::HAS_MANY, 'EavOptions', 'group_id'),
         );
     }
 

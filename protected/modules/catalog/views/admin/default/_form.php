@@ -65,7 +65,7 @@ if($model->isNewRecord){
     foreach ($model->typeAttributes as $attribute) {
         $selectedAttributes[] = $attribute->id;
     }
-  /*  foreach ((array)EavOptionsGroup::model()->findAll() as $group) {
+    foreach ((array)EavOptionsGroup::model()->findAll() as $group) {
         $items = [];
         $groupHasNotSelectedAttribute = false;
         $groupItems = (array)$group->groupAttributes;
@@ -74,22 +74,22 @@ if($model->isNewRecord){
             if (!$selected) {
                 $groupHasNotSelectedAttribute = true;
             }
-            $items[] = ['text' => CHtml::tag('div', ['class' => 'checkbox'], CHtml::label(CHtml::checkBox('attributes[]', $selected, ['value' => $item->id]) . $item->title, null))];
+            $items[] = ['text' => CHtml::tag('div', ['class' => 'checkbox treecheck'], CHtml::label(CHtml::checkBox('attributes[]', $selected, ['value' => $item->id]) . $item->title, null))];
         }
         $tree[] = [
             'text' => CHtml::tag(
                 'div',
-                ['class' => 'checkbox'],
+                ['class' => 'checkbox treecheck'],
                 CHtml::label(CHtml::checkBox('', count($groupItems) && !$groupHasNotSelectedAttribute, ['class' => 'group-checkbox']) . $group->name, null)
             ),
             'children' => $items
         ];
-    } */
+    } 
     foreach ((array)EavOptions::model()->findAllByAttributes(array('group_id' => null),array('order'=>'title')) as $attribute) {
         $tree[] = array(
             'text' => CHtml::tag(
                 'div',
-                array('class' => 'checkbox no-padding-t'),
+                array('class' => 'checkbox treecheck'),
                 CHtml::label(CHtml::checkBox('attributes[]', in_array($attribute->id, $selectedAttributes), ['value' => $attribute->id]) . $attribute->title, null)
             )
         );

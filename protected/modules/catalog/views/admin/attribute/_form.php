@@ -102,7 +102,7 @@ $this->renderPartial('application.views.common._flashMessage');
             <?php echo $form->textField($model,'title',array('class'=>'form-control','maxlength'=>255)); ?>
             </div>
         </div> <!-- / .form-group -->
-   <div class="form-group hide">
+   <div class="form-group">
     <?php  echo $form->label($model, 'group_id', array('class'=>'col-lg-2 col-md-12 col-sm-12 control-label')); ?>
     <div class="col-lg-10 col-md-9 col-sm-8">
         <?php echo $form->dropDownList(
