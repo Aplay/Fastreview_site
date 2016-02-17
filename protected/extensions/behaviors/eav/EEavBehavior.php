@@ -605,13 +605,14 @@ class EEavBehavior extends CActiveRecordBehavior {
 			// If search models with attribute name with anything values.
 			elseif (is_int($attribute)) {
 
-				$values = $conn->quoteValue($values);
+				
 				
 				$criteria->join .= "\nJOIN {$this->tableName} eavb$i"
 					.  "\nON t.{$pk} = eavb$i.{$this->entityField}"
 					.  "\nAND eavb$i.{$this->attributeField} = $attribute";
 
 				if(!empty($values) && !is_array($values) && is_int($values)){
+					$values = $conn->quoteValue($values);
 					$criteria->join .= 	"\nAND eavb$i.{$this->optionField} = $values";
 				} elseif(!empty($values) && $values != 'select'){
 
@@ -620,18 +621,18 @@ class EEavBehavior extends CActiveRecordBehavior {
 				    foreach ($values as $value) {
 				    	if(is_int($value)){
 				    		$valueTmpArr[] = $value;   
-				    		
-				    	}
-				                    
+				    	}         
 				    }
 
 				    $valueInCondition = implode(',',$valueTmpArr);
 				    if(!empty($valueInCondition)){
-				    	$criteria->join .= "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+
+				    	$criteria->join .= "\nAND eavb$i.{$this->optionField} IN ($valueInCondition)";
+				    	
 					}
 
+				}  
 
-				}
 				$i++;
 			}
 		}

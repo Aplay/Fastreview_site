@@ -390,7 +390,7 @@ class FastreviewController extends Controller {
   {
     $data =  $filters = array();
     $query = explode('&', $_SERVER['QUERY_STRING']);
-    $params = array();
+    $params = $ars = array();
     if(!empty($query)){
       foreach( $query as $param )
       {
@@ -410,12 +410,31 @@ class FastreviewController extends Controller {
          // $data[$filter] = '';
         } else {
           list($id, $value) = explode(':', $filter);
-          $data[$id] = (int)$value;
+          if(strpos($value, ',') === false){
+
+              if(array_key_exists($id,$data)){
+                $data[$id] = array_merge(array($data[$id]),array((int)$value));
+              } else {
+                $data[$id] = (int)$value;
+              }
+          } else {
+            $ars = explode(',', $value);
+            if(!empty($ars)){
+              foreach ($ars as $ar) {
+                if(array_key_exists($id,$data)){
+                  $data[$id] = array_merge(array($data[$id]),array((int)$ar));
+                } else {
+                  $data[$id] = (int)$ar;
+                }
+              }
+            }
+            
+          }
         }
         
       }
     }
- 
+
    /* foreach(array_keys($_GET) as $key)
     {
 
