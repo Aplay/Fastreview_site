@@ -50,10 +50,10 @@ class EavProductVariant extends CActiveRecord
             array('value', 'match', 'pattern' => '/^[A-Za-zА-Яа-я0-9_.\-]+$/u', 'message' => "Correct symbols (A-zА-я0-9_.-)."),
 			array('attribute_id, option_id, product_id, price_type', 'numerical', 'integerOnly'=>true),
 			array('price, banch_id', 'numerical'),
-			array('sku', 'length', 'max'=>255),
+			array('sku, value', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, attribute_id, option_id, product_id, price, price_type, sku, banch_id', 'safe', 'on'=>'search'),
+			array('id, value,  attribute_id, option_id, product_id, price, price_type, sku, banch_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,7 +92,7 @@ class EavProductVariant extends CActiveRecord
      * @param Objects $product
      * @return bool
      */
-    public function store($attributeId, $value, Objects $product)
+    public function store($attributeId, $value, Objects $product, $forcheck = false)
     {
         $attribute = null;
         if (!isset($this->attributes[$attributeId])) {
@@ -130,10 +130,12 @@ class EavProductVariant extends CActiveRecord
 	        $this->product_id = $product->id;
 	        $this->attribute_id = $attribute->id;
 
-	        return $this->save();
-	        	
+	        if($forcheck == true){
+	        	return $this->validate();
+	        } else {
+	        	return $this->save();
+	        }
 	        
-    	
     }
 
     /**

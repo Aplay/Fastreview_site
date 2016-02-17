@@ -102,6 +102,40 @@ class ObjectsController extends SAdminController {
         if(isset($_POST['Objects']))
         {
             $typeAttributes = Yii::app()->getRequest()->getPost('EavOptions', array());
+            if(!empty($typeAttributes)){
+                $er = $ers = null;
+                foreach ($typeAttributes as $attribute => $value) {
+
+                    if (null == $value || (is_array($value) && empty($value))) {
+                        continue;
+                    }
+
+                    //сохраняем значения
+                    if(!is_array($value)){
+                        $modelE = new EavProductVariant();
+                        $er = $modelE->store($attribute, $value, $model, $forcheck = true);
+                        if($er == false){
+                            $ers = $modelE->errors;
+                            break;
+                        }
+                    } else {
+                        foreach ($value as $val) {
+                            $modelE = new EavProductVariant();
+                            $er = $modelE->store($attribute, $val, $model, $forcheck = true);
+                            if($er == false){
+                                $ers = $modelE->errors;
+                                break 2;
+                            }
+                        }
+                    }
+
+                }
+                 if(!empty($ers)){
+                    $this->addFlashMessage($ers,'error');
+                    $this->refresh();
+                 }
+            }
+
             $model->attributes=$_POST['Objects'];
             if(!$model->categories_ar || !is_array($model->categories_ar)){
                 $model->categories_ar = array();
