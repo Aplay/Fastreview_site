@@ -109,7 +109,7 @@ class EavProductVariant extends CActiveRecord
             case EavOptions::TYPE_CHECKBOX_LIST:
 
 				$this->option_id = empty($value) ? null : (int)$value;
-
+				$this->value = $this->option_id;
 				break;
           /*  case EavOptions::TYPE_CHECKBOX:
                 $this->value = (bool)$value;

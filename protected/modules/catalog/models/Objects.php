@@ -305,7 +305,7 @@ class Objects extends BaseModel
 
         try {
 
-           // $this->setAttributes($attributes);
+            $this->setAttributes($attributes);
            // $this->setTypeAttributes($typeAttributes);
        
             if ($this->save()) {
@@ -313,9 +313,9 @@ class Objects extends BaseModel
                // $this->saveVariants($variants);
                // $this->saveCategories($categories);
 
-               // $this->saveTypeAttributes($typeAttributes);
+                $this->saveTypeAttributes($typeAttributes);
                 // Process attributes
-			    $this->processAttributes($typeAttributes);
+			   // $this->processAttributes($typeAttributes);
                 $this->setHttp($video, array(), false, ObjectsHttp::TYPE_VIDEO);
 
                 $transaction->commit();

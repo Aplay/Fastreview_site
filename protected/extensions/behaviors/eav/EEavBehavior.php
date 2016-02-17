@@ -624,6 +624,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 					if (!is_array($values)) $values = array($values);
 					$valueTmpArr = array();
 				    foreach ($values as $value) {
+				    		$value = MHelper::String()->toLower($value);
 				    		$value = "'".$value."'";
 				    		$valueTmpArr[] = $value;   
 				    	     
@@ -632,14 +633,14 @@ class EEavBehavior extends CActiveRecordBehavior {
 				    $valueInCondition = implode(',',$valueTmpArr);
 				    if(!empty($valueInCondition)){
 
-				    	$criteria->join .= "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+				    	$criteria->join .= "\nAND LOWER(eavb$i.{$this->valueField}) IN ($valueInCondition)";
 				        
 					}
 
 
 				}  else {
-					$values = $conn->quoteValue($values);
-					$criteria->join .= 	"\nAND eavb$i.{$this->valueField} = $values";
+					$values = $conn->quoteValue(MHelper::String()->toLower($values));
+					$criteria->join .= 	"\nAND LOWER(eavb$i.{$this->valueField}) = $values";
 				  
 				}
 
