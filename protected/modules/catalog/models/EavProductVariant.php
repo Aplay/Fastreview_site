@@ -47,6 +47,7 @@ class EavProductVariant extends CActiveRecord
 			array('product_id', 'required'),
 			array('value', 'filter', 'filter' => 'strip_tags'),
             array('value', 'filter', 'filter' => 'trim'),
+            array('value', 'match', 'pattern' => '/^[A-Za-zА-Яа-я0-9_.\-]+$/u', 'message' => "Correct symbols (A-zА-я0-9_.-)."),
 			array('attribute_id, option_id, product_id, price_type', 'numerical', 'integerOnly'=>true),
 			array('price, banch_id', 'numerical'),
 			array('sku', 'length', 'max'=>255),

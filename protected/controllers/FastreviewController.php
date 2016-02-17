@@ -383,7 +383,7 @@ class FastreviewController extends Controller {
                  ));
     }
    public function clearstr($str){
-      return preg_replace('/[^A-Za-zА-Яа-я0-9\-]/', '', $str); // Removes special chars.
+      return preg_replace('/[^A-Za-zА-Яа-я0-9_.\-]+/u', '', $str); // Removes special chars.
    } 
   /**
    * @return array of attributes used in http query and available in category
