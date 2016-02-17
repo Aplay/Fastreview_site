@@ -596,8 +596,10 @@ class EEavBehavior extends CActiveRecordBehavior {
 
 			    $criteria->join .= "\nJOIN {$this->tableName} eavb$i"
 			        .  "\nON t.{$pk} = eavb$i.{$this->entityField}"
-			        .  "\nAND eavb$i.{$this->attributeField} = $attribute"
-			        .  "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+			        .  "\nAND eavb$i.{$this->attributeField} = $attribute";
+			    if(!empty($valueInCondition)){
+			      $criteria->join .=  "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+			  }
 
 			    $i++; 
 
@@ -612,26 +614,34 @@ class EEavBehavior extends CActiveRecordBehavior {
 					.  "\nAND eavb$i.{$this->attributeField} = $attribute";
 
 				if(!empty($values) && !is_array($values) && is_int($values)){
-					$values = $conn->quoteValue($values);
-					$criteria->join .= 	"\nAND eavb$i.{$this->optionField} = $values";
-				} elseif(!empty($values) && $values != 'select'){
+					// $values = $conn->quoteValue($values);
+					$values = (int)$values;
+					$values = "'".$values."'";
+					$criteria->join .= 	"\nAND eavb$i.{$this->valueField} = {$values}";
+				
+				} elseif(!empty($values)){
 
 					if (!is_array($values)) $values = array($values);
 					$valueTmpArr = array();
 				    foreach ($values as $value) {
-				    	if(is_int($value)){
+				    		$value = "'".$value."'";
 				    		$valueTmpArr[] = $value;   
-				    	}         
+				    	     
 				    }
 
 				    $valueInCondition = implode(',',$valueTmpArr);
 				    if(!empty($valueInCondition)){
 
-				    	$criteria->join .= "\nAND eavb$i.{$this->optionField} IN ($valueInCondition)";
-				    	
+				    	$criteria->join .= "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+				        
 					}
 
-				}  
+
+				}  else {
+					$values = $conn->quoteValue($values);
+					$criteria->join .= 	"\nAND eavb$i.{$this->valueField} = $values";
+				  
+				}
 
 				$i++;
 			}

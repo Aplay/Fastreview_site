@@ -382,7 +382,9 @@ class FastreviewController extends Controller {
 
                  ));
     }
-    
+   public function clearstr($str){
+      return preg_replace('/[^A-Za-zА-Яа-я0-9\-]/', '', $str); // Removes special chars.
+   } 
   /**
    * @return array of attributes used in http query and available in category
    */
@@ -413,18 +415,18 @@ class FastreviewController extends Controller {
           if(strpos($value, ',') === false){
 
               if(array_key_exists($id,$data)){
-                $data[$id] = array_merge(array($data[$id]),array((int)$value));
+                $data[$id] = array_merge(array($data[$id]),array($this->clearstr($value)));
               } else {
-                $data[$id] = (int)$value;
+                $data[$id] = $this->clearstr($value);
               }
           } else {
             $ars = explode(',', $value);
             if(!empty($ars)){
               foreach ($ars as $ar) {
                 if(array_key_exists($id,$data)){
-                  $data[$id] = array_merge(array($data[$id]),array((int)$ar));
+                  $data[$id] = array_merge(array($data[$id]),array($this->clearstr($ar)));
                 } else {
-                  $data[$id] = (int)$ar;
+                  $data[$id] = $this->clearstr($ar);
                 }
               }
             }

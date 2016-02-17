@@ -240,7 +240,7 @@ class EavOptions extends BaseModel
 		switch ($this->type):
 			case self::TYPE_TEXT:
 			case self::TYPE_TEXTAREA:
-				$params = array('gfilter'=>$gkey.':select');
+				$params = array('gfilter'=>$gkey.':'.$value);
 				$url = Yii::app()->createAbsoluteUrl('fastreview/view').'?'.http_build_query($params, '', '&');
 				return CHtml::link($value,$url);
 			break;
