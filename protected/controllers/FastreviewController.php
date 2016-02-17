@@ -2,6 +2,10 @@
 class FastreviewController extends Controller {
 
 	public $uploadsession = 'objectsfiles';
+  /**
+   * @var array Eav attributes used in http query
+   */
+  private $_eavAttributes;
 
     public function actionNew_object()
     {
@@ -130,18 +134,23 @@ class FastreviewController extends Controller {
                 
 
           $model = $this->_loadModel(Yii::app()->request->getQuery('url'));
-
-          $this->pageTitle = $model->title.' - Быстрые отзывы покупателей';
           
-          $modelFirst = $model;
+          $cr=new CDbCriteria;
+          if ($model){
+            $this->pageTitle = $model->title.' - Быстрые отзывы покупателей';
+            $modelFirst = $model;
+            $name = $model->title;
+            $cr->addCondition('t.categorie='.$model->id);
+          } 
           
-          $name = $model->title;
-          $query = Objects::model()->cache(3600);
-          $query->active()
-                  ->with('images');
-                  
-        $cr=new CDbCriteria;
-        $cr->addCondition('t.categorie='.$model->id);
+         // $query = Objects::model()->cache(3600);
+          $cr->select = 't.*';
+          $query = new Objects(null);
+          $query->attachBehaviors($query->behaviors());
+          $query->applyAttributes($this->activeAttributes)->active();
+                //  ->with('images');          
+        
+        
         $query->getDbCriteria()->mergeWith($cr);
 
 
@@ -373,6 +382,97 @@ class FastreviewController extends Controller {
 
                  ));
     }
+    
+  /**
+   * @return array of attributes used in http query and available in category
+   */
+  public function getActiveAttributes()
+  {
+    $data =  $filters = array();
+    $query = explode('&', $_SERVER['QUERY_STRING']);
+    $params = array();
+    if(!empty($query)){
+      foreach( $query as $param )
+      {
+        if(strpos($param, '=') !== false){
+
+          list($name, $value) = explode('=', $param,2);
+          $params[urldecode($name)][] = urldecode($value);
+        }
+      }
+      if(isset($params['gfilter']))
+        $filters = $params['gfilter'];
+    }
+
+    if(!empty($filters)){
+      foreach ($filters as $filter) {
+        if(strpos($filter, ':') === false){
+         // $data[$filter] = '';
+        } else {
+          list($id, $value) = explode(':', $filter);
+          $data[$id] = (int)$value;
+        }
+        
+      }
+    }
+ 
+   /* foreach(array_keys($_GET) as $key)
+    {
+
+      if(array_key_exists($key, $this->eavAttributes))
+      {
+        if((boolean) $this->eavAttributes[$key]->select_many === true)
+          $data[$key] = explode(';', $_GET[$key]);
+        else
+          $data[$key] = array($_GET[$key]);
+      }
+    }
+    */
+    
+    return $data;
+  }
+
+  /**
+   * @return array of available attributes in category
+   */
+  public function getEavAttributes()
+  {
+    if(is_array($this->_eavAttributes))
+      return $this->_eavAttributes;
+                
+    // Find category types
+    /*$model = new Products(null);
+    $criteria = $model
+      ->applyCategories($this->model)
+      ->active()
+                        ->withcity()
+      ->getDbCriteria();
+
+    unset($model);
+
+    $builder = new CDbCommandBuilder(Yii::app()->db->getSchema());
+
+    $criteria->select    = 'type_id';
+    $criteria->group     = 'type_id';
+    $criteria->distinct  = true;
+    $typesUsed = $builder->createFindCommand(Products::model()->tableName(), $criteria)->queryColumn();*/
+                $typesUsed[]=1;
+                $typesUsed[]=2;
+    // Find attributes by type
+    $criteria = new CDbCriteria;
+  //  $criteria->addInCondition('types.type_id', $typesUsed);
+    $query = EavOptions::model()
+    // ->useInFilter()
+      ->with(array( 'options'))
+      ->findAll($criteria);
+
+    $this->_eavAttributes = array();
+    if(!empty($query)){
+    foreach($query as $attr)
+      $this->_eavAttributes[$attr->id] = $attr;
+    }
+    return $this->_eavAttributes;
+  }
   protected function _loadItem($id=null)
   {
   		if(!$id && !$url)
@@ -397,7 +497,7 @@ class FastreviewController extends Controller {
         $model = Category::model()
                           ->withUrl($url)
                           ->find();
-        if (!$model) throw new CHttpException(404, 'Категория не найдена.');
+       // if (!$model) throw new CHttpException(404, 'Категория не найдена.');
                 
         return $model;
     }

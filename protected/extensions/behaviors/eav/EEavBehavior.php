@@ -55,6 +55,13 @@ class EEavBehavior extends CActiveRecordBehavior {
 
 	/**
 	 * @access public
+	 * @var string name of the column to store option key.
+	 * @default 'option_id'
+	 */
+	public $optionField = 'option_id';
+
+	/**
+	 * @access public
 	 * @var string caching component Id.
 	 * @default ''
 	 */
@@ -200,6 +207,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 		// Prepare changed attributes list.
 		$this->changedAttributes = new CList;
 
+
 	}
 
 	/**
@@ -284,13 +292,21 @@ class EEavBehavior extends CActiveRecordBehavior {
 		foreach ($attributes as $attribute) {
 			// Skip if null attributes.
 			if (!is_null($values = $this->attributes->itemAt($attribute))) {
+				$multiple = true;
 				// Create array of values for convenience.
 				if (!is_array($values)) {
 					$values = array($values);
+					$multiple = false;
 				}
+				
 				// Save each value of attribute into DB.
 				foreach ($values as $value) {
-					$this->getSaveEavAttributeCommand($this->attributesPrefix . $attribute, $value)->execute();
+
+					if($multiple === true)
+						$this->getSaveEavAttributeCommand($this->attributesPrefix . $attribute, $value, $value)->execute();
+					else
+						$this->getSaveEavAttributeCommand($this->attributesPrefix . $attribute, $value, null)->execute();
+				
 				}
 				// Remove from changed list.
 				$this->changedAttributes->remove($attribute);
@@ -315,6 +331,10 @@ class EEavBehavior extends CActiveRecordBehavior {
 	 * @return CActiveRecord
 	 */
 	public function loadEavAttributes($attributes) {
+
+	/*	if(is_null($this->getModelId())){ 
+            return $this->getOwner(); 
+        } */
 		// If exists cache, return it.
 		$data = $this->cache->get($this->getCacheKey());
 		if ($data !== FALSE) {
@@ -323,6 +343,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 		}
 		// Query DB.
 		$data = $this->getLoadEavAttributesCommand($attributes)->query();
+		
 		foreach($data as $row) {
 			$attribute = $this->stripPrefix($row[$this->attributeField]);
 			$value = $row[$this->valueField];
@@ -477,14 +498,15 @@ class EEavBehavior extends CActiveRecordBehavior {
 	 * @param  $value
 	 * @return CDbCommand
 	 */
-	protected function getSaveEavAttributeCommand($attribute, $value) {
+	protected function getSaveEavAttributeCommand($attribute, $value, $option_id = null) {
 
 		$data = array(
 			$this->entityField => $this->getModelId(),
 			$this->attributeField => $attribute,
 			$this->valueField => $value,
 		);
-
+		if($option_id)
+			$data[$this->optionField] = $option_id;
 		return $this->getOwner()
 			->getCommandBuilder()
 			->createInsertCommand($this->tableName, $data);
@@ -519,7 +541,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 	 */
 	protected function getLoadEavAttributesCriteria($attributes = array()) {
 		$criteria = new CDbCriteria;
-		$criteria->addCondition("{$this->entityField} = {$this->getModelId()} and attribute_id=0");
+		$criteria->addCondition("{$this->entityField} = {$this->getModelId()}");
 		if (!empty($attributes)) {
 			$criteria->addInCondition($this->attributeField, $attributes);
 		}
@@ -546,6 +568,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 
 		$conn = $this->getOwner()->getDbConnection();
 		$i = 0;
+
 		foreach ($attributes as $attribute => $values) {
 			// If search models with attribute name with specified values.
 			if (is_string($attribute)) {
@@ -554,7 +577,7 @@ class EEavBehavior extends CActiveRecordBehavior {
 				$attribute = $conn->quoteValue($attribute);
 				if (!is_array($values)) $values = array($values);
 
-				foreach ($values as $value) {
+				/*foreach ($values as $value) {
 					$value = $conn->quoteValue($value);
 
 					$criteria->join .= "\nJOIN {$this->tableName} eavb$i"
@@ -563,15 +586,52 @@ class EEavBehavior extends CActiveRecordBehavior {
 						.  "\nAND eavb$i.{$this->valueField} = $value";
 					$i++;
 				
-				}
+				}*/
+				$valueTmpArr = array();
+			    foreach ($values as $value) {
+			        $valueTmpArr[] = $conn->quoteValue($value);               
+			    }
+
+			    $valueInCondition = implode(',',$valueTmpArr);
+
+			    $criteria->join .= "\nJOIN {$this->tableName} eavb$i"
+			        .  "\nON t.{$pk} = eavb$i.{$this->entityField}"
+			        .  "\nAND eavb$i.{$this->attributeField} = $attribute"
+			        .  "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+
+			    $i++; 
 
 			}
 			// If search models with attribute name with anything values.
 			elseif (is_int($attribute)) {
+
 				$values = $conn->quoteValue($values);
+				
 				$criteria->join .= "\nJOIN {$this->tableName} eavb$i"
 					.  "\nON t.{$pk} = eavb$i.{$this->entityField}"
-					.  "\nAND eavb$i.{$this->attributeField} = $values";
+					.  "\nAND eavb$i.{$this->attributeField} = $attribute";
+
+				if(!empty($values) && !is_array($values) && is_int($values)){
+					$criteria->join .= 	"\nAND eavb$i.{$this->optionField} = $values";
+				} elseif(!empty($values) && $values != 'select'){
+
+					if (!is_array($values)) $values = array($values);
+					$valueTmpArr = array();
+				    foreach ($values as $value) {
+				    	if(is_int($value)){
+				    		$valueTmpArr[] = $value;   
+				    		
+				    	}
+				                    
+				    }
+
+				    $valueInCondition = implode(',',$valueTmpArr);
+				    if(!empty($valueInCondition)){
+				    	$criteria->join .= "\nAND eavb$i.{$this->valueField} IN ($valueInCondition)";
+					}
+
+
+				}
 				$i++;
 			}
 		}

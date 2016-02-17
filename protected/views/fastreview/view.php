@@ -8,7 +8,10 @@ if(!$search){
 ?>
 <div class="row m-t-20">
 <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
-<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php echo $model->title; ?></div>
+<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php 
+if($model)
+echo $model->title; 
+?></div>
 <div class="catalog_list">
 <?php 
 

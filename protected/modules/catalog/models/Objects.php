@@ -41,26 +41,7 @@ class Objects extends BaseModel
 	{
 		return 'objects';
 	}
-	/*public function __get($name)
-	{
-		if(substr($name,0,4) === 'eav_')
-		{
-			if($this->getIsNewRecord())
-				return null;
 
-			$attribute = substr($name, 4);
-			$eavData = $this->getEavAttributes();
-
-			if(isset($eavData[$attribute]))
-				$value = $eavData[$attribute];
-			else
-				return null;
-
-			$attributeModel = EavOptions::model()->with('options')->findByAttributes(array('name'=>$attribute));
-			return $attributeModel->renderValue($value);
-		}
-		return parent::__get($name);
-	}*/
 	public function scopes()
 	{
 		
@@ -175,17 +156,18 @@ class Objects extends BaseModel
 		);
 	}
 
-	/*public function behaviors()
+	public function behaviors()
 	{
 		return array(
 			'eavAttr' => array(
 				'class'     => 'ext.behaviors.eav.EEavBehavior',
 				'tableName' => 'eav_variants',
 				'entityField' => 'product_id',
-				'attributeField' => 'attribute_name',
+				'attributeField' => 'attribute_id',
+				'optionField'=>'option_id'
 
 			));
-	}*/
+	}
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -324,16 +306,16 @@ class Objects extends BaseModel
         try {
 
            // $this->setAttributes($attributes);
-            $this->setTypeAttributes($typeAttributes);
+           // $this->setTypeAttributes($typeAttributes);
        
             if ($this->save()) {
 
                // $this->saveVariants($variants);
                // $this->saveCategories($categories);
 
-                $this->saveTypeAttributes($typeAttributes);
+               // $this->saveTypeAttributes($typeAttributes);
                 // Process attributes
-				// $this->processAttributes($typeAttributes);
+			    $this->processAttributes($typeAttributes);
                 $this->setHttp($video, array(), false, ObjectsHttp::TYPE_VIDEO);
 
                 $transaction->commit();
@@ -349,6 +331,7 @@ class Objects extends BaseModel
         }
     }
 
+   
     /**
 	 * Save model attributes
 	 * @param Products $model
@@ -743,6 +726,20 @@ class Objects extends BaseModel
 		return parent::afterDelete();
 	}
 
+	/**
+	 * Filter products by EAV attributes.
+	 * Example: $model->applyAttributes(array('color'=>'green'))->findAll();
+	 * Scope
+	 * @param array $attributes list of allowed attribute models
+	 * @return Products
+	 */
+	public function applyAttributes(array $attributes)
+	{
+		if(empty($attributes))
+			return $this;
+                
+		return $this->withEavAttributes($attributes);
+	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

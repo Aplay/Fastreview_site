@@ -119,7 +119,7 @@ class EavOptions extends BaseModel
 		return array(
 			//'attr_translate' => array(self::HAS_ONE, $this->translateModelName, 'object_id'),
 			//'options'        => array(self::HAS_MANY, 'ProductOptionVariants', 'attribute_id', 'order'=>'options.position ASC', 'scopes'=>'applyTranslateCriteria'),
-            'options'        => array(self::HAS_MANY, 'EavOptionVariants', 'attribute_id', 'order'=>'options.position ASC'),
+            'options'        => array(self::HAS_MANY, 'EavOptionVariants', 'attribute_id'),
 			// Used in types
 			'types'          => array(self::HAS_MANY, 'EavTypeAttribute', 'attribute_id'),
 			'group' => array(self::BELONGS_TO, 'EavOptionsGroup', 'group_id'),
@@ -234,12 +234,15 @@ class EavOptions extends BaseModel
 	 * @param $value
 	 * @return string attribute value
 	 */
-	/* public function renderValue($value)
+	 public function renderValue($value, $gkey)
 	{
+
 		switch ($this->type):
 			case self::TYPE_TEXT:
 			case self::TYPE_TEXTAREA:
-				return $value;
+				$params = array('gfilter'=>$gkey.':select');
+				$url = Yii::app()->createAbsoluteUrl('fastreview/view').'?'.http_build_query($params, '', '&');
+				return CHtml::link($value,$url);
 			break;
 			case self::TYPE_DROPDOWN:
 			case self::TYPE_RADIO_LIST:
@@ -257,8 +260,12 @@ class EavOptions extends BaseModel
 
 				foreach($data as $key=>$val)
 				{
-					if(in_array($key, $value))
-						$result[] = $val;
+
+					if(in_array($key, $value)){
+						$params = array('gfilter'=>$gkey.':'.$key);
+						$url = Yii::app()->createAbsoluteUrl('fastreview/view').'?'.http_build_query($params, '', '&');
+						$result[] = CHtml::link($val,$url);
+					}
 				}
 				return implode(', ', $result);
 			break;
@@ -271,7 +278,7 @@ class EavOptions extends BaseModel
 					return $data[$value];
 			break;
 		endswitch;
-	} */
+	} 
         
         /**
 	 * @return string html id based on name

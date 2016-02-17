@@ -210,6 +210,18 @@ if($model->description){ ?>
 if($model->link){
   echo '<p  ><span class="url-link"><a target="_blank" rel="nofollow" href="'.$model->link.'">'.CHtml::encode($model->link).'</a></span></p>';
 }
+
+ // Display product custom options table.
+if($model->getEavAttributes())
+{
+ 
+    $this->widget('application.modules.catalog.widgets.SAttributesTableRenderer', array(
+    'model'=>$model,
+    'htmlOptions'=>array(
+      'class'=>'attributes'
+    ),
+  ));
+}
 ?>
 <p class="c-gray m-b-0 f-13" style="vertical-align:middle;"><span style="display:inline-block;vertical-align:middle;"><a class="c-gray" href="<?php echo Yii::app()->createAbsoluteUrl('/fastreview/view', array('url'=>$model->category->url)); ?>"><?php echo $model->category->title; ?></a></span>&nbsp;&nbsp; 
 <span class="hide" style="font-size:20px;font-weight:300;vertical-align:middle;">|</span> &nbsp;&nbsp;

@@ -248,7 +248,9 @@ return array(
                 '/review_objects/*'=>'/site/review_objects',
 
                 '/reviews/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
+
                 array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
+                array('fastreview/view', 'pattern'=>'/reviews/*'),
 
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/'=>'<module>/<controller>/<action>',
