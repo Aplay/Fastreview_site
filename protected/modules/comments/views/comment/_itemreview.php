@@ -3,10 +3,12 @@
 
 if(!empty($model->user_id)){
 	$user_avatar = $model->user->getAvatar();
-	$user_name = $model->user->getShowname();
+	$user_name = '<a class="nocolor" href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->user->username)).'">'.$model->user->getShowname().'</a>';
+	$avatar = '<a href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->user->username)).'"><img alt="" src="'.$user_avatar.'" class="lv-img-md" /></a>';
 } else {
 	$user_avatar = '/img/avatar.png';
 	$user_name = $model->name;
+	$avatar = '<img alt="" src="'.$user_avatar.'" class="lv-img-md" />';
 }
 // $countComments = $model->countComments;
 $sql = "SELECT COUNT(id) FROM comments WHERE object_pk=".$model->object_pk." and id_parent is NULL and status=".Comment::STATUS_APPROVED;
@@ -25,7 +27,7 @@ $review_url = Yii::app()->createAbsoluteUrl('/review/view', array('id'=>$model->
 
 <div class="media m-b-30">
 	<div class="pull-left">
-	    <img alt="" src="<?php echo $user_avatar; ?>" class="lv-img-md" />
+	    <?php echo $avatar; ?>
 	</div>
 	<div class="media-body m-t-0">
 	<p class="m-b-5 nocolor f-15 f-500"><?php echo $user_name; ?> 

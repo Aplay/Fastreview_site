@@ -251,7 +251,7 @@ return array(
 
                 array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
                 array('fastreview/view', 'pattern'=>'/reviews/*'),
-
+                '/user/<url:[0-9A-Za-z_]+>'=>'/users/user/view',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/'=>'<module>/<controller>/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

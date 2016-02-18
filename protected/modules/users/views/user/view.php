@@ -30,19 +30,20 @@ if(!empty($lastImages)) {
 }
 */
 ?>
-<div id="user_card">
+<div id="user_card"  style="margin-top:80px;">
 <?php 
-$this->renderPartial('_user_header',array('user'=>$user));
+// $this->renderPartial('_user_header',array('user'=>$user));
 
 
-$this->renderPartial('application.views.layouts.__user');
+// $this->renderPartial('application.views.layouts.__user');
 
 
 
  if(!empty($provider->data)){ 
 ?>
 <div class="row">
-
+<div class="col-xs-12 col-lg-10 col-lg-offset-1">
+<div class="row">
 <?php
 
 	/* usort($blocks, MHelper::get('Array')->sortFunction('time'));
@@ -94,7 +95,8 @@ if(!empty($blocks)) {
 	
 // }
 	 ?>
-
+</div>
+</div>
 </div>
 </div>
 <?php

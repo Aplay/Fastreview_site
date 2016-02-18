@@ -38,7 +38,7 @@ class UserController extends Controller {
         );
     } */
 
-     public function beforeAction($action){
+   /*  public function beforeAction($action){
 
         
 	        $domain = Yii::app()->request->getParam('city');
@@ -54,7 +54,7 @@ class UserController extends Controller {
     	
 
         return true;
-    }
+    }*/
 
     /**
      * Displays a particular model.
@@ -63,14 +63,10 @@ class UserController extends Controller {
 
       //  if(Yii::app()->user->isGuest)
       //      Yii::app()->user->loginRequired();
-      if($this->city) {
-            
-            $this->redirect(Yii::app()->createAbsoluteUrl('users/user/view',array('url'=>$url)));
-            
-      }
+      
     	$this->modules = 'userprofile';
 
-        $this->layout = '//layouts/zazadun';
+      //  $this->layout = '//layouts/zazadun';
         $this->breadcrumbs = array('Account');
 
       /*  if($url == Yii::app()->user->username){
@@ -82,22 +78,11 @@ class UserController extends Controller {
         $user = User::model()->active()->find(array('condition'=>'username=:username','params'=>array(':username'=>$url)));
         if(!$user){
            $user = User::model()->active()->find(array('condition'=>'LOWER(username)=:username','params'=>array(':username'=>MHelper::String()->toLower($url))));
-          if($user){
-            $spec = Spec::model()->active()->find(array('condition'=>'author=:author','params'=>array(':author'=>$user->id)));
-            if($spec){
-              $this->redirect(Yii::app()->createAbsoluteUrl('/specialist/catalog/item',array('city'=>$spec->city->url,'url'=>$user->username)));
-            }
-            
-            $this->redirect(Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$user->username)));
-          }
+          
         }
         if(!$user)
             throw new CHttpException(404, Yii::t('site','Page not found'));
 
-        $spec = Spec::model()->active()->find(array('condition'=>'author=:author','params'=>array(':author'=>$user->id)));
-        if($spec)
-          $this->redirect(Yii::app()->createAbsoluteUrl('/specialist/catalog/item',array('city'=>$spec->city->url,'url'=>$user->username)));
-        
 
         $this->pageTitle = Yii::app()->name. ' - ';;
         $this->pageTitle .= $user->fullname?$user->fullname:$user->username;
@@ -127,8 +112,7 @@ class UserController extends Controller {
 				LIMIT 10 ";
 		$command = Yii::app()->db->createCommand($sql);
 		$lastImages = $command->queryALL(); */
-		$need_status = Orgs::STATUS_ACTIVE;
-		$need_status2 = Orgs::STATUS_CLOSED;
+		$need_status = Objects::STATUS_ACTIVE;
 		$need_status_c = Comment::STATUS_APPROVED;
 		$count = "SELECT count(id) FROM
 				(SELECT
@@ -136,21 +120,21 @@ class UserController extends Controller {
 				  t.object_pk as org, t.name, t.text,  t.created as date,
 				  t.yes, t.no,  t.rating, null as filename
 				  FROM comments t
-				  LEFT OUTER JOIN orgs organizations 
+				  LEFT OUTER JOIN objects organizations 
 				  ON (organizations.id = t.object_pk)
-				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status_org = {$need_status} or organizations.status_org = {$need_status2})
+				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status = {$need_status})
 				  
 				UNION
 					SELECT 
 				  CAST (CAST (2 AS TEXT) || CAST (max(i.id) AS TEXT) AS NUMERIC (24, 0)) AS id, 
-				  i.org, null, null, max(i.date_uploaded) as date,
+				  i.object, null, null, max(i.date_uploaded) as date,
 				  null, null, null, 
 				  array_to_string(array_agg(filename), ',') as filename
-				  FROM orgs_images i
-				  LEFT OUTER JOIN orgs organizations 
-				  ON (organizations.id = i.org)
-					WHERE i.uploaded_by =  {$user->id} and (organizations.status_org = {$need_status} or organizations.status_org = {$need_status2})
-				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.org
+				  FROM objects_images i
+				  LEFT OUTER JOIN objects organizations 
+				  ON (organizations.id = i.object)
+					WHERE i.uploaded_by =  {$user->id} and (organizations.status = {$need_status} )
+				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.object
 				  ORDER BY date DESC
 				) ss
 
@@ -161,21 +145,21 @@ class UserController extends Controller {
 				  t.object_pk as org, t.name, t.text,  t.created as date,
 				  t.yes, t.no,  t.rating, null as filename
 				  FROM comments t
-				  LEFT OUTER JOIN orgs organizations 
+				  LEFT OUTER JOIN objects organizations 
 				  ON (organizations.id = t.object_pk)
-				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status_org = {$need_status} or organizations.status_org = {$need_status2})
+				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status = {$need_status} )
 				  
 				UNION
 					SELECT 
 				  CAST (CAST (2 AS TEXT) || CAST (max(i.id) AS TEXT) AS NUMERIC (24, 0)) AS id, 
-				  i.org, null, null, max(i.date_uploaded) as date,
+				  i.object, null, null, max(i.date_uploaded) as date,
 				  null, null, null, 
 				  array_to_string(array_agg(filename), ',') as filename
-				  FROM orgs_images i
-				  LEFT OUTER JOIN orgs organizations 
-				  ON (organizations.id = i.org)
-					WHERE i.uploaded_by =  {$user->id} and (organizations.status_org = {$need_status} or organizations.status_org = {$need_status2})
-				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.org
+				  FROM objects_images i
+				  LEFT OUTER JOIN objects organizations 
+				  ON (organizations.id = i.object)
+					WHERE i.uploaded_by =  {$user->id} and (organizations.status = {$need_status} )
+				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.object
 				  ORDER BY date DESC
 				) ss
 

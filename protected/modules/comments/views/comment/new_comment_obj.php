@@ -97,10 +97,10 @@ if($comments){
 			<?php } else { ?>
 			<div class="media m-b-20">
 		    	<div class="pull-left">
-		            <img alt="" src="<?php echo Yii::app()->user->getAvatar(); ?>" class="lv-img-md" />
+		            <a href="<?php echo Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username)); ?>"><img alt="" src="<?php echo Yii::app()->user->getAvatar(); ?>" class="lv-img-md" /></a>
 		        </div>
 		        <div class="media-body m-t-15">
-		        <p class="m-b-5 nocolor f-15 f-500"><?php echo Yii::app()->user->fullname; ?></p>
+		        <p class="m-b-5 nocolor f-15 f-500"><a class="nocolor" href="<?php echo Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username)); ?>"><?php echo Yii::app()->user->fullname; ?></a></p>
 		        </div>
 		  	</div>
 
