@@ -241,6 +241,34 @@ if($model->getEavAttributes())
 <?php  $this->widget('EPoll', array('org_id'=>$model->id,'type'=>PollChoice::TYPE_MINUS)); ?>
 </div>
 </div>
+<?php if($articlesProvider->totalItemCount>0){
+?>
+<p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?> - обзоры</p>
+<?php
+$this->widget('zii.widgets.CListView', array(
+    'dataProvider'=>$articlesProvider,
+    'itemView'=>'application.modules.catalog.views.article._article_view_1',
+    'id'=>'article_listview',       // must have id corresponding to js above
+    'itemsCssClass'=>'article_listview row',
+    'ajaxUpdate' => true,
+    'template'=>"{items}\n{pager}",
+    'pager'=>array(
+
+              'header' => '',
+              'maxButtonCount'=>5,
+              'firstPageLabel'=>'<<',
+              'lastPageLabel'=>'>>',
+              'nextPageLabel' => '>',
+              'prevPageLabel' => '<',
+              'selectedPageCssClass' => 'active',
+              'hiddenPageCssClass' => 'disabled',
+              'htmlOptions' => array('class' => 'pagination')
+            ),
+
+    
+));
+} 
+?>
  <?php 
 $videos = $model->objectsVideo;
 if($videos){ ?>
@@ -267,12 +295,17 @@ if($videos){ ?>
 <div class="col-sm-2">
 <div class="text-left">
 <div>ДОБАВИТЬ:</div>
-<div><button data-toggle="modal" data-target="#add_photo" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
+<div><button title="Фото" data-toggle="modal" data-target="#add_photo" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
 <i class="zmdi zmdi-camera"></i></button>
 </div>
-<div><button data-toggle="modal" data-target="#add_video" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
+<div><button title="Видео" data-toggle="modal" data-target="#add_video" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
 <i class="zmdi zmdi-videocam"></i></button>
 </div>
+<?php if(!Yii::app()->user->isGuest){ ?>
+<div><a  title="Обзор" href="<?php echo Yii::app()->createAbsoluteUrl('catalog/article/new',array('obj'=>$model->id)); ?>" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
+<i style="line-height: 2.2em;" class="zmdi zmdi-comment-image"></i></a>
+</div>
+<?php } ?>
 <div style="margin-top:60px;">ПОДЕЛИТЬСЯ:</div>
 <?php $this->renderPartial('application.views.common._share',array('thisUrl'=>$thisUrl,'image'=>$imageShare));
  ?>           

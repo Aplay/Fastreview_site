@@ -123,6 +123,7 @@ class Objects extends BaseModel
 			'images' => array(self::HAS_MANY, 'ObjectsImages', 'object'),
 			'objectsVideo' => array(self::HAS_MANY, 'ObjectsHttp', 'object', 'condition'=>'"objectsVideo"."type"='.ObjectsHttp::TYPE_VIDEO),
 			'comments' => array(self::HAS_MANY, 'Comment', 'object_pk', 'condition'=>'comments.parent_id is NULL'),
+			'articles' => array(self::HAS_MANY, 'Article', 'object_id'),
 		);
 	}
 
@@ -266,7 +267,9 @@ class Objects extends BaseModel
 	}
 
 
-
+	public function getViewUrl() {
+		return Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$this->id, 'dash'=>'-', 'itemurl'=>$this->url));
+	}
 	/**
 	 * @return array
 	 */

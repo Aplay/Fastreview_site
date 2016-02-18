@@ -83,6 +83,7 @@ return array(
         'catalog',
         'city',
         'comments',
+       // 'follow',
         'poll' => array(
            // Force users to vote before seeing results
            'forceVote' => TRUE,
@@ -142,7 +143,8 @@ return array(
                     ),
                     'css'=>array(
                         'css/bootstrap.min.css',
-                        'font-awesome-4.5.0/css/font-awesome.min.css'
+                        'font-awesome-4.5.0/css/font-awesome.min.css',
+                        'vendors/sweet-alert/sweet-alert.min.css'
 
                     ),
                     'depends' => array('jquery'),
@@ -246,12 +248,20 @@ return array(
                 '/search/*'=>'/fastreview/search',
                 
                 '/review_objects/*'=>'/site/review_objects',
+                '/overview' => array('/catalog/article/index'),
+
+                '/reviews/<obj:\d+>/newarticle' => array('/catalog/article/new', 'caseSensitive'=>false),
+                '/reviews/<obj:\d+>/editarticle/<id:\d+>' => array('/catalog/article/update', 'caseSensitive'=>false),
 
                 '/reviews/<id:\d+><dash:[-]><itemurl:[0-9A-Za-z_-]+>' => array('/fastreview/item', 'caseSensitive'=>false),
 
                 array('fastreview/view', 'pattern'=>'/reviews/<url>/*'),
                 array('fastreview/view', 'pattern'=>'/reviews/*'),
+
                 '/user/<url:[0-9A-Za-z_]+>'=>'/users/user/view',
+
+                array('catalog/article/item', 'pattern'=>'/overview/<id:\d+><dash:[-]><itemurl>'),
+                
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/'=>'<module>/<controller>/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

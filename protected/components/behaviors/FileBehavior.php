@@ -34,6 +34,11 @@ class FileBehavior extends CActiveRecordBehavior
 		return strtolower(get_class($this->owner));
 	}
 
+    public function setCap($cap)
+    {
+        $this->cap = $cap;
+    }
+    
 	public function getUrl($size = false, $resizeMethod = false, $random = false, $attribute = null)
 	{
 		if($attribute)

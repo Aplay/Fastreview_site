@@ -257,6 +257,12 @@ var init = [];
                 <li <?php if($this->active_link == 'review'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('comments/admin/default'); ?>"><i class="menu-icon fa fa-comment"></i><span class="mm-text">Отзывы</span></a>
                 </li>
+                <li <?php if($this->active_link == 'new_article'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/article/new_article'); ?>"><i class="menu-icon fa fa-file-text-o"></i><span class="mm-text">Новые обзоры</span></a>
+                </li>
+                <li <?php if($this->active_link == 'article'){ echo ' class="active"'; } ?>>
+                    <a href="<?php echo Yii::app()->createUrl('catalog/admin/article'); ?>"><i class="menu-icon fa fa-file-text-o"></i><span class="mm-text">Обзоры</span></a>
+                </li>
                 <li <?php if($this->active_link == 'poll'){ echo ' class="active"'; } ?>>
                     <a href="<?php echo Yii::app()->createUrl('poll/admin/poll'); ?>"><i class="menu-icon fa fa-thumbs-o-up"></i><span class="mm-text">Голосование</span></a>
                 </li>

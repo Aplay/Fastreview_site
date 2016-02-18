@@ -273,7 +273,15 @@ class FastreviewController extends Controller {
       $this->pageTitle = $trunc_text.' - Быстрые отзывы покупателей';
       $this->pageTitle = trim(preg_replace('/\s+/', ' ', $this->pageTitle));
       
-
+      $cr = new CDbCriteria;
+      $cr->condition = 'object_id='.$model->id;
+      $cr->order = 'created_date DESC';
+      $articlesProvider = new CActiveDataProvider(Article::model()->fullactive(), array(
+            'criteria'=>$cr,
+            'pagination'=>array(
+                'pageSize'=>10,
+            )
+        ));
       $pohs = Objects::model()->active()->findAll(array(
         'condition'=>'categorie='.$model->categorie.' and id!='.$id,
         'limit'=>5,
@@ -378,7 +386,8 @@ class FastreviewController extends Controller {
     }
       $this->render('item', array(
                  'model' => $model,
-                 'pohs'=>$pohs
+                 'pohs'=>$pohs,
+                 'articlesProvider'=>$articlesProvider
 
                  ));
     }

@@ -142,7 +142,62 @@ class CommentsModule extends BaseModule
 		}
 		return $comment;
 	}
+	/**
+	 * @param $model
+	 * @return Comment
+	 */
+	public function processRequestArticle($model)
+	{
+        Yii::import('application.modules.users.models.User');
+        Yii::import('application.modules.catalog.models.Article');
+		$comment = new CommentArticle;
+		if(Yii::app()->request->getPost('CommentArticle'))
+		{
+			$comment->attributes = Yii::app()->request->getPost('CommentArticle');
 
+			if(!Yii::app()->user->isGuest)
+			{
+				$comment->name = Yii::app()->user->username;
+				$comment->email = Yii::app()->user->email;
+			}
+			
+			$comment->status = CommentArticle::STATUS_APPROVED;
+			if($comment->validate())
+			{
+				// $pkAttr = $model->getObjectPkAttribute();
+				// $comment->class_name = $model->getClassName();
+				$comment->object_pk = $model->id;
+				$comment->user_id = Yii::app()->user->isGuest ? 0 : Yii::app()->user->id;
+				if(!$comment->save()){
+					// VarDumper::dump($comment->errors); die(); // Ctrl + X  Delete line
+				}
+
+				$url = Yii::app()->getRequest()->getUrl();
+			//	if($comment->rating) {
+			//		$this->starRating($comment->object_pk, $comment->rating);
+			//	}
+				
+
+				if($comment->status==CommentArticle::STATUS_WAITING)
+				{
+					$url.='#';
+					Yii::app()->user->setFlash('messages', 'Ваш комментарий успешно добавлен. ');
+              
+				} elseif($comment->status==CommentArticle::STATUS_APPROVED){
+					$url.='#comment_'.$comment->id;
+				}
+               
+	                if(Yii::app()->request->isAjaxRequest){
+	                	echo '[]';
+	                	Yii::app()->end();
+	                } else {
+					// Refresh page
+					Yii::app()->request->redirect($url, true);
+					}
+			} 
+		}
+		return $comment;
+	}
 	public function starRating($id, $ratingAjax) {
 
       $id = (int)$id;

@@ -11,7 +11,7 @@ class FileController extends Controller {
             'upload' => 'application.modules.file.controllers.actions.Upload',
             'unlink' => 'application.modules.file.controllers.actions.Unlink',
             'deleteobjectsfile' => 'application.modules.file.controllers.actions.Deleteobjectsfile',
-            
+            'uploadarticle' => 'application.modules.file.controllers.actions.Uploadarticle',
         );
     }
 

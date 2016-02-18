@@ -319,6 +319,9 @@ class User extends BaseModel {
         ));
     }
 
+    public function getViewUrl() {
+        return Yii::app()->createAbsoluteUrl('/users/user/view', array(  'url'=>$this->username));
+    }
     public function getCreatetime() {
         return strtotime($this->create_at);
     }
