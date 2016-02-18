@@ -119,7 +119,8 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jqu
                       <span style="" class="header_user_box_span btn-label hdr icon zmdi zmdi-account"></span>
                     <?php } ?>
                    <div id="user_header_menu" class="hide">
-                    <ul id="user_header_menu_ul">                    
+                    <ul id="user_header_menu_ul">   
+                    <li><a  href="<?php echo Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));?>"><i class="md md-account-circle m-r-5"></i> Моя страница</a></li>                 
                     <li><a  href="javascript:void(0);" onclick="$('#header_user_box').popover('hide');$('#user_profile_modal').modal();return false;"><i class="md md-settings m-r-5"></i> Настройки</a></li>
                     
                     
