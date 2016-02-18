@@ -125,7 +125,7 @@ class UserController extends Controller {
 				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status = {$need_status})
 				  
 				UNION
-					SELECT 
+					(SELECT 
 				  CAST (CAST (2 AS TEXT) || CAST (max(i.id) AS TEXT) AS NUMERIC (24, 0)) AS id, 
 				  i.object, null, null, max(i.date_uploaded) as date,
 				  null, null, null, 
@@ -135,7 +135,15 @@ class UserController extends Controller {
 				  ON (organizations.id = i.object)
 					WHERE i.uploaded_by =  {$user->id} and (organizations.status = {$need_status} )
 				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.object
-				  ORDER BY date DESC
+				  ORDER BY date DESC)
+        UNION 
+         (SELECT
+         CAST (CAST (3 AS TEXT) || CAST (o.id AS TEXT) AS NUMERIC (24, 0)) AS id,
+         o.id, null, null, o.created_date as date,
+         null, null, null, null
+         FROM objects o
+         WHERE o.status={$need_status} and o.author = {$user->id}
+         ORDER BY date DESC)
 				) ss
 
 					";
@@ -150,7 +158,7 @@ class UserController extends Controller {
 				  WHERE	T .status = {$need_status_c} AND  t.user_id = {$user->id} AND (organizations.status = {$need_status} )
 				  
 				UNION
-					SELECT 
+					(SELECT 
 				  CAST (CAST (2 AS TEXT) || CAST (max(i.id) AS TEXT) AS NUMERIC (24, 0)) AS id, 
 				  i.object, null, null, max(i.date_uploaded) as date,
 				  null, null, null, 
@@ -160,7 +168,15 @@ class UserController extends Controller {
 				  ON (organizations.id = i.object)
 					WHERE i.uploaded_by =  {$user->id} and (organizations.status = {$need_status} )
 				  GROUP BY  i.uploaded_by, cast(date_trunc('day',i.date_uploaded) as text),i.object
-				  ORDER BY date DESC
+				  ORDER BY date DESC)
+          UNION 
+           (SELECT
+           CAST (CAST (3 AS TEXT) || CAST (o.id AS TEXT) AS NUMERIC (24, 0)) AS id,
+           o.id, null, null, o.created_date as date,
+           null, null, null, null
+           FROM objects o
+           WHERE o.status={$need_status} and o.author = {$user->id}
+           ORDER BY date DESC)
 				) ss
 
 					ORDER BY ss.date DESC";

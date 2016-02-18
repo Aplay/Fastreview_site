@@ -11,7 +11,8 @@ if(!empty($user)){
 	$user_name = 'Аноним';
 }
 ?>
-<div class="media oblects_view_main">
+<div class="oblects_view">
+<div class="media">
 <div class="pull-left">
 <div class="iAvatar">
 <img class="lv-img-lg" src="<?php echo $user_avatar; ?>" alt="">
@@ -73,6 +74,7 @@ if(!empty($dp->data))
 	} 
 } 
 ?>
+</div>
 </div>
 </div>
 </div>

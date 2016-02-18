@@ -8,7 +8,8 @@ if(!empty($model->user_id)){
 	$user_name = $model->name;
 }
 ?>
-<div class="media oblects_view_main">
+<div class="oblects_view">
+<div class="media">
 <div class="pull-left">
 <div class="iAvatar">
 <img class="lv-img-lg" src="<?php echo $user_avatar; ?>" alt="">
@@ -28,6 +29,7 @@ echo CHtml::link($org->title,$url,array('class'=>'nocolor'));
 <div class="col-xs-12 f-12" style="line-height:1.2em;margin-top:3px;">
 <?php echo nl2br(CHtml::encode($model->text)); ?>
 </div> 
+</div>
 </div>
 </div>
 </div>
