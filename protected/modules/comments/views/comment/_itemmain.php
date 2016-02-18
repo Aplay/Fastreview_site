@@ -1,6 +1,5 @@
 <?php
-$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/item', array('id'=>$org->id,  'itemurl'=>$org->url));
- 
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$org->id, 'dash'=>'-', 'itemurl'=>$org->url));
 if(!empty($model->user_id)){
 	$user_avatar = $model->user->getAvatar();
 	$user_name = $model->user->fullname;

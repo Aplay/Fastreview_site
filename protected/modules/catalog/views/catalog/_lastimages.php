@@ -2,8 +2,7 @@
 
 $user = User::model()->findByPk($model['uploaded_by']);
 $org = Objects::model()->findByPk($model['org']);
-$url = Yii::app()->createAbsoluteUrl('/catalog/catalog/item', array( 'id'=>$org->id,  'itemurl'=>$org->url));
-
+$url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$org->id, 'dash'=>'-', 'itemurl'=>$org->url));
 if(!empty($user)){
 	$user_avatar = $user->getAvatar();
 	$user_name = $user->fullname;

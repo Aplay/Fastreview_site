@@ -1,5 +1,5 @@
 <?php
-echo '<div class="item item-article-list one-column col-lg-6 col-md-6 col-sm-6 col-xs-12 ">';
+echo '<div class="objects_view">';
 $num = substr ($data['id'], 0, 1); 
 $id = substr_replace ($data['id'] , '' , 0 , 1 );
 $id = (int)$id;

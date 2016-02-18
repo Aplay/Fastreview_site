@@ -30,7 +30,11 @@ if(!empty($lastImages)) {
 }
 */
 ?>
-<div id="user_card"  style="margin-top:80px;">
+<div id="user_card" class="row m-t-20">
+<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
+<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php 
+echo $this->user->showname; 
+?></div>
 <?php 
 // $this->renderPartial('_user_header',array('user'=>$user));
 
@@ -42,8 +46,7 @@ if(!empty($lastImages)) {
  if(!empty($provider->data)){ 
 ?>
 <div class="row">
-<div class="col-xs-12 col-lg-10 col-lg-offset-1">
-<div class="row">
+
 <?php
 
 	/* usort($blocks, MHelper::get('Array')->sortFunction('time'));
@@ -55,24 +58,25 @@ if(!empty($lastImages)) {
 		echo '</div>';
 		
 	 } */
-	 $this->widget('ext.widgets.MasonryListView', array(
-          
+	// $this->widget('ext.widgets.MasonryListView', array(
+       $this->widget('zii.widgets.CListView', array(   
             'dataProvider'=>$provider,
             'ajaxUpdate'=>false,
             'template'=>"{items}\n{pager}",
             'itemView'=>'_view_profile',
-            'itemId' => 'main_list_grid_m2',
+           // 'itemId' => 'main_list_grid_m2_',
+            'emptyText'=>'',
             'pager'=>array(
-               'maxButtonCount'=>5,
-			    'header'=>'',
-			  	'firstPageLabel'=>'&#171;',
-			  	'lastPageLabel'=>'&#187;',
-			  	'nextPageLabel' => '&#8250;',
-			  	'prevPageLabel' => '&#8249;',
-			  	'selectedPageCssClass' => 'active',
-			  	'hiddenPageCssClass' => 'disabled',
-			  	'htmlOptions' => array('class' => 'pagination')
-              )
+              'maxButtonCount'=>5,
+              'header' => '',
+              'firstPageLabel'=>'<<',
+              'lastPageLabel'=>'>>',
+              'nextPageLabel' => '>',
+              'prevPageLabel' => '<',
+              'selectedPageCssClass' => 'active',
+              'hiddenPageCssClass' => 'disabled',
+              'htmlOptions' => array('class' => 'pagination')
+            )
            ));
 	 /*
 if(!empty($blocks)) {
@@ -95,8 +99,7 @@ if(!empty($blocks)) {
 	
 // }
 	 ?>
-</div>
-</div>
+
 </div>
 </div>
 <?php
