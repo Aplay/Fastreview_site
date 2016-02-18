@@ -14634,7 +14634,7 @@ a.thumbnail.active {
 .panel-group[data-collapse-color="cyan"] .panel-collapse .panel-heading.active .panel-title > a:after {
   background: #00bcd4;
 }
-
+/*
 .tooltip {
   -webkit-animation-name: 'zoomIn';
   animation-name: 'zoomIn';
@@ -14643,7 +14643,7 @@ a.thumbnail.active {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-
+*/
 .tooltip-inner {
   border-radius: 1px;
   padding: 3px 10px 5px;
