@@ -4,9 +4,9 @@ $folder = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPA
 $folderLink= '/uploads/tmp/';
 $categories = $data->categories_ar;
 
-$user_avatar = $data->authorid->getAvatar();
-$user_name = '<a class="nocolor" href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$data->authorid->username)).'">'.$data->authorid->getShowname().'</a>';
-$avatar = '<a href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$data->authorid->username)).'"><img alt="" src="'.$user_avatar.'" class="lv-img-md" /></a>';
+$user_avatar = Yii::app()->user->getAvatar();
+$user_name = '<a class="nocolor" href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username)).'">'.Yii::app()->user->getShowname().'</a>';
+$avatar = '<a href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username)).'"><img alt="" src="'.$user_avatar.'" class="lv-img-md" /></a>';
 
 
 $file = $data->tmpLogotip;
