@@ -37,16 +37,16 @@ if(!empty($data->logotip))
 <div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
     <div  class="itemListView clearfix eBlog kl-blog--light">
 <div class="itemContainer post featured-post" style="margin-bottom:0;">
-<div class="zn_full_image" style="margin-bottom:0;">
-<img alt="" src="<?php echo $im; ?>" class="zn_post_thumbnail">
+<div class="zn_full_image" style="margin-bottom:0;background:url('<?php echo $im; ?>') no-repeat center center; background-size: cover; width:100%;height: 400px;">
+<!-- <img alt="" src="" class="zn_post_thumbnail"> -->
 </div>
 <div class="itemFeatContent">
     <div class="itemFeatContent-inner">
         <div class="itemHeader">
             <h3 class="itemTitle">
-                <a href="#" class="nocolor">
+               
                 <?php echo CHtml::encode($data->title); ?>
-                </a>
+                
             </h3>
             <div class="post_details kl-font-alt">
             <span class="catItemDateCreated">

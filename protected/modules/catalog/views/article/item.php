@@ -19,16 +19,11 @@ Yii::app()->clientScript->registerMetaTag($url, null, null, array('property' => 
 
 $im = '';
 $image = Yii::app()->createAbsoluteUrl('/mstile-310x310.png'); 
-if(!empty($model->logotip)){
-	$im = $model->getUrl('420x280');
-	$image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
-}     
+    
 ?>
 <div class="row m-t-20">
-<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
-<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php 
-echo CHtml::encode($model->title);
-?></div>
+<div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
+
 	<div  class="itemListView clearfix eBlog kl-blog--light">
 <?php
 	$im = '/img/cap_850x565.gif';
@@ -38,20 +33,25 @@ if(!empty($model->logotip))
  // $src = $model->getOrigFilePath().$model->logotip; 
  $model->setCap($im);
  $im = $model->getUrl('850x565',false,false,'logotip');
+ $image = Yii::app()->createAbsoluteUrl($model->getUrl('200x100xC','adaptiveResizeQuadrant'));
  } 
   ?>
 <div class="itemContainer post-<?php echo $model->id; ?> featured-post" style="margin-bottom:0;">
-<div class="zn_full_image" style="margin-bottom:0;">
-<img alt="" src="<?php echo $im; ?>"  class="zn_post_thumbnail">
+<div class="zn_full_image" style="margin-bottom:0;background:url('<?php echo $im; ?>') no-repeat center center; background-size: cover; width:100%;height: 400px;">
+<!-- <img alt="" src=""  class="zn_post_thumbnail">-->
 </div>
 
 <div class="itemFeatContent">
     <div class="itemFeatContent-inner">
         <div class="itemHeader">
-            
+            <h3 class="itemTitle">
+                
+                <?php echo CHtml::encode($model->title); ?>
+           
+            </h3>
             <div class="post_details kl-font-alt">
             <span class="catItemDateCreated">
-            <br>
+         
                 <?php echo Yii::app()->dateFormatter->format('dd MMMM, yyyy',  date('Y-m-d H:i:s', strtotime($model->created_date))); ?>                                    </span>
                 <span class="catItemAuthor"> Автор: <span class="c-white"><?php 
                   $user_url = Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->authorid->username));
@@ -83,7 +83,7 @@ if(!empty($model->logotip))
     </div>
 </div>
  <div class="itemContainer" >
-<div class="">
+<div class="fromvis">
 <?php 
 echo $model->description;
  ?>
@@ -93,7 +93,16 @@ echo $model->description;
         
           </div><!-- end tags blocks -->
     </div>
- <div class="col-xs-12">
+ 
+</div>
+
+
+
+<?php 
+// $this->renderPartial('application.views.common._share_2',array('thisUrl'=>$url,'image'=>$image));
+?>
+</div><!-- itemListView -->
+<div >
   <?php
   $ip = MHelper::Ip()->getIp();
   $vote = Vote::model()->find(array('condition'=>'review=:id and ip=:ip','params'=>array(':id'=>$model->id,':ip'=>$ip)));
@@ -111,14 +120,6 @@ echo $model->description;
   }
   ?>
   </div> 
-</div>
-
-
-
-<?php 
-// $this->renderPartial('application.views.common._share_2',array('thisUrl'=>$url,'image'=>$image));
-?>
-</div><!-- itemListView -->
 <div class="woocommerce">
 <div class="product">
 <div class="woocommerce-tabs wc-tabs-wrapper">
@@ -173,7 +174,7 @@ echo $model->description;
       <?php $this->endWidget(); ?>
        <?php 
        } else { ?>
-       <p class="must-log-in" style="margin-top:10px;margin-bottom:15px;">Чтобы оставить комментарий, необходимо <a class="kl-login-box" href="#login_panel">Войти</a></p>
+       <p class="must-log-in" style="margin-top:10px;margin-bottom:15px;">Чтобы оставить комментарий, необходимо <span style="cursor:pointer;" class="kl-login-box" data-toggle="modal" data-target="#login_modal">Войти</span></p>
        <?php } ?>
        </div><!-- #respond -->
        </div>

@@ -588,6 +588,10 @@ a.oblects_view_blue, a.oblects_view_blue * {
 #special_offer_preview  .dz-preview {
     display:none;
 }
+.fromvis img {
+    height: auto;
+    max-width: 100%;
+}
 /* 
 -------------- vote -------------------------- */
 div.vote .user_mine {
