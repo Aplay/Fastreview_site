@@ -49,3 +49,31 @@ $(document).ready(function() {
    });
 
 });
+function toVoteArticle(id, vote){
+    if(!$('#vote'+id).hasClass('active'))
+        return;
+    hpv = $('#csfr').attr('name'),
+    hpt = $('#csfr').attr('value');
+          
+    var datav = {'id':id,'vote':vote};
+    datav[hpv] = hpt;
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        data:datav,
+        url: '/site/tovotearticle',
+
+        success: function(data) {
+            if(data.flag==true){
+                $('#vote'+id).removeClass('active');
+                if(vote == 1){
+                    $('#vote'+id+' .user_pro').addClass('user_mine');
+                    $('#vote'+id+' .user_num').html(data.count);
+                } else {
+                    $('#vote'+id+' .user_contra').addClass('user_mine');
+                    $('#vote'+id+' .user_contra-num').html(data.count);
+                }
+            }
+        }
+    });
+}

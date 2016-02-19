@@ -44,6 +44,7 @@ if(!empty($model->logotip))
 <div class="zn_full_image" style="margin-bottom:0;">
 <img alt="" src="<?php echo $im; ?>"  class="zn_post_thumbnail">
 </div>
+
 <div class="itemFeatContent">
     <div class="itemFeatContent-inner">
         <div class="itemHeader">
@@ -61,7 +62,7 @@ if(!empty($model->logotip))
             </div>
             <!-- end post details -->
         </div>
-               
+       
         
         <div class="itemComments">
             <?php 
@@ -92,6 +93,24 @@ echo $model->description;
         
           </div><!-- end tags blocks -->
     </div>
+ <div class="col-xs-12">
+  <?php
+  $ip = MHelper::Ip()->getIp();
+  $vote = Vote::model()->find(array('condition'=>'review=:id and ip=:ip','params'=>array(':id'=>$model->id,':ip'=>$ip)));
+  if($vote){ ?>
+
+  <div class="vote text-right c9" style="margin-top:10px;" id="vote<?php echo $model->id; ?>">
+   <span class="c-gray f-11" style="margin-right:5px;">Полезен ли обзор?</span> <span class="user_votes c-9"><span  class="user_pro  <?php if($vote->vote == 1) { echo 'user_mine';} ?>"><i class="zmdi zmdi-thumb-up"></i></span> <span class="user_num"><?php echo $model->yes?$model->yes:' '; ?></span>  <span class="user_contra <?php if($vote->vote != 1) { echo 'user_mine';} ?>" ><i class="zmdi zmdi-thumb-down"></i></span> <span class="user_contra-num"><?php echo $model->no?$model->no:' '; ?></span></span></div>
+  
+  <?php } else {
+       
+  ?>
+  <div class="vote text-right c9 active" style="margin-top:10px;" id="vote<?php echo $model->id; ?>">
+  <span class="c-gray f-11" style="margin-right:5px;">Полезен ли обзор?</span> <span class="user_votes"><span onclick="toVoteArticle(<?php echo $model->id; ?>, 1);" class="user_pro"><i class="zmdi zmdi-thumb-up"></i></span> <span class="user_num"><?php echo $model->yes?$model->yes:' '; ?></span>  <span class="user_contra" onclick="toVoteArticle(<?php echo $model->id; ?>, 0);"><i class="zmdi zmdi-thumb-down"></i></span> <span class="user_contra-num"><?php echo $model->no?$model->no:' '; ?></span></span></div>
+  <?php
+  }
+  ?>
+  </div> 
 </div>
 
 

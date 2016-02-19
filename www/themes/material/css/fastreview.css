@@ -588,6 +588,46 @@ a.oblects_view_blue, a.oblects_view_blue * {
 #special_offer_preview  .dz-preview {
     display:none;
 }
+/* 
+-------------- vote -------------------------- */
+div.vote .user_mine {
+    background: #aaa none repeat scroll 0 0;
+    color: #fff;
+    padding: 2px 5px;
+}
+.user_votes{
+    white-space: nowrap;
+}
+.user_pro{
+    margin-right: 5px;
+}
+.user_contra{
+    margin-left: 5px;
+}
+.vote.active .user_pro {
+    color: #239600;
+    cursor: pointer;
+}
+.vote.active .user_contra {
+    color: #ff2f2f;
+    cursor: pointer;
+}
+#comp_list_grid.item-view .item-photo-view .user_votes {
+    font-size: 20px;
+}
+/*
+#comp_list_grid.item-view .item-photo-view .user_votes .user_pro,
+#comp_list_grid.item-view .item-photo-view .user_votes .user_contra,
+#comp_list_grid.item-view .item-photo-view .user_votes .user_num,
+#comp_list_grid.item-view .item-photo-view .user_votes .user_contra-num{
+    display:block;
+}*/
+.user_num, .user_num_g{
+    color:#239600 !important;
+}
+.user_contra-num, .user_num_r {
+    color:#ff2f2f !important;
+}
 @media (min-width: 610px) {
 #dropzone-tmp .dz-thumbnail.lightbox-item  > img {
     height: 290px;

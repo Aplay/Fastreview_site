@@ -48,7 +48,7 @@ class Vote extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'review0' => array(self::BELONGS_TO, 'Review', 'review'),
+			'review0' => array(self::BELONGS_TO, 'Article', 'review'),
 		);
 	}
 
@@ -102,9 +102,9 @@ class Vote extends CActiveRecord
 		$sql = "SELECT COUNT(*) FROM vote WHERE review={$this->review} and vote={$this->vote}";
         $numClients = Yii::app()->db->createCommand($sql)->queryScalar();
         if($this->vote == 1){
-            $review = Review::model()->updateByPk($this->review,array('vote_yes'=>($numClients-1)));
+            $review = Article::model()->updateByPk($this->review,array('yes'=>($numClients-1)));
         } else {
-            $review = Review::model()->updateByPk($this->review,array('vote_no'=>($numClients-1)));
+            $review = Article::model()->updateByPk($this->review,array('no'=>($numClients-1)));
         }
 		
 		return true;

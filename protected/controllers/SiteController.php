@@ -6,7 +6,7 @@ class SiteController extends Controller {
     public function filters()
     {
      return array(
-        'ajaxOnly + getcities, getcitiesbig, preview_video, feedback, feedbackupdate, getmaps',
+        'ajaxOnly + getcities, getcitiesbig, preview_video, feedback, feedbackupdate, getmaps, tovotearticle',
         );
     }
    
@@ -514,7 +514,35 @@ public function actionFile($id){
         $this->redirect(Yii::app()->homeUrl);
     }
 
-
+    public function actionToVoteArticle (){
+        $id = (int)$_POST['id'];
+        $voter = (int)$_POST['vote'];
+        $ret = array();
+        // check
+        $ip = MHelper::Ip()->getIp();
+        $vote = Vote::model()->find(array('condition'=>'review=:id and ip=:ip','params'=>array(':id'=>$id,':ip'=>$ip)));
+        if(!$vote){
+            $vote = new Vote;
+            $vote->vote = $voter;
+            $vote->review = $id;
+            $vote->ip = $ip;
+            if(!Yii::app()->user->isGuest){
+              $vote->user_id = Yii::app()->user->id; 
+            }
+            $vote->save();
+            $sql = "SELECT COUNT(*) FROM vote WHERE review={$id} and vote={$voter}";
+            $numClients = Yii::app()->db->createCommand($sql)->queryScalar();
+            if($voter == 1){
+                $review = Article::model()->updateByPk($id,array('yes'=>$numClients));
+            } else {
+                $review = Article::model()->updateByPk($id,array('no'=>$numClients));
+            }
+            
+            $ret['flag'] = true;
+            $ret['count'] = $numClients;
+            echo CJSON::encode($ret);
+        }
+    }
  
 
     public function actionGetCities($id=null)

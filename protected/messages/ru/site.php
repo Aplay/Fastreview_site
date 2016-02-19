@@ -46,6 +46,7 @@ return array(
 	'Close task'=>'Закрыть задачу',
 	'Closed'=>'Закрыто',
 	'comment|comments'=>'отзыв|отзыва|отзывов|отзыва',
+	'comments|commentss'=>'комментарий|комментария|комментариев|комментария',
 	'Completed'=>'Выполнено',
 	'Contact'=>'Контакт',
 	'Create account'=>'Создать аккаунт',
