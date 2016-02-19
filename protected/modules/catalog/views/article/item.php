@@ -26,8 +26,10 @@ $image = Yii::app()->createAbsoluteUrl('/mstile-310x310.png');
 
 	<div  class="itemListView clearfix eBlog kl-blog--light">
 <?php
-	$im = '/img/cap_850x565.gif';
-
+$im = '/img/cap_850x565.gif';
+$user_avatar = $model->authorid->getAvatar();
+$user_name = '<a class="nocolor" href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->authorid->username)).'">'.$model->authorid->getShowname().'</a>';
+$avatar = '<a href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->authorid->username)).'"><img alt="" src="'.$user_avatar.'" class="lv-img-md" /></a>';
 if(!empty($model->logotip))
 {
  // $src = $model->getOrigFilePath().$model->logotip; 
@@ -50,21 +52,23 @@ if(!empty($model->logotip))
            
             </h3>
             <div class="post_details kl-font-alt">
-            <span class="catItemDateCreated">
+            <div class="media m-t-15 m-b-25">
+            <div class="pull-left">
+              <?php echo $avatar; ?>
+            </div>
+            <div class="media-body">
+              <p class="nocolor f-15 f-500"><?php echo $user_name; ?> 
+              <br>
+              <span class="c-gray f-12" >&nbsp;<?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
+            </div>
+            </div>
          
-                <?php echo Yii::app()->dateFormatter->format('dd MMMM, yyyy',  date('Y-m-d H:i:s', strtotime($model->created_date))); ?>                                    </span>
-                <span class="catItemAuthor"> Автор: <span class="c-white"><?php 
-                  $user_url = Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$model->authorid->username));
-                  echo CHtml::link($model->authorid->showname,$user_url,array('class'=>'nocolor')); 
-                  ?></span>
-               
-                </span>
             </div>
             <!-- end post details -->
         </div>
        
         
-        <div class="itemComments">
+        <div class="itemComments hide">
             <?php 
             $cnt_comments = count($model->comments);
             if($cnt_comments){

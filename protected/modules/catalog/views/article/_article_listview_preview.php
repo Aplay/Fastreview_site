@@ -4,6 +4,9 @@ $folder = DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPA
 $folderLink= '/uploads/tmp/';
 $categories = $data->categories_ar;
 
+$user_avatar = $data->authorid->getAvatar();
+$user_name = '<a class="nocolor" href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$data->authorid->username)).'">'.$data->authorid->getShowname().'</a>';
+$avatar = '<a href="'.Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>$data->authorid->username)).'"><img alt="" src="'.$user_avatar.'" class="lv-img-md" /></a>';
 
 
 $file = $data->tmpLogotip;
@@ -26,6 +29,7 @@ if($file){
     }
 } elseif($data->id){
 $im = '/img/cap_850x565.gif';
+
 if(!empty($data->logotip))
 {
  // $src = $model->getOrigFilePath().$model->logotip; 
@@ -49,15 +53,16 @@ if(!empty($data->logotip))
                 
             </h3>
             <div class="post_details kl-font-alt">
-            <span class="catItemDateCreated">
-                <?php echo Yii::app()->dateFormatter->format('dd MMMM, yyyy',  date('Y-m-d H:i:s', strtotime($data->created_date))); ?>                                    </span>
-                <span class="catItemAuthor"> Автор: <span class="c-white"><?php 
-                
-                $user_url = Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));
-                echo CHtml::link(Yii::app()->user->showname,$user_url,array('target'=>'_blank','class'=>'nocolor')); 
-                ?></span>
-               
-                </span>
+           <div class="media m-t-15 m-b-25">
+            <div class="pull-left">
+              <?php echo $avatar; ?>
+            </div>
+            <div class="media-body">
+              <p class="nocolor f-15 f-500"><?php echo $user_name; ?> 
+              <br>
+              <span class="c-gray f-12" >&nbsp;<?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', $data->created_date); ?></span></p>
+            </div>
+            </div>
             </div>
             <!-- end post details -->
         </div>
