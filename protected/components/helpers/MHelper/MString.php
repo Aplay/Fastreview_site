@@ -577,6 +577,17 @@ class MString extends MHelperBase
             return $string; 
         } 
 
+        public function purifyFromIm($text)
+	    {
+	        $doc = new DOMDocument();
+	        $text =  '<div>' . $text . '</div>';
+	        $text = mb_convert_encoding($text, 'HTML-ENTITIES', "UTF-8"); 
+	        @$doc->loadHTML($text);
+	        $this->removeElementsByTagName('img', $doc);
+	        
+	        return substr($doc->saveHtml($doc->getElementsByTagName('div')->item(0)), 5, -6); // get only text inside, not html and doctype
+	    }
+	    
         public function purifyFromScript($text)
 	    {
 	        $doc = new DOMDocument();

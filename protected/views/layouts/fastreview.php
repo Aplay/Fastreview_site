@@ -38,7 +38,9 @@ Yii::app()->clientScript->registerCssFile($themeUrl . '/css/app.min.2.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/appstyle.css');
 Yii::app()->clientScript->registerCssFile($themeUrl . '/css/fastreview.css');
 
+Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/trunk8/trunk8.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/autosize/jquery.autosize.min.js', CClientScript::POS_END); 
+Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/main.js', CClientScript::POS_END);
 // Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/salvattore/salvattore.min.js', CClientScript::POS_END); 
 
 ?>

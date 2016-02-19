@@ -237,6 +237,7 @@
 				data.updateSettings(options);
 				
 				truncate.call($this);
+				$this.css("opacity",1);
 			});
 		},
 
@@ -379,6 +380,7 @@
 		tooltip: true,
 		width: WIDTH.auto,
 		parseHTML: false,
-		onTruncate: function () {}
+		onTruncate: function () {},
+		onDone: function () {}
 	};
 })(jQuery);

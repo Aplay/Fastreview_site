@@ -2,24 +2,23 @@
 $themeUrl = Yii::app()->theme->baseUrl;
 
 // Yii::app()->clientScript->registerCssFile($themeUrl . '/css/template_article.css');
-Yii::app()->clientScript->registerCssFile($themeUrl . '/css/woocommerce-layout.css');
-Yii::app()->clientScript->registerCssFile($themeUrl . '/css/woocommerce.css');
-Yii::app()->clientScript->registerCssFile($themeUrl . '/css/kl-woocommerce_single.css');
-Yii::app()->clientScript->registerCssFile($themeUrl . '/css/dp-styles.css');
-Yii::app()->clientScript->registerCssFile($themeUrl . '/css/style.css');
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/css/woocommerce-layout.css');
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/css/woocommerce.css');
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/css/kl-woocommerce_single.css');
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/css/dp-styles.css');
+//Yii::app()->clientScript->registerCssFile($themeUrl . '/css/style.css');
 ?>
 
-<section class="site-content" id="content">
-<div class="container">
-<div class="row">
-
-<div class="right_sidebar col-md-9">
-<div class="itemListView clearfix eBlog kl-blog--light">
+<div class="row m-t-20">
+<div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
+<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;">
+Обзоры</div>
+<div class="itemListView">
 <div class="itemList">
 <?php
 $this->widget('zii.widgets.CListView', array(
     'dataProvider'=>$dataProvider,
-    'itemView'=>'application.modules.catalog.views.article._article_listview',
+    'itemView'=>'application.modules.catalog.views.article._article_objectview',
     'id'=>'article_listview',       // must have id corresponding to js above
     'itemsCssClass'=>'article_listview',
     'ajaxUpdate' => true,
@@ -44,27 +43,17 @@ $this->widget('zii.widgets.CListView', array(
 </div>
 </div>
 <?php 
-$this->renderPartial('application.views.mebica._aside_article',array('popular'=>$popular));
+// $this->renderPartial('application.views.mebica._aside_article',array('popular'=>$popular));
 ?>
 </div>
-</div>
-</section>
+
 
 <?php
 $script = "
 $(document).ready(function(){
   
 
-  $('#woocommerce_product_categories-2 ul.children').each(function(i,el){
-    var reqClass = $(this).find('.count');
-    var cnt = 0;
-    $(reqClass).each(function(){
-      cnt = cnt + $(this).data('cnt');
-    });
-    var curCount =  $(this).prev().data('cnt');
-    var allCount = cnt + curCount;
-    $(this).prev().html(' ('+ allCount +')');
-  });
+ 
 })
 ";
 Yii::app()->clientScript->registerScript("script", $script, CClientScript::POS_END);

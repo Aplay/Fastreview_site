@@ -52,7 +52,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/trunk8/trunk
 <?php 
 $script = "
 $(document).ready(function(){
-	$('.object_descr').trunk8({lines:8, tooltip: false});
+	
 })
 ";
 

@@ -138,7 +138,6 @@ return array(
                         'vendors/sweet-alert/sweet-alert.min.js',
                        // 'vendors/nicescroll/jquery.nicescroll.min.js',
                         'js/functions.js',
-                        'js/main.js',
 
                     ),
                     'css'=>array(
@@ -248,7 +247,7 @@ return array(
                 '/search/*'=>'/fastreview/search',
                 
                 '/review_objects/*'=>'/site/review_objects',
-                '/overview' => array('/catalog/article/index'),
+                '/overviews' => array('/catalog/article/index'),
 
                 '/reviews/<obj:\d+>/newarticle' => array('/catalog/article/new', 'caseSensitive'=>false),
                 '/reviews/<obj:\d+>/editarticle/<id:\d+>' => array('/catalog/article/update', 'caseSensitive'=>false),
@@ -260,7 +259,7 @@ return array(
 
                 '/user/<url:[0-9A-Za-z_]+>'=>'/users/user/view',
 
-                array('catalog/article/item', 'pattern'=>'/overview/<id:\d+><dash:[-]><itemurl>'),
+                array('catalog/article/item', 'pattern'=>'/overviews/<id:\d+><dash:[-]><itemurl>'),
                 
                 '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>'=>'<module>/<controller>/<action>',
                 '<module:\w+>/<controller:\w+>/<action:\w+>/'=>'<module>/<controller>/<action>',

@@ -22,7 +22,7 @@ if($data->images){
         <p class="m-b-5 t-uppercase nocolor"><?php echo CHtml::encode($data->title);  ?></p>
         <?php
         if(!empty($data->description)){
-          echo '<p class="object_descr m-b-5">'.nl2br(CHtml::encode($data->description)).'</p>';
+          echo '<p class="object_descr m-b-5 trunk_8">'.nl2br(CHtml::encode($data->description)).'</p>';
         } ?>
           <div class="pull-left" style="width:48%">
          <?php  $this->widget('application.modules.poll.widgets.Poll', array('org_id'=>$data->id, 'type'=>PollChoice::TYPE_PLUS)); ?>

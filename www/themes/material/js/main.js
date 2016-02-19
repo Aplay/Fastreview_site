@@ -35,5 +35,17 @@ $(document).ready(function() {
       
   });
 
+  $('.trunk_1').trunk8({lines:1, tooltip: false});
+    $('.trunk_2').trunk8({lines:2, tooltip: false});
+    $('.trunk_3').trunk8({lines:3, tooltip: false});
+    $('.trunk_4').trunk8({lines:4, tooltip: false});
+    $('.trunk_8').trunk8({lines:8, tooltip: false});
+   $(window).on('debouncedresize', function(){
+    $('.trunk_1').trunk8({lines:1, tooltip: false});
+    $('.trunk_2').trunk8({lines:2, tooltip: false});
+    $('.trunk_3').trunk8({lines:3, tooltip: false});
+    $('.trunk_4').trunk8({lines:4, tooltip: false});
+    $('.trunk_8').trunk8({lines:8, tooltip: false});
+   });
 
 });

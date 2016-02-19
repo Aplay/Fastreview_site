@@ -51,7 +51,7 @@ class ArticleController extends Controller
     {
        // $this->layout = '//layouts/zazadun';
 
-          $this->pageTitle = 'Статьи - '.Yii::app()->name;
+          $this->pageTitle = 'Обзоры - '.Yii::app()->name;
           $popular = Article::model()->fullactive()->findAll(array('limit'=>3,'order'=>'views_count DESC')); 
 
  
