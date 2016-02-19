@@ -59,7 +59,7 @@ if(!empty($model->logotip))
             <div class="media-body">
               <p class="nocolor f-15 f-500"><?php echo $user_name; ?> 
               <br>
-              <span class="c-gray f-12" >&nbsp;<?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
+              <span class="c-gray f-12" ><?php echo Yii::app()->dateFormatter->format('d MMMM yyyy', $model->created_date); ?></span></p>
             </div>
             </div>
          
