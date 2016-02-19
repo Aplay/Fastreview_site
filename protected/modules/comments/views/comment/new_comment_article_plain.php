@@ -35,12 +35,10 @@ $ip = MHelper::Ip()->getIp();
             'pager'=>array(
               'maxButtonCount'=>5,
               'header' => '',
-              'nextPageCssClass'=>'pagination-next',
-              'previousPageCssClass'=>'pagination-prev',
               'firstPageLabel'=>'<<',
               'lastPageLabel'=>'>>',
-              'nextPageLabel' => '<span data-zn_icon="" data-zniconfam="glyphicons_halflingsregular" class="zn_icon"></span>',
-              'prevPageLabel' => '<span data-zn_icon="" data-zniconfam="glyphicons_halflingsregular" class="zn_icon"></span>',
+              'nextPageLabel' => '>',
+              'prevPageLabel' => '<',
               'selectedPageCssClass' => 'active',
               'hiddenPageCssClass' => 'disabled',
               'htmlOptions' => array('class' => 'pagination')

@@ -106,15 +106,15 @@ echo $model->description;
 <div id="tab-reviews" class="panel entry-content wc-tab" style="display: block;">
         <div id="reviews">
   <div id="comments">
-<?php /* $this->renderPartial('application.modules.comments.views.comment.new_comment_article_plain', array(
+<?php  $this->renderPartial('application.modules.comments.views.comment.new_comment_article_plain', array(
     'model'=>$model,
     'themeUrl'=>$themeUrl,
-  )); */ ?>
+  ));  ?>
 
 </div>
-<div id="review_form_wrapper" class="hide">
+<div id="review_form_wrapper">
       <div id="review_form">
-        <div class="comment-respond" id="respond" style="padding:0 20px 5px 20px;">
+        <div class="comment-respond" id="respond" style="padding:0 20px 5px 0px;">
         <?php 
        if(!Yii::app()->user->isGuest){ ?>
         <?php 
@@ -149,7 +149,7 @@ echo $model->description;
                 <?php echo $form->error($comment,'text'); ?>
         </div>
         <div class="no-border-t text-left" style="border-top:0; margin-top:5px; margin-bottom:40px;">
-        <button style="margin:0 20px 10px 0;" type="submit" class="btn-element btn btn-fullcolor pull-left"><span>КОММЕНТИРОВАТЬ</span></button>
+        <button style="margin:0 20px 10px 0;" type="submit" class="btn-element btn btn-default-over pull-left"><span>КОММЕНТИРОВАТЬ</span></button>
       </div> 
       <?php $this->endWidget(); ?>
        <?php 
