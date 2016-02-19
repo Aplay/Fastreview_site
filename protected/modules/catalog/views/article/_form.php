@@ -59,7 +59,7 @@ function(form, data, hasError) {
 
     } else { 
         clearStorage();
-        $('#article_preview').hide();
+        $('#article_preview, special_offer_preview').hide();
         $('#article-form')[0].reset();
         $('#Article_description').summernote('code', '');
         swal("Обзор добавлен!", "Ваш обзор появится на странице объекта после проверки.", "success")
