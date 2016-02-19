@@ -303,7 +303,7 @@ if($videos){ ?>
 </div>
 <?php if(!Yii::app()->user->isGuest){ ?>
 <div><a  title="Обзор" href="<?php echo Yii::app()->createAbsoluteUrl('catalog/article/new',array('obj'=>$model->id)); ?>" class="m-t-15 btn bgm-lightblue btn-icon waves-effect waves-circle waves-float">
-<i style="line-height: 2.2em;" class="zmdi zmdi-comment-image"></i></a>
+<i style="line-height: 2.4em;" class="zmdi zmdi-comment-image"></i></a>
 </div>
 <?php } ?>
 <div style="margin-top:60px;">ПОДЕЛИТЬСЯ:</div>
