@@ -593,8 +593,9 @@ a.oblects_view_blue, a.oblects_view_blue * {
     max-width: 100%;
 }
 .note-editor p, .itemContainer p {
-    margin-bottom: 0px;
+    margin-bottom: 5px;
 }
+
 /* 
 -------------- vote -------------------------- */
 div.vote .user_mine {
