@@ -66,6 +66,50 @@ ul, ol {
 .modal.in .modal-dialog {
     z-index: 1100;
 }
+.popover.select_city_popover {
+    background-color: transparent;
+    border-color: #03a9f4;
+    padding: 0;
+    border-radius: 6px;
+}
+
+.popover > .arrow {
+    border-width: 10px;
+}
+.popover.bottom > .arrow {
+    top:-10px;
+}
+#user_header_menu_ul > li:hover {
+    background-color: transparent;
+}
+#user_header_menu_ul > li > a {
+    color:#03a9f4;
+    background-color: white;
+}
+#user_header_menu_ul > li > a {
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+}
+#user_header_menu_ul > li:first-child > a {
+    border-top-left-radius:6px;
+    border-top-right-radius:6px;
+}
+#user_header_menu_ul > li:last-child > a {
+    border-bottom-left-radius:6px;
+    border-bottom-right-radius:6px;
+}
+.popover.select_city_popover.bottom > .arrow {
+    border-bottom-color: #03a9f4;
+}
+.popover.select_city_popover.bottom > .arrow::after {
+    border-bottom-color:white;
+}
+#user_header_menu_ul > li > a:hover {
+    background-color:#d9eefc;
+}
+
 .url-link a {
     color: #2196f3;
     border-bottom: 1px solid #2196f3;

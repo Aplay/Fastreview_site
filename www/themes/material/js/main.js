@@ -34,7 +34,7 @@ $(document).ready(function() {
       }
       
   });
-
+  
   $('.trunk_1').trunk8({lines:1, tooltip: false});
     $('.trunk_2').trunk8({lines:2, tooltip: false});
     $('.trunk_3').trunk8({lines:3, tooltip: false});
