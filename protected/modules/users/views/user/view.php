@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/trunk8/trunk
 // Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/salvattore/salvattore.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/plugins/isotope/jquery.isotope.min.js', CClientScript::POS_END);
  
-
+$user_avatar = $this->user->getAvatar();
 /*
 if(!empty($comments)) {
 	foreach ($comments as $comment) {
@@ -32,9 +32,21 @@ if(!empty($lastImages)) {
 ?>
 <div id="user_card" class="row m-t-20">
 <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-2">
-<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php 
+
+<div class="media " style="margin-bottom:30px;">
+<div class="pull-left">
+<img class="lv-img-lg" style="height: 120px;
+    width: 120px;margin-left:15px;" src="<?php echo $user_avatar; ?>" alt="">
+</div>
+<div class="media-body">
+<div  style="margin-top:40px;margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;">
+	<?php 
 echo $this->user->showname; 
-?></div>
+?>
+</div>
+</div>
+</div>
+
 <?php 
 // $this->renderPartial('_user_header',array('user'=>$user));
 
