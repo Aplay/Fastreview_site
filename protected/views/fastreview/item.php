@@ -269,7 +269,7 @@ $this->widget('zii.widgets.CListView', array(
 ));
 } 
 ?>
-<div style="width:100%;height: 20px;"></div>
+
  <?php 
 $videos = $model->objectsVideo;
 if($videos){ ?>

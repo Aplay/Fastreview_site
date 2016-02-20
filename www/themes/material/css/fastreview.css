@@ -11,7 +11,7 @@ ul, ol {
 ul, ol {
     list-style: outside none none;
 }
-a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
+.nocolor, a.nocolor, a.nocolor:hover, a.nocolor:focus, a.nocolor:active, a.graytogreen {
  color: #4d4d4d;
 }
 .bg-blue {
