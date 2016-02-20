@@ -1025,7 +1025,13 @@ $(document).ready(function(){
 		        $('#nav-li-last').toggleClass('activep');
 		       // clearScroll();
 		    });
-			
+			$('#header_user_box').on('shown.bs.popover', function () {
+                $('#user_header_menu_li a').on('mouseenter',function(){
+                  $('.popover.select_city_popover.bottom > .arrow').addClass('active');
+                }).on('mouseleave',function(){
+                  $('.popover.select_city_popover.bottom > .arrow').removeClass('active');
+                });
+            })
 
 		
 

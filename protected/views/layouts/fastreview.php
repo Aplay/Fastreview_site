@@ -122,7 +122,7 @@ Yii::app()->clientScript->registerScriptFile($themeUrl.'/js/main.js', CClientScr
                     <?php } ?>
                    <div id="user_header_menu" class="hide">
                     <ul id="user_header_menu_ul">   
-                    <li><a  href="<?php echo Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));?>"><i class="md md-account-circle m-r-5"></i> Моя страница</a></li>                 
+                    <li id="user_header_menu_li"><a  href="<?php echo Yii::app()->createAbsoluteUrl('/users/user/view',array('url'=>Yii::app()->user->username));?>"><i class="md md-account-circle m-r-5"></i> Моя страница</a></li>                 
                     <li><a  href="javascript:void(0);" onclick="$('#header_user_box').popover('hide');$('#user_profile_modal').modal();return false;"><i class="md md-settings m-r-5"></i> Настройки</a></li>
                     
                     
