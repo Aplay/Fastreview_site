@@ -6,7 +6,7 @@ if($data->logotip){
 }
 $url = Yii::app()->createAbsoluteUrl('/catalog/article/item', array( 'id'=>$data->id, 'dash'=>'-', 'itemurl'=>$data->url));
 ?>
-<div  class="  col-md-4 col-sm-4    ">
+<div  class="  col-md-6 col-sm-6    ">
 			<div class="box image-boxes imgboxes_style4 kl-title_style_left eluiddda1b169 ">
 			<a  href="<?php echo $url; ?>" class="imgboxes4_link imgboxes-wrapper">
 			<img height="" width="" class="img-responsive imgbox_image" 

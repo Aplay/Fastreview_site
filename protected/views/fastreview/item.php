@@ -243,7 +243,7 @@ if($model->getEavAttributes())
 </div>
 <?php if($articlesProvider->totalItemCount>0){
 ?>
-<p class="t-uppercase f-18"><?php echo CHtml::encode($model->title); ?> - обзоры</p>
+<p class="t-uppercase f-18 m-t-20"><?php echo CHtml::encode($model->title); ?> - обзоры</p>
 <?php
 $this->widget('zii.widgets.CListView', array(
     'dataProvider'=>$articlesProvider,
@@ -269,6 +269,7 @@ $this->widget('zii.widgets.CListView', array(
 ));
 } 
 ?>
+<div style="width:100%;height: 20px;"></div>
  <?php 
 $videos = $model->objectsVideo;
 if($videos){ ?>
