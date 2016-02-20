@@ -138,7 +138,7 @@ echo $model->description;
 </div>
 <div id="review_form_wrapper">
       <div id="review_form">
-        <div class="comment-respond" id="respond" style="padding:0 20px 5px 0px;">
+        <div class="comment-respond" id="respond" style="padding:0 0px 5px 0px;">
         <?php 
        if(!Yii::app()->user->isGuest){ ?>
         <?php 
@@ -191,44 +191,13 @@ echo $model->description;
 </div><!-- woocommerce -->	
 
 	
-<?php // $this->renderPartial('_article_aside_item',array('popular'=>$popular)); ?>
+<?php // $this->renderPartial('_article_aside_item',array('popular'=>$popular)); 
+?>
 	
 
-
-
 </div>
-
+</div>
 <?php
-if(!empty($similar)){  ?>
-<section style="padding-top:0px" class="zn_section eluid94fa47d7     zn_section--masked zn_section--relative section--no">
-<div class="zn_section_size container">
-<div class="row zn_columns_container zn_content " data-droplevel="1">
-<div class="eluidf274ce36  col-md-12 col-sm-12    zn_sortable_content zn_content " data-droplevel="2">
-<div class="latest_posts latest_posts--style4 eluid1ac6708b  latestposts4--light element-scheme--light kl-style-2 ">
-<div class="row ">
-<?php
-$lasts_articles = array_slice($similar, 0, 3);
-if(!empty($lasts_articles)){ 
-$this->renderPartial('_section_last_art_el_short',array('lasts'=>$lasts_articles));
-}
-$lasts_articles_plus = array_slice($similar, 3, 5);
-if(!empty($lasts_articles_plus)){ 
-$this->renderPartial('_section_last_art_el_plus',array('lasts'=>$lasts_articles_plus));
-}
-?>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</section>
-<?php } ?>
-
-</div>
-
-
- <?php
 
 $scriptAdd = "
 $(document).ready(function(){

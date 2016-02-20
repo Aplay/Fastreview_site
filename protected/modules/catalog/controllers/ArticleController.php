@@ -174,6 +174,12 @@ class ArticleController extends Controller
         $model->addDropboxLogoFiles($this->uploadlogosession);
         Yii::app()->session->remove($this->uploadlogosession);
 
+        $model->addDropboxFiles($this->uploadsession);
+        Yii::app()->session->remove($this->uploadsession);
+
+        $replace = $model->getOrigFilePath();
+        $model->description = str_replace ( '/uploads/tmp/' , $replace , $model->description  );
+        $model->save('false',array('description'));
 
         $article_url = Yii::app()->createAbsoluteUrl('/fastreview/item', array( 'id'=>$object->id, 'dash'=>'-', 'itemurl'=>$object->url));
         if(Yii::app()->request->isAjaxRequest){
@@ -358,10 +364,10 @@ class ArticleController extends Controller
           $this->breadcrumbs[$name] = $categories[0]->getViewUrl();
       } */
       
-      $similar = $popular = null;
+    /*  $similar = $popular = null;
       $similar = $this->getSimilarObj($model,$orgsCats);
       if($similar)
-        $popular = array_slice($similar, 0, 2);
+        $popular = array_slice($similar, 0, 2);*/
       
      // $popular = Article::model()->active()->findAll(array('limit'=>3,'order'=>'views_count DESC')); 
       
@@ -400,8 +406,8 @@ class ArticleController extends Controller
       
       $this->render('item', array(
                  'model' => $model,
-                 'popular'=>$popular,
-                 'similar'=>$similar
+                // 'popular'=>$popular,
+                // 'similar'=>$similar
                  ));
     }
 

@@ -41,11 +41,38 @@ if (! $('html').hasClass('ie8')) {
               setTimeout( function(){
                   document.execCommand( 'insertText', false, bufferText );
               }, 10 );
+            },
+            onImageUpload: function(files) {
+              $.each(files, function(key, val) {
+                sendSumFile(val);
+              });
             }
         }
        
  });
-
+       function sendSumFile(file) {
+            data = new FormData();
+            data.append("tmpFiles", file);
+            hpv = $('#csfr').attr('value'),
+            hpt = $('#csfr').attr('name');
+            data.append(hpt, hpv);
+            $.ajax({
+                data: data,
+                type: "POST",
+                url: "/file/file/uploadarticlefiles",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    var obj = jQuery.parseJSON(response);
+                    if (obj && obj.success == true && obj.tmpFile){
+                      
+                    var url = '/uploads/tmp/'+obj.tmpFile;
+                    $('#Article_description').summernote('editor.insertImage', url);
+                    }
+                }
+            });
+        }  
 }
 });
 

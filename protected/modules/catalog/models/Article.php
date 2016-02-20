@@ -433,10 +433,10 @@ class Article extends BaseModel
     {
         $files = $this->tmpFiles;
         
-        $existFiles = count($this->images);
-        $availableFiles = $this->maxFiles - $existFiles;
+       // $existFiles = count($this->images);
+       // $availableFiles = $this->maxFiles - $existFiles;
         $cnt = 0;
-        if($files){
+      //  if($files){
 
             if(Yii::app()->session->itemAt($uploadsession)){
 
@@ -445,17 +445,17 @@ class Article extends BaseModel
                 $dataSession = Yii::app()->session->itemAt($uploadsession);
                 
 
-                foreach($files as $fileUploadName){
+              //  foreach($files as $fileUploadName){
 
                     if(is_array($dataSession)){
                         foreach($dataSession as $key => $value){
-                            if($fileUploadName == $key){
+                          //  if($fileUploadName == $key){
                                 if(file_exists($folder.$value )) {
                                 	
-                                	if($cnt >= $availableFiles)	
-                                		break 2;
+                                	//if($cnt >= $availableFiles)	
+                                	//	break 2;
 
-                                    $file = $folder.$value;
+                                   /* $file = $folder.$value;
                                     $ext = pathinfo($folder.$value, PATHINFO_EXTENSION);
 
                                     $base = md5(rand(1000,4000));
@@ -467,20 +467,20 @@ class Article extends BaseModel
                                         $suffix++;
                                     }
                                     $filename =  $unique . '.' . $ext;
-                                    $fullPath = $this->getFileFolder() . $filename;
-                                    
+                                    $fullPath = $this->getFileFolder() . $filename;*/
+                                    $fullPath = $this->getFileFolder().$value;
                                     if (copy($folder.$value, $fullPath)) {
                                         unlink($folder.$value);
                                         $image = new ArticleImages();
                                         $image->article = $this->getPrimaryKey();
-                                        $image->filename = $filename;
+                                        $image->filename = $value;
                                         $image->realname = $key;
-
+                                        
                                         Yii::import('ext.phpthumb.PhpThumbFactory');
 										$thumb  = PhpThumbFactory::create($fullPath);
 										$thumb->setOptions(array('jpegQuality'=>100));
-										$thumb->resize(1500)->save($fullPath);
-
+										$thumb->resize(1000)->save($fullPath);
+										
                                         $image->save();
                                         $cnt++;
 	                                        
@@ -492,15 +492,15 @@ class Article extends BaseModel
 
                                 }
                             break;
-                            }
+                         //   }
                         }
                     }
 
                     
-                }
+              //  }
             }
             
-        }
+       // }
     }
     public function getFileFolder()
     {

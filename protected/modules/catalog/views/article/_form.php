@@ -97,7 +97,7 @@ EOF_JS;
 ?>
 <div class="row m-t-20">
 <div class="col-sm-9 col-sm-offset-1 col-md-8 col-md-offset-2">
-<div style="margin-bottom:20px;font-size:25px;font-weight:bold;padding-left:30px;"><?php 
+<div style="margin-bottom:20px;font-size:25px;font-weight:bold;"><?php 
 if($model->isNewRecord){
   echo 'Новый обзор'; 
 } else {
@@ -108,9 +108,9 @@ if($model->isNewRecord){
 <div class="row zn_columns_container zn_content">
 <div class="col-xs-12 col-sm-12 col-md-12 zn_sortable_content zn_content">
  <div class="form-group kl-fancy-form zn_form_field zn_text" style="position:relative;">
-              
+  <?php echo $form->labelEx($model,'title',array('class'=>'')); ?>            
   <?php echo $form->textField($model,'title',array('class'=>'form-control inputbox','placeholder'=>'Введите ваш текст...')); ?>
-  <?php echo $form->labelEx($model,'title',array('class'=>'')); ?>
+  
   <?php echo $form->error($model,'title'); ?>
 </div>
 <div class="form-group" style="position:relative;">

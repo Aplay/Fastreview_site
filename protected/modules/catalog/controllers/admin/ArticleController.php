@@ -232,8 +232,12 @@ class ArticleController extends SAdminController {
                 $model->addDropboxLogoFiles($this->uploadlogosession);
                 Yii::app()->session->remove($this->uploadlogosession);
 
-              //  $model->addDropboxFiles($this->uploadsession);
-              //  Yii::app()->session->remove($this->uploadsession);
+                $model->addDropboxFiles($this->uploadsession);
+                Yii::app()->session->remove($this->uploadsession);
+
+                $replace = $model->getOrigFilePath();
+                $model->description = str_replace ( '/uploads/tmp/' , $replace , $model->description  );
+                $model->save('false',array('description'));
                 
                 if(!empty($firms)){
 
