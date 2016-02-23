@@ -440,7 +440,8 @@ class Article extends BaseModel
 
             if(Yii::app()->session->itemAt($uploadsession)){
 
-                $folder='uploads'. DIRECTORY_SEPARATOR .'tmp'. DIRECTORY_SEPARATOR;
+                // $folder='uploads'. DIRECTORY_SEPARATOR .'tmp'. DIRECTORY_SEPARATOR;
+                $folder = Yii::getPathOfAlias(Yii::app()->params['storeImages']['tmp']).DIRECTORY_SEPARATOR;
 
                 $dataSession = Yii::app()->session->itemAt($uploadsession);
                 
@@ -449,9 +450,12 @@ class Article extends BaseModel
 
                     if(is_array($dataSession)){
                         foreach($dataSession as $key => $value){
+                        		
                           //  if($fileUploadName == $key){
-                                if(file_exists($folder.$value )) {
-                                	
+                        	
+                                if(@file_exists($folder.$value )) {
+                                
+
                                 	//if($cnt >= $availableFiles)	
                                 	//	break 2;
 
@@ -468,30 +472,35 @@ class Article extends BaseModel
                                     }
                                     $filename =  $unique . '.' . $ext;
                                     $fullPath = $this->getFileFolder() . $filename;*/
+
                                     $fullPath = $this->getFileFolder().$value;
+ 
                                     if (copy($folder.$value, $fullPath)) {
+
                                         unlink($folder.$value);
                                         $image = new ArticleImages();
                                         $image->article = $this->getPrimaryKey();
                                         $image->filename = $value;
                                         $image->realname = $key;
                                         
-                                        Yii::import('ext.phpthumb.PhpThumbFactory');
+                                       /* Yii::import('ext.phpthumb.PhpThumbFactory');
 										$thumb  = PhpThumbFactory::create($fullPath);
 										$thumb->setOptions(array('jpegQuality'=>100));
 										$thumb->resize(1000)->save($fullPath);
+										*/
 										
                                         $image->save();
                                         $cnt++;
 	                                        
                                         
                                     } else {
+                                    
                                        // throw new CHttpException(404, Yii::t('Site', 'Cannot copy file to folder.'));
                                     }
                                     
 
                                 }
-                            break;
+
                          //   }
                         }
                     }
@@ -499,8 +508,9 @@ class Article extends BaseModel
                     
               //  }
             }
-            
+       
        // }
+           
     }
     public function getFileFolder()
     {
