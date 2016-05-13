@@ -23,6 +23,7 @@ $RECYCLE.BIN/
 *.sublime-project
 protected/runtime/*
 /www/assets/*
+/www/uploads/*
 !protected/runtime/.gitignore
 !protected/runtime/.htaccess
 !protected/runtime/index.html

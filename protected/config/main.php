@@ -302,6 +302,7 @@ return array(
                         'ignoreCategories' => array(
                             // Ignore 404s
                             'exception.CHttpException.404',
+                            'exception.CHttpException.400',
                             ),
                         ),
                     'levels'=>'error, warning',
